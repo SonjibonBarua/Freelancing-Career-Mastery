@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Class 11 notes on the foundation of freelancing, client problem-solving, Known Phase, Unknown Phase, and consistent social media presence." />
-  <title>Class 11 — Foundation of Freelancing</title>
+  <meta name="description" content="Professional freelancing course notes — Class 11: Foundation of Freelancing, Known Phase, Unknown Phase, and social media consistency." />
+  <meta name="theme-color" content="#5b36d9" />
+  <title>Class 11 — Foundation of Freelancing | Course Notes</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
@@ -12,120 +13,148 @@
 </head>
 <body>
   <div class="progress" id="progress"></div>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
 
-  <header class="hero">
-    <nav class="nav container">
-      <a class="brand" href="#top">Freelancing Notes</a>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☾</button>
+  <aside class="sidebar" id="sidebar" aria-label="Course navigation">
+    <div class="sidebar-head">
+      <a class="side-brand" href="#top">
+        <span class="logo-mark">S</span>
+        <span><strong>Sure Earning</strong><small>Course Notes</small></span>
+      </a>
+      <button class="close-menu" id="closeMenu" aria-label="Close menu">×</button>
+    </div>
+
+    <div class="search-box">
+      <span>⌕</span>
+      <input id="noteSearch" type="search" placeholder="Search this lesson..." autocomplete="off" />
+      <kbd>/</kbd>
+    </div>
+
+    <nav class="side-nav">
+      <p class="nav-label">CURRENT LESSON</p>
+      <a class="course-link active" href="#top"><span>11</span><div><strong>Class 11</strong><small>Foundation of Freelancing</small></div></a>
+
+      <p class="nav-label future-label">NEXT CLASSES</p>
+      <div class="course-link locked"><span>12</span><div><strong>Class 12</strong><small>Coming soon</small></div></div>
+      <div class="course-link locked"><span>13</span><div><strong>Class 13</strong><small>Coming soon</small></div></div>
+      <div class="course-link locked"><span>14</span><div><strong>Class 14</strong><small>Coming soon</small></div></div>
     </nav>
 
-    <div class="hero-inner container" id="top">
-      <span class="eyebrow">📘 CLASS 11 • COURSE NOTE</span>
-      <h1>Understanding the<br><span>Foundation of Freelancing</span></h1>
-      <p class="hero-copy">
-        Freelancing is not only about earning money. It is about understanding a client's problem, helping create value for the client, and providing the right solution.
-      </p>
-      <a class="primary-btn" href="#concepts">Explore the lesson ↓</a>
+    <div class="sidebar-footer">
+      <span class="status-dot"></span>
+      <span>1 lesson published</span>
     </div>
-    <div class="orb orb-one"></div>
-    <div class="orb orb-two"></div>
-  </header>
+  </aside>
 
-  <main>
-    <section class="section container reveal" id="concepts">
-      <div class="section-heading">
-        <span class="section-tag">01 • CORE CONCEPT</span>
-        <h2>Two phases of client problems</h2>
-        <p>A client's situation can generally be understood in two ways: a problem they already recognize, or a problem they have not yet identified.</p>
+  <div class="site-shell">
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Open course menu">☰</button>
+      <div class="topbar-title"><span>Class 11</span><strong>Foundation of Freelancing</strong></div>
+      <div class="top-actions">
+        <button class="top-search" id="topSearch" aria-label="Search lesson">⌕ <span>Search</span></button>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☾</button>
       </div>
+    </header>
 
-      <div class="phase-grid">
-        <article class="phase-card known">
-          <div class="icon-box">✓</div>
-          <span class="card-label">KNOWN PHASE</span>
-          <h3>The client knows the problem.</h3>
-          <p>The client already understands what they need and is actively looking for someone who can provide the solution.</p>
-          <div class="mini-note">Problem identified → Solution needed</div>
-        </article>
-
-        <article class="phase-card unknown">
-          <div class="icon-box">?</div>
-          <span class="card-label">UNKNOWN PHASE</span>
-          <h3>The client has not identified the problem.</h3>
-          <p>The freelancer first helps the client recognize the issue, then explains and offers an appropriate solution.</p>
-          <div class="mini-note">Problem discovered → Solution offered</div>
-        </article>
-      </div>
-    </section>
-
-    <section class="lesson-wrap">
-      <div class="section container reveal">
-        <div class="lesson-card">
-          <div class="lesson-number">02</div>
-          <div class="lesson-content">
-            <span class="section-tag">TODAY'S CLASS • KNOWN PHASE</span>
-            <h2>Build a presence where clients are already searching.</h2>
-            <p>
-              In the Known Phase, clients already know what they need and often search for solutions on social media. Since our current skill is graphic design, our social media presence should clearly communicate that we are graphic designers.
-            </p>
-            <p>
-              The goal is simple: consistently share design work, graphic-design posts, and relevant videos. Over time, this helps the platform understand our niche and can increase the chance of our work reaching the right clients.
-            </p>
+    <main id="top">
+      <section class="hero searchable-section" data-search="class 11 foundation freelancing problem solving client value solution">
+        <div class="hero-inner content-width">
+          <div class="breadcrumb"><span>Course Notes</span><b>›</b><span>Class 11</span></div>
+          <span class="eyebrow">📘 CLASS 11 • FREELANCING FOUNDATION</span>
+          <h1>Understanding the<br><span>Foundation of Freelancing</span></h1>
+          <p class="hero-copy">Freelancing is not only about earning money. It is about understanding a client's problem, creating value, and providing the right solution.</p>
+          <div class="hero-actions">
+            <a class="primary-btn" href="#concepts">Start lesson ↓</a>
+            <span class="reading-time">◷ About 4 min read</span>
           </div>
         </div>
+        <div class="orb orb-one"></div><div class="orb orb-two"></div>
+      </section>
 
-        <div class="mindset-panel">
-          <div>
-            <span class="section-tag light">IMPORTANT MINDSET</span>
-            <h2>Do not measure the beginning by likes and views.</h2>
-          </div>
-          <p>
-            The first few days can feel discouraging when posts receive little attention. Instead of losing motivation, focus on building a professional-looking profile and posting regularly. At the beginning, consistency matters more than immediate engagement.
-          </p>
+      <div class="search-results-bar" id="searchResultsBar" hidden>
+        <div class="content-width"><span id="searchMessage"></span><button id="clearSearch">Clear search</button></div>
+      </div>
+
+      <section class="section content-width reveal searchable-section" id="concepts" data-search="core concept two phases known phase unknown phase client problem">
+        <div class="section-heading">
+          <span class="section-tag">01 • CORE CONCEPT</span>
+          <h2>Two phases of client problems</h2>
+          <p>A client's situation can generally be understood in two ways: a problem they already recognize, or a problem they have not yet identified.</p>
         </div>
-      </div>
-    </section>
 
-    <section class="section container reveal" id="takeaways">
-      <div class="section-heading center">
-        <span class="section-tag">03 • KEY TAKEAWAYS</span>
-        <h2>What to remember</h2>
-      </div>
+        <div class="phase-grid">
+          <article class="phase-card known searchable-item" data-search="known phase client knows problem solution needed">
+            <div class="icon-box">✓</div>
+            <span class="card-label">KNOWN PHASE</span>
+            <h3>The client knows the problem.</h3>
+            <p>The client already understands what they need and is actively looking for someone who can provide the solution.</p>
+            <div class="mini-note"><span>01</span> Problem identified → Solution needed</div>
+          </article>
 
-      <div class="takeaway-grid">
-        <article class="takeaway">
-          <span>01</span>
-          <h3>Solve problems</h3>
-          <p>Focus on creating value for clients, not only on earning money.</p>
-        </article>
-        <article class="takeaway">
-          <span>02</span>
-          <h3>Build your presence</h3>
-          <p>Make your social profile clearly represent you as a graphic designer.</p>
-        </article>
-        <article class="takeaway">
-          <span>03</span>
-          <h3>Stay consistent</h3>
-          <p>Keep sharing relevant work so platforms can better understand your niche.</p>
-        </article>
-        <article class="takeaway">
-          <span>04</span>
-          <h3>Ignore early numbers</h3>
-          <p>Do not let low likes or views stop you from continuing to publish.</p>
-        </article>
-      </div>
-    </section>
-  </main>
+          <article class="phase-card unknown searchable-item" data-search="unknown phase client not identified problem discover issue solution">
+            <div class="icon-box">?</div>
+            <span class="card-label">UNKNOWN PHASE</span>
+            <h3>The client has not identified the problem.</h3>
+            <p>The freelancer first helps the client recognize the issue, then explains and offers an appropriate solution.</p>
+            <div class="mini-note"><span>02</span> Problem discovered → Solution offered</div>
+          </article>
+        </div>
+      </section>
 
-  <footer>
-    <div class="container footer-inner">
-      <div>
-        <strong>📚 Freelancing Course Notes</strong>
-        <p>Class 11 • Foundation of Freelancing</p>
+      <section class="lesson-wrap searchable-section" data-search="known phase social media graphic designer algorithm consistency client">
+        <div class="section content-width reveal">
+          <div class="lesson-card searchable-item" data-search="build presence clients searching social media graphic designer design work posts videos niche algorithm">
+            <div class="lesson-number">02</div>
+            <div class="lesson-content">
+              <span class="section-tag">TODAY'S CLASS • KNOWN PHASE</span>
+              <h2>Build a presence where clients are already searching.</h2>
+              <p>In the Known Phase, clients already know what they need and often search for solutions on social media. Since our current skill is graphic design, our social media presence should clearly communicate that we are graphic designers.</p>
+              <p>The goal is simple: consistently share design work, graphic-design posts, and relevant videos. Over time, this helps the platform understand our niche and can increase the chance of our work reaching the right clients.</p>
+            </div>
+          </div>
+
+          <div class="mindset-panel searchable-item" data-search="mindset likes views motivation professional profile consistency engagement">
+            <div>
+              <span class="section-tag light">IMPORTANT MINDSET</span>
+              <h2>Do not measure the beginning by likes and views.</h2>
+            </div>
+            <p>The first few days can feel discouraging when posts receive little attention. Instead of losing motivation, focus on building a professional-looking profile and posting regularly. At the beginning, consistency matters more than immediate engagement.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section content-width reveal searchable-section" id="takeaways" data-search="key takeaways solve problems build presence stay consistent ignore early numbers">
+        <div class="section-heading center">
+          <span class="section-tag">03 • KEY TAKEAWAYS</span>
+          <h2>What to remember</h2>
+          <p>Four simple principles from this lesson to carry into your freelancing journey.</p>
+        </div>
+
+        <div class="takeaway-grid">
+          <article class="takeaway searchable-item" data-search="solve problems creating value earning money"><span>01</span><h3>Solve problems</h3><p>Focus on creating value for clients, not only on earning money.</p></article>
+          <article class="takeaway searchable-item" data-search="build presence social profile graphic designer"><span>02</span><h3>Build your presence</h3><p>Make your social profile clearly represent you as a graphic designer.</p></article>
+          <article class="takeaway searchable-item" data-search="stay consistent work platform niche"><span>03</span><h3>Stay consistent</h3><p>Keep sharing relevant work so platforms can better understand your niche.</p></article>
+          <article class="takeaway searchable-item" data-search="ignore early numbers low likes views publish"><span>04</span><h3>Ignore early numbers</h3><p>Do not let low likes or views stop you from continuing to publish.</p></article>
+        </div>
+      </section>
+
+      <section class="course-nav content-width reveal">
+        <div class="course-nav-copy"><span class="section-tag">COURSE PROGRESS</span><h2>Class 11 complete.</h2><p>The website is now structured so more class notes can be added without redesigning the whole site.</p></div>
+        <div class="next-card disabled"><small>NEXT LESSON</small><strong>Class 12</strong><span>Coming soon →</span></div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="content-width footer-inner">
+        <div><strong>📚 Sure Earning Course Notes</strong><p>Class 11 • Foundation of Freelancing</p></div>
+        <a href="#top">Back to top ↑</a>
       </div>
-      <a href="#top">Back to top ↑</a>
-    </div>
-  </footer>
+    </footer>
+  </div>
+
+  <div class="no-results" id="noResults" hidden>
+    <div><strong>No matching section found</strong><p>Try a different keyword such as “known phase”, “social media” or “consistency”.</p></div>
+  </div>
 
   <script src="script.js"></script>
 </body>
