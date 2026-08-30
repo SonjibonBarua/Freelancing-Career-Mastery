@@ -185,10 +185,12 @@ function updateTaskProgress() {
   sideProgressLabel.textContent = `${percent}%`;
   sideProgressBar.style.width = `${percent}%`;
   ringLabel.textContent = `${percent}%`;
-  progressRing.style.setProperty('--p', percent);
-  if (percent === 100) showToast('Action checklist complete ✓');
+  progressRing.style.background = `conic-gradient(var(--primary) ${percent}%, var(--surface-2) 0)`;
 }
-checkboxes.forEach(box => box.addEventListener('change', saveTasks));
+checkboxes.forEach(box => box.addEventListener('change', () => {
+  saveTasks();
+  if (checkboxes.every(item => item.checked)) showToast('Action checklist complete ✓');
+}));
 loadTasks();
 
 function isLessonComplete() {
