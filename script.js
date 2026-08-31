@@ -1,269 +1,139 @@
-const body = document.body;
-const themeToggle = document.getElementById('themeToggle');
-const progress = document.getElementById('progress');
-const sidebar = document.getElementById('sidebar');
-const menuBtn = document.getElementById('menuBtn');
-const closeMenu = document.getElementById('closeMenu');
-const mobileOverlay = document.getElementById('mobileOverlay');
-const noteSearch = document.getElementById('noteSearch');
-const topSearch = document.getElementById('topSearch');
-const clearSearch = document.getElementById('clearSearch');
-const searchResultsBar = document.getElementById('searchResultsBar');
-const searchMessage = document.getElementById('searchMessage');
-const noResults = document.getElementById('noResults');
-const toast = document.getElementById('toast');
-const shareBtn = document.getElementById('shareBtn');
-const footerShare = document.getElementById('footerShare');
-const copyLinkBtn = document.getElementById('copyLinkBtn');
-const printBtn = document.getElementById('printBtn');
-const completeBtn = document.getElementById('completeBtn');
-const markCompleteHero = document.getElementById('markCompleteHero');
-const completionCard = document.getElementById('completion');
-const completionTitle = document.getElementById('completionTitle');
-const completionText = document.getElementById('completionText');
-const sideProgressLabel = document.getElementById('sideProgressLabel');
-const sideProgressBar = document.getElementById('sideProgressBar');
-const taskCount = document.getElementById('taskCount');
-const progressRing = document.getElementById('progressRing');
-const ringLabel = document.getElementById('ringLabel');
-const activeSectionLabel = document.getElementById('activeSectionLabel');
-const checkboxes = [...document.querySelectorAll('[data-task]')];
-const outlineLinks = [...document.querySelectorAll('.outline-link')];
-const lessonSections = [...document.querySelectorAll('.lesson-section')];
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const body=document.body;
+const STORE={theme:'sure-earning-theme',tasks:'sure-earning-class11-tasks',complete:'sure-earning-class11-complete',practice:'sure-earning-class11-practice',quiz:'sure-earning-class11-quiz',note:'sure-earning-class11-note',bookmarks:'sure-earning-class11-bookmarks'};
 
-const STORAGE = {
-  theme: 'sure-earning-theme',
-  tasks: 'sure-earning-class11-tasks',
-  complete: 'sure-earning-class11-complete'
-};
-
-function showToast(message) {
-  toast.textContent = message;
-  toast.classList.add('show');
-  clearTimeout(showToast.timer);
-  showToast.timer = setTimeout(() => toast.classList.remove('show'), 2200);
-}
-
-function applyTheme(theme) {
-  const isDark = theme === 'dark';
-  body.classList.toggle('dark', isDark);
-  themeToggle.textContent = isDark ? '☀' : '☾';
-  themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
-}
-
-const savedTheme = localStorage.getItem(STORAGE.theme);
-const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-applyTheme(savedTheme || (systemDark ? 'dark' : 'light'));
-
-themeToggle.addEventListener('click', () => {
-  const next = body.classList.contains('dark') ? 'light' : 'dark';
-  applyTheme(next);
-  localStorage.setItem(STORAGE.theme, next);
-});
-
-function updateReadingProgress() {
-  const scrollTop = document.documentElement.scrollTop;
-  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-  progress.style.width = `${height ? (scrollTop / height) * 100 : 0}%`;
-}
-window.addEventListener('scroll', updateReadingProgress, { passive: true });
-updateReadingProgress();
-
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
-  });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-function openMenu() {
-  sidebar.classList.add('open');
-  mobileOverlay.classList.add('show');
-  body.style.overflow = 'hidden';
-}
-function closeSidebar() {
-  sidebar.classList.remove('open');
-  mobileOverlay.classList.remove('show');
-  body.style.overflow = '';
-}
-menuBtn.addEventListener('click', openMenu);
-closeMenu.addEventListener('click', closeSidebar);
-mobileOverlay.addEventListener('click', closeSidebar);
-document.querySelectorAll('.side-nav a').forEach(link => link.addEventListener('click', closeSidebar));
-
-function searchableText(el) {
-  return `${el.dataset.search || ''} ${el.textContent || ''}`.toLowerCase();
-}
-function resetSearchClasses() {
-  document.querySelectorAll('.searchable-item').forEach(el => el.classList.remove('search-hidden', 'search-match'));
-  document.querySelectorAll('.searchable-section').forEach(el => el.classList.remove('search-hidden'));
-}
-function runSearch(value) {
-  const query = value.trim().toLowerCase();
-  const items = [...document.querySelectorAll('.searchable-item')];
-  const sections = [...document.querySelectorAll('.searchable-section')];
-  resetSearchClasses();
-
-  if (!query) {
-    searchResultsBar.hidden = true;
-    noResults.hidden = true;
-    return;
+function ensureUI(){
+  if(!$('#interactiveEnhancements')){
+    const style=document.createElement('style');style.id='interactiveEnhancements';style.textContent=`
+    .practice-lab{padding:72px 0;border-bottom:1px solid var(--line)}
+    .practice-shell{background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
+    .practice-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:8px;background:var(--bg);border-bottom:1px solid var(--line)}
+    .practice-tab{border:0;background:transparent;color:var(--muted);border-radius:11px;padding:12px 9px;cursor:pointer;font-weight:800;font-size:.78rem}
+    .practice-tab.active{background:var(--surface);color:var(--primary);box-shadow:0 5px 18px rgba(24,31,56,.08)}
+    .practice-panel{padding:28px;display:none}.practice-panel.active{display:block}
+    .practice-intro{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:22px}.practice-intro h3{font:800 1.45rem/1.25 Manrope,sans-serif;margin:4px 0 7px}.practice-intro p{margin:0;color:var(--muted)}
+    .mini-badge{flex:0 0 auto;padding:7px 10px;border-radius:999px;background:var(--primary-soft);color:var(--primary);font-size:.72rem;font-weight:800}
+    .flash-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.flashcard-x{height:185px;border:0;background:transparent;padding:0;perspective:900px;cursor:pointer;text-align:left}.flash-inner-x{position:relative;display:block;width:100%;height:100%;transform-style:preserve-3d;transition:transform .5s}.flashcard-x.flipped .flash-inner-x{transform:rotateY(180deg)}.flash-face-x{position:absolute;inset:0;backface-visibility:hidden;border:1px solid var(--line);border-radius:18px;background:var(--bg);padding:22px;display:flex;flex-direction:column;justify-content:space-between}.flash-back-x{transform:rotateY(180deg);background:linear-gradient(135deg,var(--primary-soft),var(--surface))}.flash-face-x small{color:var(--primary);font-weight:800;letter-spacing:.1em}.flash-face-x strong{font:800 1.15rem/1.35 Manrope,sans-serif}.flash-face-x em{font-style:normal;color:var(--muted);font-size:.72rem}
+    .scenario-box,.quiz-box,.note-box{border:1px solid var(--line);border-radius:18px;background:var(--bg);padding:22px}.scenario-head,.quiz-head{display:flex;justify-content:space-between;gap:14px;align-items:center;color:var(--muted);font-size:.78rem}.score-pill-x{padding:5px 9px;border:1px solid var(--line);background:var(--surface);border-radius:999px}.client-line{display:flex;gap:13px;align-items:flex-start;margin:20px 0;padding:18px;border-radius:15px;background:var(--surface);border:1px solid var(--line)}.client-avatar{width:40px;height:40px;flex:0 0 auto;border-radius:12px;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;font-weight:900}.client-line p{margin:0;font:700 1.02rem/1.55 Manrope,sans-serif}
+    .phase-choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}.phase-choice{border:1px solid var(--line);background:var(--surface);border-radius:15px;padding:15px;text-align:left;cursor:pointer;display:flex;gap:10px;align-items:flex-start}.phase-choice b{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:0 0 auto}.phase-choice[data-choice='known'] b{background:var(--known-soft);color:var(--known)}.phase-choice[data-choice='unknown'] b{background:var(--unknown-soft);color:var(--unknown)}.phase-choice span{display:flex;flex-direction:column}.phase-choice small{color:var(--muted);margin-top:2px}.phase-choice.good{border-color:rgba(14,167,106,.5);background:var(--known-soft)}.phase-choice.bad{border-color:rgba(217,71,95,.45);background:rgba(217,71,95,.08)}.phase-choice:disabled{cursor:default}
+    .feedback-x{margin-top:13px;padding:13px 15px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-size:.85rem}.feedback-x.good{background:var(--known-soft);border-color:rgba(14,167,106,.35)}.feedback-x.bad{background:rgba(217,71,95,.08);border-color:rgba(217,71,95,.3)}
+    .practice-actions{display:flex;justify-content:space-between;gap:10px;margin-top:15px}.practice-primary,.practice-secondary{border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer}.practice-primary{border:0;background:var(--primary);color:#fff}.practice-primary:disabled{opacity:.45;cursor:not-allowed}.practice-secondary{border:1px solid var(--line);background:var(--surface);color:var(--muted)}
+    .quiz-question-x{font:800 1.25rem/1.35 Manrope,sans-serif;margin:20px 0 15px}.quiz-options-x{display:grid;gap:9px}.quiz-option-x{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:12px 14px;text-align:left;cursor:pointer;display:flex;gap:10px;align-items:center}.quiz-option-x i{font-style:normal;width:28px;height:28px;border-radius:8px;background:var(--bg);display:grid;place-items:center;font-size:.72rem;font-weight:900}.quiz-option-x.good{border-color:rgba(14,167,106,.5);background:var(--known-soft)}.quiz-option-x.bad{border-color:rgba(217,71,95,.45);background:rgba(217,71,95,.08)}.quiz-option-x:disabled{cursor:default}.quiz-meter-x{height:6px;background:var(--line);border-radius:999px;overflow:hidden;margin:10px 0 0}.quiz-meter-x span{display:block;width:0;height:100%;background:var(--primary);transition:width .3s}.quiz-result-x{display:none;text-align:center;padding:12px 0}.quiz-result-x.show{display:block}.result-score-x{width:96px;height:96px;border-radius:50%;display:grid;place-items:center;margin:0 auto 14px;background:var(--primary-soft);color:var(--primary);font:800 1.2rem Manrope,sans-serif;border:7px solid rgba(109,74,255,.16)}
+    .note-box textarea{width:100%;min-height:180px;resize:vertical;border:1px solid var(--line);outline:0;background:var(--surface);color:var(--text);border-radius:14px;padding:15px;line-height:1.65}.note-meta{display:flex;justify-content:space-between;gap:15px;margin-top:8px;color:var(--muted);font-size:.72rem}
+    .bookmark-x{flex:0 0 auto;width:40px;height:40px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--muted);cursor:pointer;font-size:1.2rem}.bookmark-x.saved{color:var(--primary);background:var(--primary-soft)}.section-heading.bookmarkable{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;max-width:none}.section-heading.bookmarkable>div{max-width:760px}
+    .bookmarks-box-x{margin-top:12px;border:1px solid var(--line);border-radius:13px;padding:12px;background:var(--bg)}.bookmarks-head-x{display:flex;justify-content:space-between;color:var(--muted);font-size:.72rem}.bookmarks-links-x{display:flex;flex-direction:column;gap:5px;margin-top:8px}.bookmarks-links-x a{font-size:.7rem;text-decoration:none;padding:6px 7px;border-radius:8px;background:var(--surface);border:1px solid var(--line)}
+    .overall-box-x{margin-top:14px;border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--surface)}.overall-head-x{display:flex;justify-content:space-between;gap:10px;font-size:.76rem}.overall-head-x strong{color:var(--primary)}.overall-meter-x{height:7px;background:var(--line);border-radius:999px;overflow:hidden;margin:9px 0 7px}.overall-meter-x span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--primary-2));transition:width .35s}.overall-box-x small{color:var(--muted);font-size:.66rem;line-height:1.4}
+    .mobile-learning-nav{display:none}.confetti-x{position:fixed;top:-18px;width:8px;height:13px;z-index:2900;pointer-events:none;background:var(--primary);animation:fallX 1.7s ease-in forwards}.confetti-x:nth-child(3n){background:#22c55e}.confetti-x:nth-child(3n+1){background:#f59e0b}@keyframes fallX{to{transform:translate(var(--dx),105vh) rotate(540deg);opacity:.35}}
+    @media(max-width:720px){.flash-grid,.phase-choices{grid-template-columns:1fr}.practice-tabs{grid-template-columns:1fr 1fr}.practice-panel{padding:20px}.practice-intro{flex-direction:column}.section-heading.bookmarkable>div{min-width:0}}
+    @media(max-width:980px){.mobile-learning-nav{position:fixed;display:grid;grid-template-columns:repeat(5,1fr);left:12px;right:12px;bottom:10px;z-index:1000;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:17px;padding:6px;box-shadow:var(--shadow)}.mobile-learning-nav a,.mobile-learning-nav button{border:0;background:transparent;text-decoration:none;color:var(--muted);min-height:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;cursor:pointer}.mobile-learning-nav span{font-size:1rem}.mobile-learning-nav small{font-size:.6rem}footer .footer-inner{padding-bottom:86px}}
+    @media(prefers-reduced-motion:reduce){.flash-inner-x,.overall-meter-x span,.quiz-meter-x span{transition:none}.confetti-x{display:none}}
+    @media print{.practice-tabs,.practice-actions,.bookmark-x,.mobile-learning-nav{display:none!important}.practice-panel{display:block!important}.flashcard-x{height:auto}.flash-face-x{position:static}.flash-back-x{display:none}}
+    `;document.head.appendChild(style);
   }
-
-  items.forEach(el => {
-    const match = searchableText(el).includes(query);
-    el.classList.toggle('search-hidden', !match);
-    el.classList.toggle('search-match', match);
-  });
-
-  sections.forEach(section => {
-    const nestedItems = [...section.querySelectorAll('.searchable-item')];
-    const directMatch = searchableText(section).includes(query);
-    if (nestedItems.length) {
-      const hasVisibleItem = nestedItems.some(item => !item.classList.contains('search-hidden'));
-      section.classList.toggle('search-hidden', !hasVisibleItem && !directMatch);
-    } else {
-      section.classList.toggle('search-hidden', !directMatch);
-    }
-  });
-
-  const visibleSections = sections.filter(el => !el.classList.contains('search-hidden'));
-  searchResultsBar.hidden = false;
-  searchMessage.textContent = visibleSections.length
-    ? `Showing results for “${value.trim()}”`
-    : `No results for “${value.trim()}”`;
-  noResults.hidden = visibleSections.length > 0;
-
-  if (visibleSections.length) visibleSections[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
-  if (window.innerWidth <= 980) closeSidebar();
-}
-
-noteSearch.addEventListener('input', e => runSearch(e.target.value));
-clearSearch.addEventListener('click', () => {
-  noteSearch.value = '';
-  runSearch('');
-  noteSearch.focus();
-});
-topSearch.addEventListener('click', () => {
-  if (window.innerWidth <= 980) openMenu();
-  setTimeout(() => noteSearch.focus(), 150);
-});
-
-document.addEventListener('keydown', e => {
-  const typing = ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName);
-  if (e.key === '/' && !typing) {
-    e.preventDefault();
-    if (window.innerWidth <= 980) openMenu();
-    setTimeout(() => noteSearch.focus(), 150);
+  if(!$('#practice-lab')){
+    const anchor=$('#faq')||$('#completion');
+    const sec=document.createElement('section');sec.id='practice-lab';sec.className='practice-lab reveal searchable-section lesson-section';sec.dataset.sectionTitle='Interactive Practice Lab';sec.dataset.search='interactive practice flashcards known unknown client scenario quiz personal notes';sec.innerHTML=`
+      <div class='section-heading bookmarkable'><div><span class='section-tag'>INTERACTIVE PRACTICE LAB</span><h2>Practice the lesson, not just read it</h2><p>Flip the concepts, classify client situations, test your knowledge, and save your own note. Your progress is stored on this device.</p></div><button class='bookmark-x' type='button' data-bookmark='practice-lab' aria-label='Bookmark Interactive Practice Lab'>☆</button></div>
+      <div class='practice-shell'>
+        <div class='practice-tabs' role='tablist' aria-label='Practice tools'>
+          <button class='practice-tab active' type='button' data-tab='flash' role='tab' aria-selected='true'>Flashcards</button>
+          <button class='practice-tab' type='button' data-tab='scenario' role='tab' aria-selected='false'>Client Scenario</button>
+          <button class='practice-tab' type='button' data-tab='quiz' role='tab' aria-selected='false'>Knowledge Quiz</button>
+          <button class='practice-tab' type='button' data-tab='notes' role='tab' aria-selected='false'>My Notes</button>
+        </div>
+        <div class='practice-panel active' data-panel='flash'>
+          <div class='practice-intro'><div><span class='section-tag'>QUICK REVIEW</span><h3>Tap, flip, remember</h3><p>Click any card to reveal the meaning.</p></div><span class='mini-badge'>4 cards</span></div>
+          <div class='flash-grid'>
+            <button class='flashcard-x' type='button' aria-pressed='false'><span class='flash-inner-x'><span class='flash-face-x'><small>TERM</small><strong>Known Phase</strong><em>Tap to reveal</em></span><span class='flash-face-x flash-back-x'><small>MEANING</small><strong>The client already knows the problem or need and is looking for a solution.</strong><em>Tap to flip back</em></span></span></button>
+            <button class='flashcard-x' type='button' aria-pressed='false'><span class='flash-inner-x'><span class='flash-face-x'><small>TERM</small><strong>Unknown Phase</strong><em>Tap to reveal</em></span><span class='flash-face-x flash-back-x'><small>MEANING</small><strong>The client has not clearly identified the problem; the freelancer first helps reveal it.</strong><em>Tap to flip back</em></span></span></button>
+            <button class='flashcard-x' type='button' aria-pressed='false'><span class='flash-inner-x'><span class='flash-face-x'><small>FOCUS</small><strong>Social Presence</strong><em>Tap to reveal</em></span><span class='flash-face-x flash-back-x'><small>WHY IT MATTERS</small><strong>Your profile and content should clearly communicate the service you provide.</strong><em>Tap to flip back</em></span></span></button>
+            <button class='flashcard-x' type='button' aria-pressed='false'><span class='flash-inner-x'><span class='flash-face-x'><small>MINDSET</small><strong>Consistency</strong><em>Tap to reveal</em></span><span class='flash-face-x flash-back-x'><small>REMEMBER</small><strong>Keep publishing relevant work instead of judging the beginning only by likes and views.</strong><em>Tap to flip back</em></span></span></button>
+          </div>
+        </div>
+        <div class='practice-panel' data-panel='scenario'>
+          <div class='practice-intro'><div><span class='section-tag'>CLIENT SCENARIO CHALLENGE</span><h3>Known or Unknown?</h3><p>Choose a phase and get instant feedback. These are practice examples based on the lesson.</p></div><span class='mini-badge' id='scenarioBadge'>1 / 5</span></div>
+          <div class='scenario-box'><div class='scenario-head'><span id='scenarioCounterX'>Scenario 1 of 5</span><span class='score-pill-x'>Score <strong id='scenarioScoreX'>0</strong></span></div><div class='client-line'><span class='client-avatar'>C</span><p id='scenarioTextX'></p></div><div class='phase-choices'><button class='phase-choice' type='button' data-choice='known'><b>✓</b><span><strong>Known Phase</strong><small>Client knows the need</small></span></button><button class='phase-choice' type='button' data-choice='unknown'><b>?</b><span><strong>Unknown Phase</strong><small>Problem needs identifying</small></span></button></div><div class='feedback-x' id='scenarioFeedbackX' role='status' aria-live='polite' hidden></div><div class='practice-actions'><button class='practice-secondary' id='scenarioRestartX' type='button'>Restart</button><button class='practice-primary' id='scenarioNextX' type='button' disabled>Next scenario →</button></div></div>
+        </div>
+        <div class='practice-panel' data-panel='quiz'>
+          <div class='practice-intro'><div><span class='section-tag'>KNOWLEDGE CHECK</span><h3>Test your Class 11 understanding</h3><p>Five questions with instant explanations and a final score.</p></div><span class='mini-badge'>5 questions</span></div>
+          <div class='quiz-box' id='quizBoxX'><div class='quiz-head'><span id='quizCounterX'>Question 1 of 5</span><span>Score <strong id='quizScoreX'>0</strong></span></div><div class='quiz-meter-x'><span id='quizMeterX'></span></div><h3 class='quiz-question-x' id='quizQuestionX'></h3><div class='quiz-options-x' id='quizOptionsX'></div><div class='feedback-x' id='quizFeedbackX' role='status' aria-live='polite' hidden></div><div class='practice-actions'><button class='practice-secondary' id='quizRestartX' type='button'>Restart</button><button class='practice-primary' id='quizNextX' type='button' disabled>Next question →</button></div></div>
+          <div class='quiz-result-x' id='quizResultX'><div class='result-score-x' id='quizFinalX'>0/5</div><h3 id='quizTitleX'>Great work!</h3><p id='quizTextX'></p><button class='practice-primary' id='quizRetryX' type='button'>Try again</button></div>
+        </div>
+        <div class='practice-panel' data-panel='notes'>
+          <div class='practice-intro'><div><span class='section-tag'>PERSONAL STUDY NOTE</span><h3>Write what you want to remember</h3><p>Your note is saved automatically in this browser on this device.</p></div><span class='mini-badge'>Private to this device</span></div>
+          <div class='note-box'><textarea id='personalNoteX' maxlength='1500' placeholder='Example: Known Phase = client already knows what they need. My profile should clearly show my graphic design work.' aria-label='Personal study note'></textarea><div class='note-meta'><span id='noteStatusX'>Saved automatically</span><span><strong id='noteCountX'>0</strong>/1500</span></div></div>
+        </div>
+      </div>`;
+    if(anchor)anchor.parentNode.insertBefore(sec,anchor);else $('.lesson-main').appendChild(sec);
   }
-  if (e.key === 'Escape') {
-    if (noteSearch.value) {
-      noteSearch.value = '';
-      runSearch('');
-    }
-    closeSidebar();
+  if(!$('.mobile-learning-nav')){
+    const nav=document.createElement('nav');nav.className='mobile-learning-nav';nav.setAttribute('aria-label','Mobile lesson navigation');nav.innerHTML=`<a href='#top'><span>⌂</span><small>Home</small></a><button type='button' id='mobileOutlineX'><span>☰</span><small>Outline</small></button><button type='button' data-open-tab='scenario'><span>◆</span><small>Practice</small></button><button type='button' data-open-tab='quiz'><span>?</span><small>Quiz</small></button><a href='#completion'><span>✓</span><small>Progress</small></a>`;document.body.appendChild(nav);
   }
-});
+  if(!$('#toast')){const t=document.createElement('div');t.id='toast';t.className='toast';t.setAttribute('role','status');t.setAttribute('aria-live','polite');document.body.appendChild(t)}
+}
+ensureUI();
 
-function loadTasks() {
-  let saved = {};
-  try { saved = JSON.parse(localStorage.getItem(STORAGE.tasks) || '{}'); } catch (_) {}
-  checkboxes.forEach(box => { box.checked = Boolean(saved[box.dataset.task]); });
-  updateTaskProgress();
-}
-function saveTasks() {
-  const saved = {};
-  checkboxes.forEach(box => { saved[box.dataset.task] = box.checked; });
-  localStorage.setItem(STORAGE.tasks, JSON.stringify(saved));
-  updateTaskProgress();
-}
-function updateTaskProgress() {
-  const done = checkboxes.filter(box => box.checked).length;
-  const total = checkboxes.length || 1;
-  const percent = Math.round((done / total) * 100);
-  taskCount.textContent = `${done} of ${total} actions complete`;
-  sideProgressLabel.textContent = `${percent}%`;
-  sideProgressBar.style.width = `${percent}%`;
-  ringLabel.textContent = `${percent}%`;
-  progressRing.style.background = `conic-gradient(var(--primary) ${percent}%, var(--surface-2) 0)`;
-}
-checkboxes.forEach(box => box.addEventListener('change', () => {
-  saveTasks();
-  if (checkboxes.every(item => item.checked)) showToast('Action checklist complete ✓');
-}));
-loadTasks();
+const sidebar=$('#sidebar'),overlay=$('#mobileOverlay'),search=$('#noteSearch'),toast=$('#toast');
+function say(m){toast.textContent=m;toast.classList.add('show');clearTimeout(say.t);say.t=setTimeout(()=>toast.classList.remove('show'),2200)}
+function openMenu(){if(sidebar)sidebar.classList.add('open');if(overlay)overlay.classList.add('show');body.style.overflow='hidden'}
+function closeMenu(){if(sidebar)sidebar.classList.remove('open');if(overlay)overlay.classList.remove('show');body.style.overflow=''}
+$('#menuBtn')?.addEventListener('click',openMenu);$('#closeMenu')?.addEventListener('click',closeMenu);overlay?.addEventListener('click',closeMenu);$('#mobileOutlineX')?.addEventListener('click',openMenu);
 
-function isLessonComplete() {
-  return localStorage.getItem(STORAGE.complete) === 'true';
-}
-function renderCompletion() {
-  const complete = isLessonComplete();
-  completionCard.classList.toggle('completed', complete);
-  markCompleteHero.classList.toggle('completed', complete);
-  completeBtn.textContent = complete ? 'Completed ✓' : 'Mark lesson complete';
-  markCompleteHero.textContent = complete ? '✓ Lesson completed' : '✓ Mark complete';
-  completionTitle.textContent = complete ? 'Class 11 completed.' : 'Ready to finish Class 11?';
-  completionText.textContent = complete
-    ? 'Your completion status is saved on this device. You can revisit the lesson anytime.'
-    : 'Mark the lesson complete when you are satisfied with your understanding.';
-}
-function toggleCompletion() {
-  const next = !isLessonComplete();
-  localStorage.setItem(STORAGE.complete, String(next));
-  renderCompletion();
-  showToast(next ? 'Class 11 marked complete ✓' : 'Completion status removed');
-}
-completeBtn.addEventListener('click', toggleCompletion);
-markCompleteHero.addEventListener('click', toggleCompletion);
-renderCompletion();
+function applyTheme(t){const dark=t==='dark';body.classList.toggle('dark',dark);if($('#themeToggle')){$('#themeToggle').textContent=dark?'☀':'☾';$('#themeToggle').setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode')}}
+const savedTheme=localStorage.getItem(STORE.theme),systemDark=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;applyTheme(savedTheme||(systemDark?'dark':'light'));
+$('#themeToggle')?.addEventListener('click',()=>{const next=body.classList.contains('dark')?'light':'dark';applyTheme(next);localStorage.setItem(STORE.theme,next)});
 
-async function copyLessonLink() {
-  const url = 'https://sonjibonbarua.github.io/Sure-Earning-Class-Lesson/';
-  try {
-    await navigator.clipboard.writeText(url);
-    showToast('Lesson link copied');
-  } catch (_) {
-    const temp = document.createElement('textarea');
-    temp.value = url;
-    document.body.appendChild(temp);
-    temp.select();
-    document.execCommand('copy');
-    temp.remove();
-    showToast('Lesson link copied');
-  }
-}
-async function shareLesson() {
-  const shareData = {
-    title: 'Class 11 — Foundation of Freelancing',
-    text: 'Sure Earning Course Notes — Class 11: Foundation of Freelancing',
-    url: 'https://sonjibonbarua.github.io/Sure-Earning-Class-Lesson/'
-  };
-  if (navigator.share) {
-    try { await navigator.share(shareData); } catch (_) {}
-  } else {
-    copyLessonLink();
-  }
-}
-shareBtn.addEventListener('click', shareLesson);
-footerShare.addEventListener('click', shareLesson);
-copyLinkBtn.addEventListener('click', copyLessonLink);
-printBtn.addEventListener('click', () => window.print());
+function reading(){const el=$('#progress')||$('#readingProgress');if(!el)return;const h=document.documentElement.scrollHeight-document.documentElement.clientHeight;el.style.width=`${h?document.documentElement.scrollTop/h*100:0}%`}
+window.addEventListener('scroll',reading,{passive:true});reading();
+const reveal=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.06});$$('.reveal').forEach(e=>reveal.observe(e));
 
-const sectionObserver = new IntersectionObserver((entries) => {
-  const visible = entries
-    .filter(entry => entry.isIntersecting)
-    .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-  if (!visible) return;
-  const id = visible.target.id;
-  const title = visible.target.dataset.sectionTitle || 'Foundation of Freelancing';
-  activeSectionLabel.textContent = title;
-  outlineLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${id}`));
-}, { rootMargin: '-22% 0px -62% 0px', threshold: [0, .15, .35, .6] });
-lessonSections.forEach(section => sectionObserver.observe(section));
+function searchableText(el){return `${el.dataset.search||''} ${el.textContent||''}`.toLowerCase()}
+function runSearch(v){const q=v.trim().toLowerCase(),secs=$$('.searchable-section'),items=$$('.searchable-item');items.forEach(e=>e.classList.remove('search-hidden','search-match'));secs.forEach(e=>e.classList.remove('search-hidden'));if(!q){if($('#searchResultsBar'))$('#searchResultsBar').hidden=true;if($('#noResults'))$('#noResults').hidden=true;return}items.forEach(e=>{const m=searchableText(e).includes(q);e.classList.toggle('search-hidden',!m);e.classList.toggle('search-match',m)});secs.forEach(s=>{const nested=$$('.searchable-item',s),direct=searchableText(s).includes(q),visible=nested.some(i=>!i.classList.contains('search-hidden'));s.classList.toggle('search-hidden',nested.length?!visible&&!direct:!direct)});const visible=secs.filter(s=>!s.classList.contains('search-hidden'));if($('#searchResultsBar'))$('#searchResultsBar').hidden=false;if($('#searchMessage'))$('#searchMessage').textContent=visible.length?`Showing results for “${v.trim()}”`:`No results for “${v.trim()}”`;if($('#noResults'))$('#noResults').hidden=visible.length>0}
+search?.addEventListener('input',e=>runSearch(e.target.value));$('#clearSearch')?.addEventListener('click',()=>{search.value='';runSearch('');search.focus()});$('#topSearch')?.addEventListener('click',()=>{if(innerWidth<=980)openMenu();setTimeout(()=>search?.focus(),120)});
+document.addEventListener('keydown',e=>{const typing=['INPUT','TEXTAREA'].includes(document.activeElement.tagName);if(e.key==='/'&&!typing){e.preventDefault();if(innerWidth<=980)openMenu();setTimeout(()=>search?.focus(),120)}if(e.key==='Escape'){if(search?.value){search.value='';runSearch('')}closeMenu()}if((e.key==='d'||e.key==='D')&&!typing)$('#themeToggle')?.click()});
 
-outlineLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    outlineLinks.forEach(item => item.classList.remove('active'));
-    link.classList.add('active');
-  });
-});
+function activateTab(name,scrollTo=true){$$('.practice-tab').forEach(b=>{const on=b.dataset.tab===name;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on))});$$('.practice-panel').forEach(p=>p.classList.toggle('active',p.dataset.panel===name));if(scrollTo)$('#practice-lab')?.scrollIntoView({behavior:'smooth',block:'start'})}
+$$('.practice-tab').forEach(b=>b.addEventListener('click',()=>activateTab(b.dataset.tab,false)));$$('[data-open-tab]').forEach(b=>b.addEventListener('click',()=>activateTab(b.dataset.openTab,true)));
+$$('.flashcard-x').forEach(c=>c.addEventListener('click',()=>{const on=c.classList.toggle('flipped');c.setAttribute('aria-pressed',String(on))}));
+
+const scenarios=[
+{text:'“I need someone to design a professional Facebook banner for my business.”',answer:'known',why:'The client already knows the exact need: a Facebook banner. They are looking for someone to provide the solution.'},
+{text:'“My business page does not seem to attract clients, but I am not sure what is wrong.”',answer:'unknown',why:'The client notices a problem but has not identified the underlying issue yet. The issue needs to be discovered first.'},
+{text:'“I am looking for a graphic designer to create social media posts for my brand.”',answer:'known',why:'The client already knows the service they need and is actively looking for a provider.'},
+{text:'“People see my page, but they do not seem to understand what my business offers. I do not know why.”',answer:'unknown',why:'The client has not clearly identified the actual communication or design problem, so diagnosis comes first.'},
+{text:'“I need a logo designer for a new business.”',answer:'known',why:'The client has identified a specific need and is searching for the matching solution.'}];
+let si=0,ss=0,sa=false;
+function drawScenario(){const s=scenarios[si];$('#scenarioTextX').textContent=s.text;$('#scenarioCounterX').textContent=`Scenario ${si+1} of ${scenarios.length}`;$('#scenarioBadge').textContent=`${si+1} / ${scenarios.length}`;$('#scenarioScoreX').textContent=ss;$('#scenarioFeedbackX').hidden=true;$('#scenarioFeedbackX').className='feedback-x';$('#scenarioNextX').disabled=true;$$('.phase-choice').forEach(b=>{b.disabled=false;b.classList.remove('good','bad')});sa=false;$('#scenarioNextX').textContent=si===scenarios.length-1?'Finish challenge ✓':'Next scenario →'}
+$$('.phase-choice').forEach(b=>b.addEventListener('click',()=>{if(sa)return;sa=true;const s=scenarios[si],ok=b.dataset.choice===s.answer;if(ok)ss++;$$('.phase-choice').forEach(x=>{x.disabled=true;if(x.dataset.choice===s.answer)x.classList.add('good')});if(!ok)b.classList.add('bad');const f=$('#scenarioFeedbackX');f.hidden=false;f.className=`feedback-x ${ok?'good':'bad'}`;f.innerHTML=`<strong>${ok?'✓ Correct!':'Not quite.'}</strong> ${s.why}`;$('#scenarioScoreX').textContent=ss;$('#scenarioNextX').disabled=false}));
+$('#scenarioNextX').addEventListener('click',()=>{if(!sa)return;if(si<scenarios.length-1){si++;drawScenario()}else{localStorage.setItem(STORE.practice,JSON.stringify({done:true,score:ss,total:scenarios.length}));say(`Scenario challenge complete: ${ss}/${scenarios.length}`);$('#scenarioNextX').disabled=true;updateOverall()}});$('#scenarioRestartX').addEventListener('click',()=>{si=0;ss=0;localStorage.removeItem(STORE.practice);drawScenario();updateOverall()});drawScenario();
+
+const quiz=[
+{q:'According to this lesson, what is freelancing mainly about?',o:['Only earning money','Solving client problems and creating value','Getting more followers','Posting every day'],a:1,w:'The lesson frames freelancing around understanding client problems, creating value, and providing the right solution.'},
+{q:'When is a client in the Known Phase?',o:['When the client knows the need and is looking for a solution','When the client has no business','When the freelancer has no skill','When likes are low'],a:0,w:'Known Phase means the client already recognizes the problem or need.'},
+{q:'What happens first in the Unknown Phase?',o:['The client gives a final solution','The freelancer helps identify the issue','The client hires immediately','The freelancer stops posting'],a:1,w:'In the Unknown Phase, the issue must first be recognized before the right solution can be offered.'},
+{q:'Why should a graphic designer build a clear social media presence?',o:['To help platforms and potential clients understand the niche','To avoid showing work','Only to collect likes','To stop client searches'],a:0,w:'The lesson emphasizes making your niche clear through your profile and relevant content.'},
+{q:'What should matter more than early likes and views?',o:['Changing your skill every day','Consistency and a professional profile','Deleting posts','Avoiding social media'],a:1,w:'The lesson says consistency and a professional-looking profile matter more than immediate engagement at the beginning.'}];
+let qi=0,qs=0,qa=false;
+function drawQuiz(){const q=quiz[qi];$('#quizCounterX').textContent=`Question ${qi+1} of ${quiz.length}`;$('#quizScoreX').textContent=qs;$('#quizMeterX').style.width=`${qi/quiz.length*100}%`;$('#quizQuestionX').textContent=q.q;$('#quizOptionsX').innerHTML='';$('#quizFeedbackX').hidden=true;$('#quizFeedbackX').className='feedback-x';$('#quizNextX').disabled=true;$('#quizNextX').textContent=qi===quiz.length-1?'See result →':'Next question →';$('#quizBoxX').style.display='block';$('#quizResultX').classList.remove('show');q.o.forEach((op,i)=>{const b=document.createElement('button');b.type='button';b.className='quiz-option-x';b.innerHTML=`<i>${String.fromCharCode(65+i)}</i><strong>${op}</strong>`;b.addEventListener('click',()=>answerQuiz(i,b));$('#quizOptionsX').appendChild(b)});qa=false}
+function answerQuiz(i,b){if(qa)return;qa=true;const q=quiz[qi],ok=i===q.a;if(ok)qs++;$$('.quiz-option-x').forEach((x,n)=>{x.disabled=true;if(n===q.a)x.classList.add('good')});if(!ok)b.classList.add('bad');const f=$('#quizFeedbackX');f.hidden=false;f.className=`feedback-x ${ok?'good':'bad'}`;f.innerHTML=`<strong>${ok?'✓ Correct!':'Not quite.'}</strong> ${q.w}`;$('#quizScoreX').textContent=qs;$('#quizMeterX').style.width=`${(qi+1)/quiz.length*100}%`;$('#quizNextX').disabled=false}
+function finishQuiz(){localStorage.setItem(STORE.quiz,JSON.stringify({done:true,score:qs,total:quiz.length}));$('#quizBoxX').style.display='none';$('#quizResultX').classList.add('show');$('#quizFinalX').textContent=`${qs}/${quiz.length}`;const p=qs/quiz.length;$('#quizTitleX').textContent=p===1?'Excellent — Class 11 mastered!':p>=.8?'Great work!':p>=.6?'Good progress!':'Review and try again';$('#quizTextX').textContent=p>=.8?'You have a strong understanding of the core lesson concepts.':'Use the flashcards and recap, then retry the quiz to strengthen your understanding.';if(p===1)celebrate();updateOverall()}
+$('#quizNextX').addEventListener('click',()=>{if(!qa)return;if(qi<quiz.length-1){qi++;drawQuiz()}else finishQuiz()});function resetQuiz(){qi=0;qs=0;localStorage.removeItem(STORE.quiz);drawQuiz();updateOverall()}$('#quizRestartX').addEventListener('click',resetQuiz);$('#quizRetryX').addEventListener('click',resetQuiz);drawQuiz();
+
+const note=$('#personalNoteX');note.value=localStorage.getItem(STORE.note)||'';function noteCount(){$('#noteCountX').textContent=note.value.length}noteCount();let nt;note.addEventListener('input',()=>{noteCount();$('#noteStatusX').textContent='Saving…';clearTimeout(nt);nt=setTimeout(()=>{localStorage.setItem(STORE.note,note.value);$('#noteStatusX').textContent='Saved automatically'},350)});
+
+let bookmarks=[];try{bookmarks=JSON.parse(localStorage.getItem(STORE.bookmarks)||'[]')}catch{}
+function prepareBookmarks(){const targets=['overview','concepts','known-phase','action-plan','takeaways','practice-lab'];targets.forEach(id=>{const sec=document.getElementById(id),h=sec?.querySelector('.section-heading');if(!sec||!h||h.querySelector('.bookmark-x'))return;if(h.children.length>1&&!h.classList.contains('bookmarkable')){const wrap=document.createElement('div');while(h.firstChild)wrap.appendChild(h.firstChild);h.appendChild(wrap)}h.classList.add('bookmarkable');const b=document.createElement('button');b.type='button';b.className='bookmark-x';b.dataset.bookmark=id;b.setAttribute('aria-label',`Bookmark ${sec.dataset.sectionTitle||id}`);b.textContent='☆';h.appendChild(b)});$$('.bookmark-x').forEach(b=>b.addEventListener('click',()=>{const id=b.dataset.bookmark;bookmarks=bookmarks.includes(id)?bookmarks.filter(x=>x!==id):[...bookmarks,id];localStorage.setItem(STORE.bookmarks,JSON.stringify(bookmarks));renderBookmarks();say(bookmarks.includes(id)?'Section bookmarked ★':'Bookmark removed')}));renderBookmarks()}
+function renderBookmarks(){$$('.bookmark-x').forEach(b=>{const on=bookmarks.includes(b.dataset.bookmark);b.classList.toggle('saved',on);b.textContent=on?'★':'☆'});let box=$('#bookmarksBoxX');if(!box){box=document.createElement('div');box.id='bookmarksBoxX';box.className='bookmarks-box-x';const host=$('.side-progress-card')||$('.sidebar-footer');host?.insertAdjacentElement('afterend',box)}if(!box)return;box.innerHTML=`<div class='bookmarks-head-x'><span>Bookmarks</span><strong>${bookmarks.length}</strong></div><div class='bookmarks-links-x'></div>`;const links=$('.bookmarks-links-x',box);if(!bookmarks.length){links.innerHTML='<small style="color:var(--muted);font-size:.67rem">No saved sections yet.</small>';return}bookmarks.forEach(id=>{const sec=document.getElementById(id);if(!sec)return;const a=document.createElement('a');a.href=`#${id}`;a.textContent=sec.dataset.sectionTitle||id;a.addEventListener('click',closeMenu);links.appendChild(a)})}
+prepareBookmarks();
+
+const checks=$$('[data-task]');function loadTasks(){let s={};try{s=JSON.parse(localStorage.getItem(STORE.tasks)||'{}')}catch{}checks.forEach(b=>b.checked=!!s[b.dataset.task]);taskProgress()}function saveTasks(){const s={};checks.forEach(b=>s[b.dataset.task]=b.checked);localStorage.setItem(STORE.tasks,JSON.stringify(s));taskProgress();updateOverall()}function taskProgress(){const done=checks.filter(b=>b.checked).length,total=checks.length||1,p=Math.round(done/total*100);if($('#taskCount'))$('#taskCount').textContent=`${done} of ${total} actions complete`;if($('#ringLabel'))$('#ringLabel').textContent=`${p}%`;if($('#progressRing'))$('#progressRing').style.setProperty('--p',p)}checks.forEach(b=>b.addEventListener('change',saveTasks));loadTasks();
+
+function isComplete(){return localStorage.getItem(STORE.complete)==='true'}function renderComplete(){const on=isComplete();$('#completion')?.classList.toggle('completed',on);$('#markCompleteHero')?.classList.toggle('completed',on);if($('#completeBtn'))$('#completeBtn').textContent=on?'Completed ✓':'Mark lesson complete';if($('#markCompleteHero'))$('#markCompleteHero').textContent=on?'✓ Lesson completed':'✓ Mark complete';if($('#completionTitle'))$('#completionTitle').textContent=on?'Class 11 completed.':'Ready to finish Class 11?'}function toggleComplete(){const on=!isComplete();localStorage.setItem(STORE.complete,String(on));renderComplete();updateOverall();say(on?'Class 11 marked complete ✓':'Completion status removed');if(on)celebrate()}$('#completeBtn')?.addEventListener('click',toggleComplete);$('#markCompleteHero')?.addEventListener('click',toggleComplete);renderComplete();
+
+function storedScore(key){try{const x=JSON.parse(localStorage.getItem(key)||'null');return x?.done?x.score/x.total*100:0}catch{return 0}}function updateOverall(){const action=checks.length?checks.filter(b=>b.checked).length/checks.length*100:0,scenario=localStorage.getItem(STORE.practice)?100:0,quiz=storedScore(STORE.quiz),complete=isComplete()?100:0,total=Math.round(action*.35+scenario*.2+quiz*.35+complete*.1);if($('#sideProgressLabel'))$('#sideProgressLabel').textContent=`${total}%`;if($('#sideProgressBar'))$('#sideProgressBar').style.width=`${total}%`;let box=$('#overallBoxX');if(!box){box=document.createElement('div');box.id='overallBoxX';box.className='overall-box-x';const host=$('.outline-sticky')||$('.side-progress-card');host?.appendChild(box)}if(box){let msg='Start with the checklist and practice.';if(total>=100)msg='Everything complete — excellent work!';else if(total>=75)msg='Almost there — finish the remaining activity.';else if(total>=40)msg='Good progress — keep practicing.';box.innerHTML=`<div class='overall-head-x'><span>Interactive progress</span><strong>${total}%</strong></div><div class='overall-meter-x'><span style='width:${total}%'></span></div><small>${msg}</small>`}}updateOverall();
+
+function refreshOutline(){const out=$('.outline-sticky');if(!out)return;if(!out.querySelector("a[href='#practice-lab']")){const a=document.createElement('a');a.className='outline-link';a.href='#practice-lab';a.textContent='Interactive Practice';const faq=out.querySelector("a[href='#faq']");out.insertBefore(a,faq||out.querySelector('.overall-card')||null)}const sections=$$('.lesson-section');const obs=new IntersectionObserver(es=>{const a=es.filter(e=>e.isIntersecting).sort((x,y)=>y.intersectionRatio-x.intersectionRatio)[0];if(!a)return;const id=a.target.id,title=a.target.dataset.sectionTitle||'Foundation of Freelancing';if($('#activeSectionLabel'))$('#activeSectionLabel').textContent=title;$$('.outline-link').forEach(l=>l.classList.toggle('active',l.getAttribute('href')===`#${id}`))},{rootMargin:'-25% 0px -60% 0px',threshold:[0,.1,.3]});sections.forEach(s=>obs.observe(s))}refreshOutline();
+
+function celebrate(){for(let i=0;i<34;i++){const c=document.createElement('i');c.className='confetti-x';c.style.left=`${Math.random()*100}%`;c.style.setProperty('--dx',`${(Math.random()-.5)*180}px`);c.style.animationDelay=`${Math.random()*.3}s`;document.body.appendChild(c);setTimeout(()=>c.remove(),2200)}}
+async function share(){const d={title:'Class 11 — Foundation of Freelancing',text:'Interactive Class 11 freelancing lesson',url:'https://sonjibonbarua.github.io/Sure-Earning-Class-Lesson/'};try{if(navigator.share)await navigator.share(d);else{await navigator.clipboard.writeText(d.url);say('Lesson link copied')}}catch{}}
+$('#shareBtn')?.addEventListener('click',share);$('#footerShare')?.addEventListener('click',share);$('#copyLinkBtn')?.addEventListener('click',async()=>{try{await navigator.clipboard.writeText('https://sonjibonbarua.github.io/Sure-Earning-Class-Lesson/');say('Lesson link copied')}catch{say('Copy was not available')}});$('#printBtn')?.addEventListener('click',()=>window.print());
