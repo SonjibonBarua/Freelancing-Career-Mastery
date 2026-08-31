@@ -8,7 +8,7 @@
     if(toggle){toggle.textContent='☀';toggle.setAttribute('aria-label','Switch to light mode')}
   }
 
-  const LESSON_URL = 'https://sonjibonbarua.github.io/Sure-Earning-Class-Lesson/lesson-04.html';
+  const LESSON_URL = 'https://sonjibonbarua.github.io/Freelancing-Career-Mastery/lesson-04.html';
   const toast = document.getElementById('toast');
   const completionTitle = document.getElementById('completionTitle');
   const completionText = document.getElementById('completionText');
@@ -92,4 +92,12 @@
     });
     document.body.appendChild(premium);
   }
+
+  function loadMediaSystem(){
+    const boot=()=>{if(document.querySelector('script[data-media-system-loader]'))return;const media=document.createElement('script');media.src='media-system.js';media.dataset.mediaSystemLoader='true';document.body.appendChild(media)};
+    if(window.LESSON_MEDIA){boot();return;}
+    if(document.querySelector('script[data-media-data-loader]'))return;
+    const data=document.createElement('script');data.src='media-data.js';data.dataset.mediaDataLoader='true';data.onload=boot;document.body.appendChild(data);
+  }
+  loadMediaSystem();
 })();
