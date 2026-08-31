@@ -15,16 +15,22 @@ A complete Basic-to-Advanced freelancing learning platform built as 8 career mod
 7. Money, Risk & Freelance Business — Lessons 47–53
 8. Advanced Career Growth — Lessons 54–64
 
-## Learning experience
+## Training experience
 
 - Premium responsive light/dark UI
-- Reading and lesson progress
-- Structured objectives, deep dives, concepts and frameworks
+- Reading and lesson journey progress
+- Lesson training brief with level, estimated time, practice and assessment expectations
+- Structured objectives, deep dives, concepts and practical frameworks
 - Real-life client scenarios in every lesson
-- Action checklists
-- Knowledge quizzes
+- Applied-output prompts that turn reading into usable work
+- Action checklists and locally saved progress
+- Judgment-based knowledge quizzes
 - Personal notes saved locally
-- Lesson completion tracking
+- Confidence self-checks for learner reflection
+- Mastery readiness signals: Apply + Check + Reflect
+- Module-end checkpoints with completion review and personal reflection
+- Smart “continue training” dashboard resume state
+- Per-module completion progress
 - Previous/next course navigation
 - Bookmarks, focus mode and premium motion interactions
 - Selected external companion video resources
@@ -50,6 +56,17 @@ The dedicated Survival Lab is an interactive scenario simulator covering:
 - Burnout and sustainable workload
 
 Readers choose how they would react under pressure, receive immediate feedback, then see professional reasoning, a sample response, red flags, prevention systems and next actions.
+
+The upgraded lab also includes:
+
+- A Judgment Profile showing Strong / Mixed / High-risk decision patterns
+- A personal reflection field for every case
+- Saved decision and reflection history on the learner’s device
+- A final debrief that interprets decision patterns without treating the simulator as a simplistic pass/fail test
+
+## Product standard
+
+The course is designed around four stages: **Learn → Apply → Reflect → Pressure-test**. Each lesson should leave the learner with a clearer mental model, a concrete output or action, evidence of understanding, and a personal decision rule they can carry into real client work.
 
 ## Notes
 
