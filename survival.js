@@ -13,12 +13,11 @@
   try{progress=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(_){progress={}}
   try{reflections=JSON.parse(localStorage.getItem(REFKEY)||'{}')}catch(_){reflections={}}
   let active=0;
-  const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+  const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[m]));
 
   function applyTheme(theme){const dark=theme==='dark';document.body.classList.toggle('dark',dark);themeToggle.textContent=dark?'☀':'☾';themeToggle.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode')}
   const savedTheme=localStorage.getItem('sure-earning-theme');
-  const systemDark=matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches;
-  applyTheme(savedTheme||(systemDark?'dark':'light'));
+  applyTheme(savedTheme||'dark');
   themeToggle.addEventListener('click',()=>{const next=document.body.classList.contains('dark')?'light':'dark';applyTheme(next);localStorage.setItem('sure-earning-theme',next)});
 
   function profile(){const p={good:0,mixed:0,bad:0};cases.forEach(c=>{const i=progress[c.id];if(i===undefined)return;const type=c.choices[i]?.type;if(type&&p[type]!==undefined)p[type]++});return p}
