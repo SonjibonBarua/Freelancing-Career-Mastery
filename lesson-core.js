@@ -103,4 +103,11 @@
   $('#shareBtn')?.addEventListener('click',share);$('#footerShare')?.addEventListener('click',share);$('#copyLinkBtn')?.addEventListener('click',copyLink);$('#printBtn')?.addEventListener('click',()=>print());
 
   document.addEventListener('keydown',e=>{const typing=['INPUT','TEXTAREA'].includes(document.activeElement.tagName);if(e.key==='d'&&!typing){themeToggle?.click()}if(e.key==='Escape')closeSidebar()});
+
+  if(!document.querySelector('script[data-premium-motion-loader]')){
+    const premium=document.createElement('script');
+    premium.src='premium-motion.js';
+    premium.dataset.premiumMotionLoader='true';
+    document.body.appendChild(premium);
+  }
 })();
