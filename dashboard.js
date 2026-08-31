@@ -8,8 +8,17 @@
   const searchPanel = document.getElementById('searchPanel');
   const globalSearch = document.getElementById('globalSearch');
   const searchResults = document.getElementById('searchResults');
-  const publishedCount = allLessons.filter(l => l.status === 'available').length;
-  const completed = localStorage.getItem('sure-earning-class11-complete') === 'true';
+  const publishedLessons = allLessons.filter(l => l.status === 'available');
+  const publishedCount = publishedLessons.length;
+
+  function lessonComplete(lesson){
+    const num = String(lesson.n).padStart(2,'0');
+    const modern = localStorage.getItem(`sure-earning-lesson-${num}-complete`) === 'true';
+    if(lesson.n === 4){
+      return modern || localStorage.getItem('sure-earning-class11-complete') === 'true';
+    }
+    return modern;
+  }
 
   function applyTheme(theme){
     const dark = theme === 'dark';
@@ -29,12 +38,13 @@
   function lessonRow(lesson){
     const number = String(lesson.n).padStart(2,'0');
     const available = lesson.status === 'available';
-    const status = available ? (completed ? 'Completed' : 'Available') : 'Planned';
+    const done = available && lessonComplete(lesson);
+    const status = available ? (done ? 'Completed' : 'Available') : 'Planned';
     const tag = available ? 'a' : 'div';
     const href = available ? ` href="${lesson.href}"` : '';
-    return `<${tag}${href} class="lesson-row ${available ? 'available' : 'planned'}">
+    return `<${tag}${href} class="lesson-row ${available ? 'available' : 'planned'} ${done ? 'done' : ''}">
       <span class="lesson-no">${number}</span>
-      <span class="lesson-copy"><strong>${lesson.title}</strong><small>${available ? 'Interactive lesson · Quiz · Notes · Practice' : 'Curriculum planned · Content coming progressively'}</small></span>
+      <span class="lesson-copy"><strong>${lesson.title}</strong><small>${available ? 'Full lesson · Practice · Quiz · Notes' : 'Curriculum planned · Content coming progressively'}</small></span>
       <span class="status">${status}</span>
     </${tag}>`;
   }
@@ -45,6 +55,8 @@
     modules.forEach(module => {
       const matched = module.lessons.filter(l => !q || `${l.n} ${l.title} ${module.title} ${module.subtitle}`.toLowerCase().includes(q));
       if(!matched.length) return;
+      const completedInModule = module.lessons.filter(l => l.status === 'available' && lessonComplete(l)).length;
+      const availableInModule = module.lessons.filter(l => l.status === 'available').length;
       const section = document.createElement('section');
       section.className = 'module';
       section.dataset.module = module.id;
@@ -52,7 +64,7 @@
         <div class="module-head">
           <span class="module-number">${String(module.id).padStart(2,'0')}</span>
           <span class="module-title"><strong>${module.title}</strong><small>${module.subtitle}</small></span>
-          <span class="module-meta"><b>${module.lessons.length} lessons</b><span>${module.level}</span></span>
+          <span class="module-meta"><b>${module.lessons.length} lessons</b><span>${availableInModule ? `${completedInModule}/${availableInModule} completed · ` : ''}${module.level}</span></span>
         </div>
         <div class="lesson-list">${matched.map(lessonRow).join('')}</div>`;
       moduleRoot.appendChild(section);
@@ -61,11 +73,12 @@
   render();
   filterInput.addEventListener('input', e => render(e.target.value));
 
+  const completedPublished = publishedLessons.filter(lessonComplete).length;
   document.getElementById('roadmapTotal').textContent = allLessons.length;
   document.getElementById('publishedTotal').textContent = publishedCount;
   document.getElementById('plannedTotal').textContent = allLessons.length - publishedCount;
-  document.getElementById('availableProgress').textContent = completed ? '1 / 1' : '0 / 1';
-  document.getElementById('availableMeter').style.width = completed ? '100%' : '0%';
+  document.getElementById('availableProgress').textContent = `${completedPublished} / ${publishedCount}`;
+  document.getElementById('availableMeter').style.width = `${publishedCount ? Math.round((completedPublished/publishedCount)*100) : 0}%`;
   document.getElementById('buildMeter').style.width = `${Math.round((publishedCount/allLessons.length)*100)}%`;
   document.getElementById('buildPercent').textContent = `${Math.round((publishedCount/allLessons.length)*100)}%`;
 
@@ -78,26 +91,17 @@
       const available = l.status === 'available';
       const tag = available ? 'a' : 'div';
       const href = available ? ` href="${l.href}"` : '';
-      return `<${tag}${href} class="search-result"><strong>Lesson ${l.n} · ${l.title}</strong><small>Module ${l.moduleId} · ${l.moduleTitle} · ${available ? 'Available' : 'Planned'}</small></${tag}>`;
+      const state = available ? (lessonComplete(l) ? 'Completed' : 'Available') : 'Planned';
+      return `<${tag}${href} class="search-result"><strong>Lesson ${l.n} · ${l.title}</strong><small>Module ${l.moduleId} · ${l.moduleTitle} · ${state}</small></${tag}>`;
     }).join('');
   }
 
-  function openSearch(){
-    searchPanel.classList.add('show');
-    globalSearch.focus();
-    renderSearch(globalSearch.value);
-  }
+  function openSearch(){searchPanel.classList.add('show');globalSearch.focus();renderSearch(globalSearch.value)}
   function closeSearch(){searchPanel.classList.remove('show')}
   searchBtn.addEventListener('click', () => searchPanel.classList.contains('show') ? closeSearch() : openSearch());
   globalSearch.addEventListener('input', e => renderSearch(e.target.value));
-  document.addEventListener('keydown', e => {
-    const typing = ['INPUT','TEXTAREA'].includes(document.activeElement.tagName);
-    if(e.key === '/' && !typing){e.preventDefault();openSearch()}
-    if(e.key === 'Escape') closeSearch();
-  });
-  document.addEventListener('click', e => {
-    if(!searchPanel.contains(e.target) && !searchBtn.contains(e.target)) closeSearch();
-  });
+  document.addEventListener('keydown', e => {const typing = ['INPUT','TEXTAREA'].includes(document.activeElement.tagName);if(e.key === '/' && !typing){e.preventDefault();openSearch()}if(e.key === 'Escape') closeSearch()});
+  document.addEventListener('click', e => {if(!searchPanel.contains(e.target) && !searchBtn.contains(e.target)) closeSearch()});
 
   const topics = window.REAL_LIFE_TOPICS || [];
   document.getElementById('survivalTopics').innerHTML = topics.map(t => `<span class="topic">${t}</span>`).join('');
