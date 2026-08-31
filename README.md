@@ -1,6 +1,6 @@
 # Freelancing Career Mastery
 
-Live website: https://sonjibonbarua.github.io/Sure-Earning-Class-Lesson/
+Live website: https://sonjibonbarua.github.io/Freelancing-Career-Mastery/
 
 A complete Basic-to-Advanced freelancing learning platform built as 8 career modules and 64 live lessons.
 
@@ -17,10 +17,15 @@ A complete Basic-to-Advanced freelancing learning platform built as 8 career mod
 
 ## Training experience
 
-- Premium responsive light/dark UI
+- Premium responsive light/dark UI with dark mode as the default for new visitors
 - Reading and lesson journey progress
 - Lesson training brief with level, estimated time, practice and assessment expectations
 - Structured objectives, deep dives, concepts and practical frameworks
+- A custom educational visual model for every lesson (64 lesson-wise diagrams)
+- Interactive diagram nodes with mobile-responsive layouts
+- Curated companion videos embedded directly inside selected lessons across all 8 modules
+- Privacy-enhanced YouTube embeds and an official Upwork Vimeo learning resource
+- No external video link is required to watch the embedded companion resources
 - Real-life client scenarios in every lesson
 - Applied-output prompts that turn reading into usable work
 - Action checklists and locally saved progress
@@ -33,8 +38,13 @@ A complete Basic-to-Advanced freelancing learning platform built as 8 career mod
 - Per-module completion progress
 - Previous/next course navigation
 - Bookmarks, focus mode and premium motion interactions
-- Selected external companion video resources
 - Print / Save PDF support
+
+## Lesson media system
+
+Every lesson has a topic-specific visual model, for example: value exchange, mindset ladders, decision trees, portfolio trust stacks, acquisition funnels, proposal architecture, scope-control flows, payment protection, risk radar, retention flywheels, AI workflow, delegation and long-term career strategy.
+
+Companion videos are used selectively where watching a real walkthrough adds learning value rather than simply decorating the page. Current embedded video lessons include foundation, portfolio, personal branding, marketplaces, cold outreach, proposals, project planning, pricing and responsible AI workflows.
 
 ## Real-Life Freelancer Survival Lab
 
