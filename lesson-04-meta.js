@@ -106,7 +106,7 @@
     const existing=document.querySelector('script[data-lesson-videos-loader]');
     if(existing){existing.addEventListener('load',callback,{once:true});return;}
     const videos=document.createElement('script');
-    videos.src='lesson-videos.js';
+    videos.src='lesson-videos-v2.js';
     videos.dataset.lessonVideosLoader='true';
     videos.addEventListener('load',callback,{once:true});
     document.body.appendChild(videos);
