@@ -102,11 +102,11 @@
   }
 
   function loadVideoRegistry(callback){
-    if(window.LESSON_MEDIA?.[64]?.video){callback();return;}
+    if(window.LESSON_MEDIA?.[64]?.video?.practiceType){callback();return;}
     const existing=document.querySelector('script[data-lesson-videos-loader]');
     if(existing){existing.addEventListener('load',callback,{once:true});return;}
     const videos=document.createElement('script');
-    videos.src='lesson-videos-v2.js';
+    videos.src='lesson-videos-v3.js';
     videos.dataset.lessonVideosLoader='true';
     videos.addEventListener('load',callback,{once:true});
     document.body.appendChild(videos);
