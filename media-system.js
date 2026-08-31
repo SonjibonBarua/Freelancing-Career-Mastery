@@ -30,12 +30,31 @@
     return 'Use the visual as a decision checklist. Click or focus any block to isolate that factor.';
   };
 
+  function glyphFor(item,i){
+    const x=String(item).toLowerCase();
+    if(/skill|capability|practice|learn/.test(x))return '✦';
+    if(/service|offer|deliverable|scope|package/.test(x))return '▣';
+    if(/problem|research|diagnos|discover|search/.test(x))return '⌕';
+    if(/solution|idea|strategy|plan|concept/.test(x))return '✧';
+    if(/value|impact|outcome|profit|authority/.test(x))return '◆';
+    if(/payment|price|budget|invoice|deposit|income|revenue|money/.test(x))return '$';
+    if(/trust|proof|review|testimonial|quality|verify/.test(x))return '✓';
+    if(/client|audience|buyer|prospect|people|network/.test(x))return '◎';
+    if(/urgent|risk|warning|red flag|scam/.test(x))return '!';
+    if(/repeat|retention|recurring|loop|referral|follow/.test(x))return '↻';
+    if(/growth|demand|reach|visibility|scale/.test(x))return '↗';
+    if(/fit|focus|niche|position|target/.test(x))return '⊙';
+    if(/build|create|production|work/.test(x))return '＋';
+    if(/test|experiment|validate/.test(x))return '△';
+    return ['◇','✦','◎','↗','▣','✓','↻'][i%7];
+  }
+
   function node(item,i,indent=''){
-    return `<button class="diagram-node" type="button" data-media-node="${i}" ${indent?`style="${indent}"`:''}><b>${String(i+1).padStart(2,'0')}</b><strong>${esc(item)}</strong></button>`;
+    return `<button class="diagram-node" type="button" data-media-node="${i}" ${indent?`style="${indent}"`:''}><b>${String(i+1).padStart(2,'0')}</b><span class="diagram-icon" aria-hidden="true">${glyphFor(item,i)}</span><strong>${esc(item)}</strong></button>`;
   }
   function diagram(){
     const items=spec.items||[];
-    if(type==='venn') return `<div class="lesson-diagram diagram-venn">${items.map((x,i)=>`<div class="venn-circle" tabindex="0" data-media-node="${i}">${esc(x)}</div>`).join('')}</div>`;
+    if(type==='venn') return `<div class="lesson-diagram diagram-venn">${items.map((x,i)=>`<div class="venn-circle" tabindex="0" data-media-node="${i}"><span class="diagram-icon" aria-hidden="true">${glyphFor(x,i)}</span>${esc(x)}</div>`).join('')}</div>`;
     if(radial.has(type)){
       return `<div class="lesson-diagram diagram-${type}"><div class="diagram-center">CORE<br>LOOP</div>${items.map((x,i)=>node(x,i)).join('')}</div>`;
     }
@@ -96,12 +115,11 @@
     }
   }
 
-  function removeRedirectVideoLinks(){
-    $$('.video-link').forEach(a=>a.remove());
+  function removeRedirectVideoLinks(){ $$('.video-link').forEach(a=>a.remove()); }
+  function loadWorkspace(){
+    if($('script[data-learning-workspace-loader]'))return;
+    const s=document.createElement('script');s.src='learning-workspace.js';s.dataset.learningWorkspaceLoader='true';document.body.appendChild(s);
   }
-
-  function init(){
-    insertVisual();insertVideo();removeRedirectVideoLinks();
-  }
+  function init(){ insertVisual();insertVideo();removeRedirectVideoLinks();loadWorkspace(); }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
