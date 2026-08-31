@@ -1,4 +1,6 @@
 (() => {
+  document.body.classList.add('lesson-page');
+  document.body.dataset.lesson = 'lesson-04';
   const LESSON_URL = 'https://sonjibonbarua.github.io/Sure-Earning-Class-Lesson/lesson-04.html';
   const toast = document.getElementById('toast');
   const completionTitle = document.getElementById('completionTitle');
@@ -70,6 +72,17 @@
     const premium=document.createElement('script');
     premium.src='premium-motion.js';
     premium.dataset.premiumMotionLoader='true';
+    premium.addEventListener('load',()=>{
+      const panel=document.getElementById('completion');
+      if(!panel) return;
+      const moveAchievement=()=>{
+        const badge=panel.querySelector('.completion-icon .premium-achievement');
+        const target=panel.querySelector('.completion-icon + div');
+        if(badge&&target) target.appendChild(badge);
+      };
+      new MutationObserver(moveAchievement).observe(panel,{childList:true,subtree:true});
+      moveAchievement();
+    });
     document.body.appendChild(premium);
   }
 })();
