@@ -28,8 +28,7 @@
     themeToggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
   }
   const savedTheme = localStorage.getItem('sure-earning-theme');
-  const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  applyTheme(savedTheme || (systemDark ? 'dark' : 'light'));
+  applyTheme(savedTheme || 'dark');
   themeToggle.addEventListener('click', () => {
     const next = document.body.classList.contains('dark') ? 'light' : 'dark';
     applyTheme(next);
