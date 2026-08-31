@@ -1,6 +1,13 @@
 (() => {
   document.body.classList.add('lesson-page');
   document.body.dataset.lesson = 'lesson-04';
+
+  if(!localStorage.getItem('sure-earning-theme')){
+    document.body.classList.add('dark');
+    const toggle=document.getElementById('themeToggle');
+    if(toggle){toggle.textContent='☀';toggle.setAttribute('aria-label','Switch to light mode')}
+  }
+
   const LESSON_URL = 'https://sonjibonbarua.github.io/Sure-Earning-Class-Lesson/lesson-04.html';
   const toast = document.getElementById('toast');
   const completionTitle = document.getElementById('completionTitle');
