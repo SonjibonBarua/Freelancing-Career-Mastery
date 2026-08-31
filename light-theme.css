@@ -1,0 +1,269 @@
+/* Premium Light Mode — scroll-reactive pastel journey + airy glassmorphism */
+@property --light-hue{syntax:"<number>";inherits:true;initial-value:268}
+
+body:not(.dark){
+  --bg:#f7f8fc;
+  --surface:rgba(255,255,255,.78);
+  --surface-2:rgba(246,248,255,.70);
+  --text:#172033;
+  --muted:#5f6b80;
+  --line:rgba(86,72,150,.12);
+  --primary:#6950e8;
+  --primary-2:#8b78f4;
+  --primary-soft:rgba(105,80,232,.09);
+  --known-soft:rgba(14,167,106,.09);
+  --unknown-soft:rgba(245,158,11,.10);
+  --shadow:0 20px 55px rgba(76,68,125,.10),0 2px 8px rgba(67,84,130,.05);
+  --light-hue:268;
+  background:#f7f8fc;
+}
+
+body:not(.dark) .site-shell main{
+  position:relative;
+  isolation:isolate;
+  background:
+    radial-gradient(900px 720px at 9% 14%,hsl(calc(var(--light-hue) + 8) 88% 88% / .58),transparent 67%),
+    radial-gradient(880px 760px at 91% 34%,hsl(calc(var(--light-hue) - 42) 88% 88% / .46),transparent 68%),
+    radial-gradient(980px 780px at 12% 59%,hsl(calc(var(--light-hue) + 76) 76% 88% / .42),transparent 70%),
+    radial-gradient(900px 700px at 88% 82%,hsl(calc(var(--light-hue) + 28) 82% 91% / .48),transparent 70%),
+    linear-gradient(180deg,#faf9ff 0%,#f5f8ff 18%,#eef9ff 38%,#eefcf7 56%,#f8f4ff 76%,#fff4f8 90%,#f7fbff 100%);
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  color:var(--text);
+}
+
+@supports (animation-timeline:scroll()){
+  body:not(.dark){animation:lightHueJourney 1ms linear both;animation-timeline:scroll(root block)}
+}
+@keyframes lightHueJourney{
+  0%{--light-hue:268}
+  20%{--light-hue:244}
+  40%{--light-hue:212}
+  58%{--light-hue:168}
+  77%{--light-hue:286}
+  100%{--light-hue:330}
+}
+
+/* Navigation glass */
+body:not(.dark) .sidebar{
+  background:rgba(255,255,255,.76);
+  border-right-color:rgba(91,79,146,.11);
+  -webkit-backdrop-filter:blur(24px) saturate(145%);
+  backdrop-filter:blur(24px) saturate(145%);
+  box-shadow:12px 0 38px rgba(71,73,119,.05);
+}
+body:not(.dark) .topbar{
+  background:rgba(255,255,255,.70);
+  border-bottom-color:rgba(91,79,146,.10);
+  -webkit-backdrop-filter:blur(24px) saturate(145%);
+  backdrop-filter:blur(24px) saturate(145%);
+  box-shadow:0 8px 30px rgba(71,73,119,.05);
+}
+body:not(.dark) footer{
+  background:rgba(255,255,255,.74);
+  border-top-color:rgba(91,79,146,.10);
+  -webkit-backdrop-filter:blur(20px) saturate(140%);
+  backdrop-filter:blur(20px) saturate(140%);
+}
+body:not(.dark) .search-box,
+body:not(.dark) .side-progress-card,
+body:not(.dark) .outline-tools button,
+body:not(.dark) .top-search,
+body:not(.dark) .theme-toggle,
+body:not(.dark) .top-actions .icon-btn{
+  background:rgba(255,255,255,.62);
+  border-color:rgba(91,79,146,.12);
+  -webkit-backdrop-filter:blur(12px) saturate(130%);
+  backdrop-filter:blur(12px) saturate(130%);
+}
+
+/* Main glass surfaces */
+body:not(.dark) .learning-goals,
+body:not(.dark) .phase-card,
+body:not(.dark) .compare-strip,
+body:not(.dark) .lesson-card,
+body:not(.dark) .check-item,
+body:not(.dark) .action-progress-card,
+body:not(.dark) .takeaway,
+body:not(.dark) .faq-item,
+body:not(.dark) .completion-card,
+body:not(.dark) .course-nav,
+body:not(.dark) .outline-card,
+body:not(.dark) .no-results,
+body:not(.dark) .practice-shell,
+body:not(.dark) .scenario-box,
+body:not(.dark) .quiz-box,
+body:not(.dark) .note-box,
+body:not(.dark) .flash-face-x,
+body:not(.dark) .client-line,
+body:not(.dark) .quiz-option-x,
+body:not(.dark) .phase-choice,
+body:not(.dark) .bookmarks-box-x,
+body:not(.dark) .overall-box-x{
+  background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.62))!important;
+  border-color:rgba(91,79,146,.12)!important;
+  box-shadow:0 18px 50px rgba(79,75,132,.09),0 1px 0 rgba(255,255,255,.90) inset!important;
+  -webkit-backdrop-filter:blur(18px) saturate(145%);
+  backdrop-filter:blur(18px) saturate(145%);
+}
+
+/* Section-specific premium ambience */
+body:not(.dark) #overview .learning-goals{
+  box-shadow:0 20px 55px rgba(122,97,223,.12),0 1px 0 rgba(255,255,255,.95) inset!important;
+}
+body:not(.dark) .phase-card.known{
+  background:linear-gradient(145deg,rgba(255,255,255,.84),rgba(237,255,249,.66))!important;
+  box-shadow:0 20px 55px rgba(19,164,111,.10),0 1px 0 rgba(255,255,255,.95) inset!important;
+}
+body:not(.dark) .phase-card.unknown{
+  background:linear-gradient(145deg,rgba(255,255,255,.84),rgba(255,249,230,.68))!important;
+  box-shadow:0 20px 55px rgba(222,154,30,.10),0 1px 0 rgba(255,255,255,.95) inset!important;
+}
+body:not(.dark) .mindset-panel{
+  color:#20263a;
+  background:linear-gradient(135deg,rgba(244,239,255,.82),rgba(232,245,255,.72),rgba(250,238,255,.76));
+  border:1px solid rgba(105,80,232,.14);
+  box-shadow:0 22px 60px rgba(100,82,180,.12),0 1px 0 rgba(255,255,255,.95) inset;
+  -webkit-backdrop-filter:blur(20px) saturate(145%);
+  backdrop-filter:blur(20px) saturate(145%);
+}
+body:not(.dark) .mindset-panel h2{color:#1d2440}
+body:not(.dark) .mindset-panel p{color:#59657b}
+body:not(.dark) .mindset-panel .section-tag.light{color:#7055e7}
+body:not(.dark) .completion-card.completed{
+  background:linear-gradient(135deg,rgba(247,255,252,.86),rgba(235,250,255,.72))!important;
+  border-color:rgba(14,167,106,.20)!important;
+  box-shadow:0 20px 55px rgba(14,167,106,.10),0 1px 0 rgba(255,255,255,.95) inset!important;
+}
+
+/* Typography tuned for bright glass */
+body:not(.dark) .section-heading h2,
+body:not(.dark) .learning-goals h3,
+body:not(.dark) .phase-card h3,
+body:not(.dark) .lesson-card h2,
+body:not(.dark) .takeaway h3,
+body:not(.dark) .faq-item summary,
+body:not(.dark) .completion-card h2,
+body:not(.dark) .course-nav h2,
+body:not(.dark) .practice-intro h3,
+body:not(.dark) .client-line p,
+body:not(.dark) .quiz-question-x,
+body:not(.dark) .flash-face-x strong{
+  color:#172033!important;
+}
+body:not(.dark) .section-heading p,
+body:not(.dark) .learning-goals li,
+body:not(.dark) .phase-card p,
+body:not(.dark) .lesson-card p,
+body:not(.dark) .check-item small,
+body:not(.dark) .action-progress-card small,
+body:not(.dark) .takeaway p,
+body:not(.dark) .faq-item p,
+body:not(.dark) .completion-card p,
+body:not(.dark) .course-nav p,
+body:not(.dark) .practice-intro p,
+body:not(.dark) .phase-choice small,
+body:not(.dark) .note-meta,
+body:not(.dark) .next-card span,
+body:not(.dark) .next-card small{
+  color:#5f6b80!important;
+}
+body:not(.dark) .section-tag,
+body:not(.dark) .card-label,
+body:not(.dark) .takeaway>span,
+body:not(.dark) .mini-badge,
+body:not(.dark) .flash-face-x small,
+body:not(.dark) .compare-strip small{
+  color:#6950e8!important;
+}
+
+/* Soft premium controls */
+body:not(.dark) .next-card,
+body:not(.dark) .compare-strip>span,
+body:not(.dark) .progress-ring:after,
+body:not(.dark) .course-link>span,
+body:not(.dark) .practice-tabs,
+body:not(.dark) .score-pill-x,
+body:not(.dark) .quiz-option-x i{
+  background:rgba(255,255,255,.58)!important;
+  border-color:rgba(91,79,146,.10)!important;
+  -webkit-backdrop-filter:blur(10px) saturate(130%);
+  backdrop-filter:blur(10px) saturate(130%);
+}
+body:not(.dark) .practice-tab{color:#697389!important}
+body:not(.dark) .practice-tab.active{
+  color:#6248df!important;
+  background:rgba(255,255,255,.78)!important;
+  box-shadow:0 8px 24px rgba(93,76,174,.10)!important;
+}
+body:not(.dark) .note-box textarea{
+  background:rgba(255,255,255,.66)!important;
+  color:#172033!important;
+  border-color:rgba(91,79,146,.13)!important;
+  caret-color:#6950e8;
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+}
+body:not(.dark) .note-box textarea::placeholder{color:#8a94a8!important}
+body:not(.dark) .mobile-learning-nav{
+  background:rgba(255,255,255,.78)!important;
+  border-color:rgba(91,79,146,.12)!important;
+  box-shadow:0 14px 38px rgba(73,70,120,.12)!important;
+  -webkit-backdrop-filter:blur(22px) saturate(145%)!important;
+  backdrop-filter:blur(22px) saturate(145%)!important;
+}
+
+/* Refined hover motion */
+body:not(.dark) .phase-card,
+body:not(.dark) .takeaway,
+body:not(.dark) .check-item,
+body:not(.dark) .learning-goals,
+body:not(.dark) .lesson-card,
+body:not(.dark) .faq-item,
+body:not(.dark) .practice-shell,
+body:not(.dark) .flash-face-x,
+body:not(.dark) .quiz-option-x,
+body:not(.dark) .phase-choice{
+  transition:transform .24s ease,border-color .24s ease,box-shadow .24s ease,background .24s ease;
+}
+@media(hover:hover) and (pointer:fine){
+  body:not(.dark) .phase-card:hover,
+  body:not(.dark) .takeaway:hover,
+  body:not(.dark) .check-item:hover,
+  body:not(.dark) .learning-goals:hover,
+  body:not(.dark) .lesson-card:hover,
+  body:not(.dark) .faq-item:hover,
+  body:not(.dark) .quiz-option-x:hover,
+  body:not(.dark) .phase-choice:hover{
+    transform:translateY(-4px);
+    border-color:rgba(105,80,232,.22)!important;
+    box-shadow:0 24px 62px rgba(85,72,154,.14),0 1px 0 rgba(255,255,255,.95) inset!important;
+  }
+  body:not(.dark) .outline-tools button:hover,
+  body:not(.dark) .top-search:hover,
+  body:not(.dark) .theme-toggle:hover,
+  body:not(.dark) .top-actions .icon-btn:hover{
+    border-color:rgba(105,80,232,.28);
+    box-shadow:0 8px 22px rgba(95,76,176,.10);
+  }
+}
+
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  body:not(.dark) .learning-goals,
+  body:not(.dark) .phase-card,
+  body:not(.dark) .compare-strip,
+  body:not(.dark) .lesson-card,
+  body:not(.dark) .check-item,
+  body:not(.dark) .action-progress-card,
+  body:not(.dark) .takeaway,
+  body:not(.dark) .faq-item,
+  body:not(.dark) .completion-card,
+  body:not(.dark) .course-nav,
+  body:not(.dark) .outline-card,
+  body:not(.dark) .practice-shell,
+  body:not(.dark) .scenario-box,
+  body:not(.dark) .quiz-box,
+  body:not(.dark) .note-box{background:rgba(255,255,255,.92)!important}
+}
+
+@media(prefers-reduced-motion:reduce){body:not(.dark){animation:none!important}}
