@@ -65,4 +65,11 @@
     event.preventDefault();event.stopImmediatePropagation();
     if (button.id === 'copyLinkBtn') copyLink(); else shareLesson();
   }, true);
+
+  if(!document.querySelector('script[data-premium-motion-loader]')){
+    const premium=document.createElement('script');
+    premium.src='premium-motion.js';
+    premium.dataset.premiumMotionLoader='true';
+    document.body.appendChild(premium);
+  }
 })();
