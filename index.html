@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Freelancing Career Mastery — a structured Basic-to-Advanced roadmap covering freelancing foundations, skills, client acquisition, sales, delivery, business operations, and long-term career growth." />
+  <meta name="description" content="Freelancing Career Mastery — a complete 64-lesson Basic-to-Advanced roadmap covering foundations, skills, client acquisition, sales, delivery, business operations, advanced growth, and real-life freelancer survival." />
   <meta name="theme-color" content="#6b50e8" />
   <meta property="og:title" content="Freelancing Career Mastery" />
-  <meta property="og:description" content="A 64-lesson Basic-to-Advanced freelancing career roadmap with interactive lessons and real-life professional topics." />
+  <meta property="og:description" content="A complete 64-lesson Basic-to-Advanced freelancing career roadmap with interactive lessons, practice, quizzes, videos and real-life survival scenarios." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://sonjibonbarua.github.io/Sure-Earning-Class-Lesson/" />
   <link rel="canonical" href="https://sonjibonbarua.github.io/Sure-Earning-Class-Lesson/" />
@@ -16,97 +16,36 @@
 <body>
   <header class="topbar">
     <div class="wrap topbar-inner">
-      <a href="index.html" class="brand" aria-label="Freelancing Career Mastery home">
-        <span class="brand-mark">F</span>
-        <span class="brand-copy"><strong>Freelancing Career Mastery</strong><small>Basic → Advanced Career Roadmap</small></span>
-      </a>
-      <div class="top-actions">
-        <button class="search-btn" id="searchBtn" type="button" aria-label="Search course">⌕ <span>Search</span></button>
-        <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme">☾</button>
-      </div>
+      <a href="index.html" class="brand" aria-label="Freelancing Career Mastery home"><span class="brand-mark">F</span><span class="brand-copy"><strong>Freelancing Career Mastery</strong><small>Basic → Advanced Career Roadmap</small></span></a>
+      <div class="top-actions"><button class="search-btn" id="searchBtn" type="button" aria-label="Search course">⌕ <span>Search</span></button><button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme">☾</button></div>
     </div>
   </header>
 
-  <div class="search-panel" id="searchPanel" role="dialog" aria-label="Course search">
-    <input id="globalSearch" type="search" placeholder="Search the 64-lesson roadmap..." autocomplete="off" />
-    <div class="search-results" id="searchResults"><div class="empty">Search lesson titles, modules, or topics.</div></div>
-  </div>
+  <div class="search-panel" id="searchPanel" role="dialog" aria-label="Course search"><input id="globalSearch" type="search" placeholder="Search the 64-lesson roadmap..." autocomplete="off" /><div class="search-results" id="searchResults"><div class="empty">Search lesson titles, modules, or topics.</div></div></div>
 
   <main>
     <section class="hero">
       <div class="wrap hero-grid">
-        <div>
-          <span class="eyebrow">◈ COMPLETE FREELANCING CAREER ROADMAP</span>
-          <h1>From first principles to a<br><span>professional freelancing career.</span></h1>
-          <p class="hero-copy">This course is being rebuilt as a complete learning path—not a collection of disconnected class notes. The roadmap starts with the fundamentals, moves through skills, clients, sales and delivery, and ends with advanced business growth.</p>
-          <div class="hero-actions">
-            <a class="primary" href="#curriculum">Explore the curriculum ↓</a>
-            <a class="secondary" href="lesson-01.html">Start Module 1 →</a>
-          </div>
-        </div>
-
-        <aside class="hero-card" aria-label="Course status">
-          <h2>Course build status</h2>
-          <div class="stat-grid">
-            <div class="stat"><strong id="roadmapTotal">64</strong><small>Roadmap lessons</small></div>
-            <div class="stat"><strong>8</strong><small>Career modules</small></div>
-            <div class="stat"><strong id="publishedTotal">6</strong><small>Published now</small></div>
-            <div class="stat"><strong id="plannedTotal">58</strong><small>Planned next</small></div>
-          </div>
-          <div class="progress-box">
-            <div class="progress-head"><span>Curriculum published</span><strong id="buildPercent">9%</strong></div>
-            <div class="meter"><span id="buildMeter" style="width:9%"></span></div>
-            <small>Module 1 is published; the remaining modules will be released progressively.</small>
-          </div>
-          <div class="progress-box">
-            <div class="progress-head"><span>Your published progress</span><strong id="availableProgress">0 / 6</strong></div>
-            <div class="meter"><span id="availableMeter"></span></div>
-            <small>Your lesson completion progress is saved on this device.</small>
-          </div>
-        </aside>
+        <div><span class="eyebrow">◈ COMPLETE FREELANCING CAREER ROADMAP</span><h1>From first principles to a<br><span>professional freelancing career.</span></h1><p class="hero-copy">A complete learning path from freelancing fundamentals to skills, positioning, client acquisition, sales, delivery, money, risk, systems, AI-assisted workflows and long-term career growth—plus an immersive real-life survival lab for the situations courses often skip.</p><div class="hero-actions"><a class="primary" href="#curriculum">Explore 64 lessons ↓</a><a class="secondary" href="lesson-01.html">Start Lesson 1 →</a><a class="secondary" href="survival.html">Enter Survival Lab →</a></div></div>
+        <aside class="hero-card" aria-label="Course status"><h2>Course status</h2><div class="stat-grid"><div class="stat"><strong id="roadmapTotal">64</strong><small>Live lessons</small></div><div class="stat"><strong>8</strong><small>Career modules</small></div><div class="stat"><strong id="publishedTotal">64</strong><small>Published now</small></div><div class="stat"><strong id="plannedTotal">0</strong><small>Planned placeholders</small></div></div><div class="progress-box"><div class="progress-head"><span>Curriculum published</span><strong id="buildPercent">100%</strong></div><div class="meter"><span id="buildMeter" style="width:100%"></span></div><small>All 8 modules and 64 roadmap lessons are live.</small></div><div class="progress-box"><div class="progress-head"><span>Your course progress</span><strong id="availableProgress">0 / 64</strong></div><div class="meter"><span id="availableMeter"></span></div><small>Lesson completion is saved on this device.</small></div></aside>
       </div>
     </section>
 
-    <section class="wrap roadmap-strip" aria-label="Career milestones">
-      <div class="milestone current"><b>0–20%</b><span>Foundation</span></div>
-      <div class="milestone"><b>20–40%</b><span>Skill & Presence</span></div>
-      <div class="milestone"><b>40–60%</b><span>Client Ready</span></div>
-      <div class="milestone"><b>60–80%</b><span>Professional</span></div>
-      <div class="milestone"><b>80–100%</b><span>Career Growth</span></div>
-    </section>
+    <section class="wrap roadmap-strip" aria-label="Career milestones"><div class="milestone current"><b>0–20%</b><span>Foundation</span></div><div class="milestone"><b>20–40%</b><span>Skill & Presence</span></div><div class="milestone"><b>40–60%</b><span>Client Ready</span></div><div class="milestone"><b>60–80%</b><span>Professional</span></div><div class="milestone"><b>80–100%</b><span>Career Growth</span></div></section>
 
-    <section class="wrap" id="curriculum">
-      <div class="section-head">
-        <div>
-          <span class="eyebrow">8 MODULES · 64 LESSONS</span>
-          <h2>The complete curriculum</h2>
-          <p>Every lesson has a defined place in the journey. “Planned” means the topic belongs in the curriculum but the full lesson page has not been published yet.</p>
-        </div>
-        <input class="filter" id="lessonFilter" type="search" placeholder="Filter modules or lesson titles..." aria-label="Filter curriculum" />
-      </div>
-      <div class="modules" id="modules"></div>
-    </section>
+    <section class="wrap" id="curriculum"><div class="section-head"><div><span class="eyebrow">8 MODULES · 64 LIVE LESSONS</span><h2>The complete curriculum</h2><p>Every module is now live. Open any lesson for structured explanations, practical frameworks, realistic client scenarios, action steps, quiz, notes, completion tracking and premium interactive motion.</p></div><input class="filter" id="lessonFilter" type="search" placeholder="Filter modules or lesson titles..." aria-label="Filter curriculum" /></div><div class="modules" id="modules"></div></section>
 
     <section class="wrap survival">
-      <span class="eyebrow">REAL-LIFE FREELANCER SURVIVAL</span>
-      <div class="section-head" style="margin-bottom:0">
-        <div>
-          <h2>Because real client work is not always clean.</h2>
-          <p>The core modules will include practical case-based coverage for situations freelancers actually face—not only theory.</p>
-        </div>
-      </div>
+      <span class="eyebrow">REAL-LIFE FREELANCER SURVIVAL LAB</span>
+      <div class="section-head" style="margin-bottom:0"><div><h2>The part where freelancing stops looking clean.</h2><p>Step into realistic messages, pressure, uncertainty and consequences: ghosting, late payment, scope creep, endless revisions, scams, cancellation, bad feedback, confidentiality, burnout and more. Choose what you would do, then see the professional reasoning.</p></div><a class="primary" href="survival.html" style="white-space:nowrap">Enter Survival Lab →</a></div>
       <div class="survival-grid" id="survivalTopics"></div>
     </section>
   </main>
 
-  <footer>
-    <div class="wrap footer-inner">
-      <div><strong>Freelancing Career Mastery</strong><p>Structured learning from fundamentals to professional growth.</p></div>
-      <a href="#curriculum">View curriculum ↑</a>
-    </div>
-  </footer>
+  <footer><div class="wrap footer-inner"><div><strong>Freelancing Career Mastery</strong><p>Structured learning from fundamentals to professional growth.</p></div><a href="#curriculum">View curriculum ↑</a></div></footer>
 
   <script src="course-data.js"></script>
+  <script src="course-live.js"></script>
   <script src="dashboard.js"></script>
 </body>
 </html>
