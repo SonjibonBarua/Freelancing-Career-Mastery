@@ -105,4 +105,11 @@
 
   const topics = window.REAL_LIFE_TOPICS || [];
   document.getElementById('survivalTopics').innerHTML = topics.map(t => `<span class="topic">${t}</span>`).join('');
+
+  if(!document.querySelector('script[data-premium-motion-loader]')){
+    const premium=document.createElement('script');
+    premium.src='premium-motion.js';
+    premium.dataset.premiumMotionLoader='true';
+    document.body.appendChild(premium);
+  }
 })();
