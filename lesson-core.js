@@ -104,6 +104,11 @@
 
   document.addEventListener('keydown',e=>{const typing=['INPUT','TEXTAREA'].includes(document.activeElement.tagName);if(e.key==='d'&&!typing){themeToggle?.click()}if(e.key==='Escape')closeSidebar()});
 
+  if(lesson==='lesson-06'){
+    const next=$('.nav-lesson.next');
+    if(next){next.classList.remove('disabled');next.href='lesson.html?lesson=7';next.innerHTML='<small>NEXT · MODULE 2 · LESSON 7</small><strong>Choosing a Freelancing Skill Strategically →</strong>'}
+  }
+
   if(!document.querySelector('script[data-premium-motion-loader]')){
     const premium=document.createElement('script');
     premium.src='premium-motion.js';
