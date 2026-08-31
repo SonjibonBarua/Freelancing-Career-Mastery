@@ -123,4 +123,13 @@
   else {
     const course=document.createElement('script');course.src='course-data.js';course.dataset.trainingCourseData='true';course.onload=loadTraining;document.body.appendChild(course);
   }
+
+  function loadMediaSystem(){
+    if(document.querySelector('script[data-media-system-loader]')) return;
+    const boot=()=>{if(document.querySelector('script[data-media-system-loader]'))return;const media=document.createElement('script');media.src='media-system.js';media.dataset.mediaSystemLoader='true';document.body.appendChild(media)};
+    if(window.LESSON_MEDIA){boot();return;}
+    if(document.querySelector('script[data-media-data-loader]'))return;
+    const data=document.createElement('script');data.src='media-data.js';data.dataset.mediaDataLoader='true';data.onload=boot;document.body.appendChild(data);
+  }
+  loadMediaSystem();
 })();
