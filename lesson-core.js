@@ -131,14 +131,25 @@
     workspace.dataset.learningWorkspaceLoader='true';
     document.body.appendChild(workspace);
   }
-  loadWorkspace();
 
-  function loadMediaSystem(){
-    if(document.querySelector('script[data-media-system-loader]')) return;
-    const boot=()=>{if(document.querySelector('script[data-media-system-loader]'))return;const media=document.createElement('script');media.src='media-system.js';media.dataset.mediaSystemLoader='true';document.body.appendChild(media)};
-    if(window.LESSON_MEDIA){boot();return;}
-    if(document.querySelector('script[data-media-data-loader]'))return;
-    const data=document.createElement('script');data.src='media-data.js';data.dataset.mediaDataLoader='true';data.onload=boot;document.body.appendChild(data);
+  function loadMediaThenWorkspace(){
+    const bootMedia=()=>{
+      const existing=document.querySelector('script[data-media-system-loader]');
+      if(existing){if(document.documentElement.dataset.lessonMediaReady)loadWorkspace();else existing.addEventListener('load',loadWorkspace,{once:true});return;}
+      const media=document.createElement('script');
+      media.src='media-system.js';
+      media.dataset.mediaSystemLoader='true';
+      media.addEventListener('load',loadWorkspace,{once:true});
+      document.body.appendChild(media);
+    };
+    if(window.LESSON_MEDIA){bootMedia();return;}
+    const existingData=document.querySelector('script[data-media-data-loader]');
+    if(existingData){existingData.addEventListener('load',bootMedia,{once:true});return;}
+    const data=document.createElement('script');
+    data.src='media-data.js';
+    data.dataset.mediaDataLoader='true';
+    data.addEventListener('load',bootMedia,{once:true});
+    document.body.appendChild(data);
   }
-  loadMediaSystem();
+  loadMediaThenWorkspace();
 })();
