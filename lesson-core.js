@@ -115,4 +115,13 @@
     premium.dataset.premiumMotionLoader='true';
     document.body.appendChild(premium);
   }
+
+  function loadTraining(){
+    if(document.querySelector('script[data-training-product-loader]')) return;
+    const training=document.createElement('script');training.src='training-product.js';training.dataset.trainingProductLoader='true';document.body.appendChild(training);
+  }
+  if(window.COURSE_MODULES){loadTraining()}
+  else {
+    const course=document.createElement('script');course.src='course-data.js';course.dataset.trainingCourseData='true';course.onload=loadTraining;document.body.appendChild(course);
+  }
 })();
