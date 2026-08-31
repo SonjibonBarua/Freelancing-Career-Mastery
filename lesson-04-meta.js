@@ -13,16 +13,15 @@
     showToast.timer = setTimeout(() => toast.classList.remove('show'), 2200);
   }
 
+  function replaceClassLabel(node) {
+    if (!node || !node.textContent.includes('Class 11')) return;
+    node.textContent = node.textContent.replace('Class 11', 'Lesson 4');
+  }
+
   function patchCompletionCopy() {
-    if (completionTitle) {
-      completionTitle.textContent = completionTitle.textContent.replace('Class 11', 'Lesson 4');
-    }
-    if (completionText) {
-      completionText.textContent = completionText.textContent.replace('Class 11', 'Lesson 4');
-    }
-    if (markCompleteHero) {
-      markCompleteHero.textContent = markCompleteHero.textContent.replace('Class 11', 'Lesson 4');
-    }
+    replaceClassLabel(completionTitle);
+    replaceClassLabel(completionText);
+    replaceClassLabel(markCompleteHero);
   }
 
   [completionTitle, completionText, markCompleteHero].filter(Boolean).forEach((node) => {
