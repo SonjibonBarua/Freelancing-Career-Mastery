@@ -132,6 +132,17 @@
     document.body.appendChild(workspace);
   }
 
+  function loadVideoRegistry(callback){
+    if(window.LESSON_MEDIA?.[64]?.video){callback();return;}
+    const existing=document.querySelector('script[data-lesson-videos-loader]');
+    if(existing){existing.addEventListener('load',callback,{once:true});return;}
+    const videos=document.createElement('script');
+    videos.src='lesson-videos.js';
+    videos.dataset.lessonVideosLoader='true';
+    videos.addEventListener('load',callback,{once:true});
+    document.body.appendChild(videos);
+  }
+
   function loadMediaThenWorkspace(){
     const bootMedia=()=>{
       const existing=document.querySelector('script[data-media-system-loader]');
@@ -142,13 +153,14 @@
       media.addEventListener('load',loadWorkspace,{once:true});
       document.body.appendChild(media);
     };
-    if(window.LESSON_MEDIA){bootMedia();return;}
+    const afterMediaData=()=>loadVideoRegistry(bootMedia);
+    if(window.LESSON_MEDIA){afterMediaData();return;}
     const existingData=document.querySelector('script[data-media-data-loader]');
-    if(existingData){existingData.addEventListener('load',bootMedia,{once:true});return;}
+    if(existingData){existingData.addEventListener('load',afterMediaData,{once:true});return;}
     const data=document.createElement('script');
     data.src='media-data.js';
     data.dataset.mediaDataLoader='true';
-    data.addEventListener('load',bootMedia,{once:true});
+    data.addEventListener('load',afterMediaData,{once:true});
     document.body.appendChild(data);
   }
   loadMediaThenWorkspace();
