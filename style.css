@@ -38,15 +38,15 @@ footer{border-top:1px solid var(--line);background:var(--surface)}.footer-inner{
   .sidebar,.topbar,.progress,.hero-actions,.lesson-outline,.search-results-bar,.course-nav,.footer-links,.complete-btn,.mobile-overlay,.toast,.no-results{display:none!important}
   .site-shell{margin-left:0}.content-width{width:100%;max-width:none}.hero{background:#fff!important;color:#111!important;border-bottom:2px solid #ddd}.hero-inner{padding:28px 0}.hero h1{font-size:38px;color:#111}.hero h1 span,.breadcrumb,.eyebrow,.hero-copy{color:#333!important}.lesson-layout{display:block}.section{padding:28px 0;break-inside:avoid}.phase-card,.lesson-card,.takeaway,.faq-item,.learning-goals,.mindset-panel,.completion-card{box-shadow:none!important;break-inside:avoid}.mindset-panel{background:#f2f2f2!important;color:#111!important}.mindset-panel p{color:#444!important}.reveal{opacity:1!important;transform:none!important}body{background:#fff;color:#111}}
 
-/* Dark mode: scroll-reactive hue journey + glassmorphism */
+/* Premium dark mode: scroll hue + contrast-safe glass */
 @property --scroll-hue{syntax:"<number>";inherits:true;initial-value:258}
 body.dark{
   --bg:#070a12;
   --surface:rgba(13,17,31,.58);
   --surface-2:rgba(22,28,47,.48);
-  --text:#f7f9ff;
-  --muted:#c5cbe0;
-  --line:rgba(255,255,255,.11);
+  --text:#f8faff;
+  --muted:#c8cee3;
+  --line:rgba(255,255,255,.12);
   --shadow:0 22px 60px rgba(0,0,0,.30),0 1px 0 rgba(255,255,255,.04) inset;
   --scroll-hue:258;
   background:#070a12;
@@ -59,143 +59,64 @@ body.dark .site-shell main{
     linear-gradient(180deg,#090c18 0%,#101026 18%,#071722 42%,#101a26 56%,#171126 74%,#220e24 88%,#090b14 100%);
   background-repeat:no-repeat;
   background-size:100% 100%;
-  transition:background .25s ease;
 }
 @supports (animation-timeline:scroll()){
   body.dark{animation:darkHueJourney 1ms linear both;animation-timeline:scroll(root block)}
 }
 @keyframes darkHueJourney{
-  0%{--scroll-hue:258}
-  20%{--scroll-hue:236}
-  42%{--scroll-hue:204}
-  62%{--scroll-hue:180}
-  80%{--scroll-hue:286}
-  100%{--scroll-hue:326}
+  0%{--scroll-hue:258}20%{--scroll-hue:236}42%{--scroll-hue:204}62%{--scroll-hue:180}80%{--scroll-hue:286}100%{--scroll-hue:326}
 }
-body.dark .sidebar{
-  background:rgba(7,10,19,.88);
-  border-right-color:rgba(255,255,255,.10);
-  -webkit-backdrop-filter:blur(24px) saturate(135%);
-  backdrop-filter:blur(24px) saturate(135%);
-}
-body.dark .topbar{
-  background:rgba(8,11,21,.72);
-  border-bottom-color:rgba(255,255,255,.10);
-  -webkit-backdrop-filter:blur(24px) saturate(135%);
-  backdrop-filter:blur(24px) saturate(135%);
-}
-body.dark footer{
-  background:rgba(7,10,18,.72);
-  border-top-color:rgba(255,255,255,.10);
-  -webkit-backdrop-filter:blur(20px) saturate(130%);
-  backdrop-filter:blur(20px) saturate(130%);
-}
-body.dark .learning-goals,
-body.dark .phase-card,
-body.dark .compare-strip,
-body.dark .lesson-card,
-body.dark .check-item,
-body.dark .action-progress-card,
-body.dark .takeaway,
-body.dark .faq-item,
-body.dark .completion-card,
-body.dark .course-nav,
-body.dark .outline-card,
-body.dark .side-progress-card,
-body.dark .no-results,
-body.dark .practice-shell,
-body.dark .scenario-box,
-body.dark .quiz-box,
-body.dark .note-box,
-body.dark .flash-face-x,
-body.dark .client-line,
-body.dark .quiz-option-x,
-body.dark .phase-choice,
-body.dark .bookmarks-box-x,
-body.dark .overall-box-x{
-  background:linear-gradient(145deg,rgba(17,22,39,.66),rgba(11,15,28,.48));
-  border-color:rgba(255,255,255,.12);
-  box-shadow:0 18px 46px rgba(0,0,0,.24),0 1px 0 rgba(255,255,255,.045) inset;
-  -webkit-backdrop-filter:blur(18px) saturate(135%);
-  backdrop-filter:blur(18px) saturate(135%);
-}
-body.dark .mindset-panel{
-  background:linear-gradient(135deg,rgba(34,24,66,.70),rgba(20,31,58,.58),rgba(48,20,63,.62));
-  border:1px solid rgba(255,255,255,.12);
-  box-shadow:0 20px 50px rgba(0,0,0,.24),0 1px 0 rgba(255,255,255,.05) inset;
-  -webkit-backdrop-filter:blur(20px) saturate(140%);
-  backdrop-filter:blur(20px) saturate(140%);
-}
-body.dark .mindset-panel p{color:rgba(245,247,255,.82)}
-body.dark .next-card,
-body.dark .compare-strip>span,
-body.dark .progress-ring:after,
-body.dark .course-link>span,
-body.dark .search-box,
-body.dark .outline-tools button,
-body.dark .practice-tabs,
-body.dark .score-pill-x{
-  background:rgba(17,22,39,.52);
-  border-color:rgba(255,255,255,.10);
-  -webkit-backdrop-filter:blur(12px) saturate(125%);
-  backdrop-filter:blur(12px) saturate(125%);
-}
-body.dark .section-heading h2,
-body.dark .learning-goals h3,
-body.dark .phase-card h3,
-body.dark .lesson-card h2,
-body.dark .takeaway h3,
-body.dark .completion-card h2,
-body.dark .course-nav h2,
-body.dark .faq-item summary,
-body.dark .practice-intro h3,
-body.dark .client-line p,
-body.dark .quiz-question-x{
-  color:#fbfcff;
-  text-shadow:0 1px 2px rgba(0,0,0,.20);
-}
-body.dark .section-heading p,
-body.dark .learning-goals ul,
-body.dark .phase-card p,
-body.dark .lesson-card p,
-body.dark .check-item small,
-body.dark .action-progress-card small,
-body.dark .takeaway p,
-body.dark .faq-item p,
-body.dark .completion-card p,
-body.dark .course-nav p,
-body.dark .practice-intro p,
-body.dark .note-meta,
-body.dark .phase-choice small{
-  color:#c7cde0;
-}
-body.dark .practice-tab.active,
-body.dark .flash-back-x,
-body.dark .quiz-option-x.good,
-body.dark .phase-choice.good{
-  box-shadow:0 10px 28px rgba(0,0,0,.18),0 1px 0 rgba(255,255,255,.04) inset;
-}
-body.dark .mobile-learning-nav{
-  background:rgba(8,11,21,.78)!important;
+body.dark .sidebar{background:rgba(7,10,19,.88);border-right-color:rgba(255,255,255,.10);-webkit-backdrop-filter:blur(24px) saturate(135%);backdrop-filter:blur(24px) saturate(135%)}
+body.dark .topbar{background:rgba(8,11,21,.72);border-bottom-color:rgba(255,255,255,.10);-webkit-backdrop-filter:blur(24px) saturate(135%);backdrop-filter:blur(24px) saturate(135%)}
+body.dark footer{background:rgba(7,10,18,.72);border-top-color:rgba(255,255,255,.10);-webkit-backdrop-filter:blur(20px) saturate(130%);backdrop-filter:blur(20px) saturate(130%)}
+body.dark .learning-goals,body.dark .phase-card,body.dark .compare-strip,body.dark .lesson-card,body.dark .check-item,body.dark .action-progress-card,body.dark .takeaway,body.dark .faq-item,body.dark .completion-card,body.dark .course-nav,body.dark .outline-card,body.dark .side-progress-card,body.dark .no-results,body.dark .practice-shell,body.dark .scenario-box,body.dark .quiz-box,body.dark .note-box,body.dark .flash-face-x,body.dark .client-line,body.dark .quiz-option-x,body.dark .phase-choice,body.dark .bookmarks-box-x,body.dark .overall-box-x{
+  background:linear-gradient(145deg,rgba(17,22,39,.66),rgba(11,15,28,.48))!important;
   border-color:rgba(255,255,255,.12)!important;
-  -webkit-backdrop-filter:blur(22px) saturate(135%)!important;
-  backdrop-filter:blur(22px) saturate(135%)!important;
+  box-shadow:0 18px 46px rgba(0,0,0,.24),0 1px 0 rgba(255,255,255,.045) inset!important;
+  -webkit-backdrop-filter:blur(18px) saturate(135%);backdrop-filter:blur(18px) saturate(135%);
+  color:#f8faff!important;
 }
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  body.dark .learning-goals,
-  body.dark .phase-card,
-  body.dark .compare-strip,
-  body.dark .lesson-card,
-  body.dark .check-item,
-  body.dark .action-progress-card,
-  body.dark .takeaway,
-  body.dark .faq-item,
-  body.dark .completion-card,
-  body.dark .course-nav,
-  body.dark .outline-card,
-  body.dark .practice-shell,
-  body.dark .scenario-box,
-  body.dark .quiz-box,
-  body.dark .note-box{background:rgba(12,16,29,.90)}
+body.dark .mindset-panel{background:linear-gradient(135deg,rgba(34,24,66,.70),rgba(20,31,58,.58),rgba(48,20,63,.62))!important;border:1px solid rgba(255,255,255,.12);box-shadow:0 20px 50px rgba(0,0,0,.24),0 1px 0 rgba(255,255,255,.05) inset;-webkit-backdrop-filter:blur(20px) saturate(140%);backdrop-filter:blur(20px) saturate(140%)}
+body.dark .next-card,body.dark .compare-strip>span,body.dark .progress-ring:after,body.dark .course-link>span,body.dark .search-box,body.dark .outline-tools button,body.dark .practice-tabs,body.dark .score-pill-x{background:rgba(17,22,39,.52)!important;border-color:rgba(255,255,255,.10)!important;color:#eef2ff!important}
+
+/* Explicit dark typography overrides: these beat dynamically injected practice styles */
+body.dark .lesson-main h2,body.dark .lesson-main h3,body.dark .lesson-main h4,body.dark .lesson-main strong,
+body.dark .learning-goals h3,body.dark .learning-goals strong,body.dark .phase-card h3,body.dark .phase-card strong,
+body.dark .compare-strip strong,body.dark .lesson-card h2,body.dark .lesson-card strong,body.dark .check-item strong,
+body.dark .action-progress-card strong,body.dark .takeaway h3,body.dark .takeaway strong,body.dark .faq-item summary,
+body.dark .completion-card h2,body.dark .completion-card strong,body.dark .course-nav h2,body.dark .course-nav strong,
+body.dark .next-card strong,body.dark .practice-intro h3,body.dark .practice-intro strong,body.dark .flash-face-x strong,
+body.dark .client-line p,body.dark .scenario-box strong,body.dark .quiz-box strong,body.dark .quiz-question-x,
+body.dark .quiz-option-x,body.dark .phase-choice strong,body.dark .note-box strong,body.dark .overall-box-x strong,
+body.dark .bookmarks-box-x strong,body.dark .topbar-title strong,body.dark .side-brand strong{
+  color:#fbfcff!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.22);
 }
+body.dark .section-heading p,body.dark .learning-goals li,body.dark .learning-goals p,body.dark .phase-card p,
+body.dark .lesson-card p,body.dark .check-item small,body.dark .action-progress-card small,body.dark .takeaway p,
+body.dark .faq-item p,body.dark .completion-card p,body.dark .course-nav p,body.dark .next-card span,
+body.dark .next-card small,body.dark .practice-intro p,body.dark .flash-face-x em,body.dark .phase-choice small,
+body.dark .quiz-option-x small,body.dark .note-meta,body.dark .overall-box-x small,body.dark .bookmarks-head-x,
+body.dark .side-progress-card small,body.dark .course-link small,body.dark .sidebar-footer{
+  color:#cbd2e8!important;
+}
+body.dark .card-label,body.dark .section-tag,body.dark .mini-badge,body.dark .flash-face-x small,
+body.dark .compare-strip small,body.dark .takeaway>span,body.dark .nav-label,body.dark .outline-link.active,
+body.dark .side-progress-head strong,body.dark .progress-ring span,body.dark .overall-head-x strong{
+  color:#b9a8ff!important;
+}
+body.dark .known .icon-box{color:#6ce6ad!important;background:rgba(14,167,106,.18)!important}
+body.dark .unknown .icon-box{color:#ffd27a!important;background:rgba(245,158,11,.17)!important}
+body.dark .phase-choice[data-choice='known'] b{color:#79edb8!important;background:rgba(14,167,106,.18)!important}
+body.dark .phase-choice[data-choice='unknown'] b{color:#ffd27a!important;background:rgba(245,158,11,.17)!important}
+body.dark .practice-tab{color:#b9c0d8!important}
+body.dark .practice-tab.active{color:#d3c8ff!important;background:rgba(255,255,255,.08)!important}
+body.dark .quiz-option-x i{color:#eef2ff!important;background:rgba(255,255,255,.08)!important}
+body.dark .note-box textarea{background:rgba(7,11,22,.46)!important;color:#f8faff!important;border-color:rgba(255,255,255,.14)!important;caret-color:#c9bcff}
+body.dark .note-box textarea::placeholder{color:#929bb8!important}
+body.dark .outline-tools button,body.dark .top-search,body.dark .theme-toggle,body.dark .top-actions .icon-btn{color:#f2f5ff!important}
+body.dark .mindset-panel h2,body.dark .mindset-panel p,body.dark .mindset-panel strong{color:#fbfcff!important}
+body.dark .mobile-learning-nav{background:rgba(8,11,21,.78)!important;border-color:rgba(255,255,255,.12)!important;-webkit-backdrop-filter:blur(22px) saturate(135%)!important;backdrop-filter:blur(22px) saturate(135%)!important}
+body.dark .mobile-learning-nav a,body.dark .mobile-learning-nav button{color:#cbd2e8!important}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){body.dark .learning-goals,body.dark .phase-card,body.dark .compare-strip,body.dark .lesson-card,body.dark .check-item,body.dark .action-progress-card,body.dark .takeaway,body.dark .faq-item,body.dark .completion-card,body.dark .course-nav,body.dark .outline-card,body.dark .practice-shell,body.dark .scenario-box,body.dark .quiz-box,body.dark .note-box{background:rgba(12,16,29,.92)!important}}
 @media(prefers-reduced-motion:reduce){body.dark{animation:none!important}}
