@@ -1,0 +1,20 @@
+/* Small refinements for the reference-inspired learning workspace */
+@media(min-width:1181px){
+  .workspace-ready .topbar{grid-template-columns:minmax(230px,.95fr) minmax(150px,.9fr) minmax(190px,.7fr) auto!important}
+  .workspace-ready .side-nav{margin-top:0}
+  .workspace-ready .sidebar-head{margin-bottom:8px}
+}
+@media(max-width:1180px){.workspace-ready .topbar{grid-template-columns:auto minmax(0,1fr) auto!important}}
+
+/* Multicolor icon identity, inspired by the visual reference */
+.workspace-ready .lesson-diagram .diagram-node:nth-of-type(1) .diagram-icon{color:#72a8ff;background:linear-gradient(145deg,rgba(69,137,255,.24),var(--surface));border-color:rgba(69,137,255,.38);box-shadow:0 10px 24px rgba(69,137,255,.14)}
+.workspace-ready .lesson-diagram .diagram-node:nth-of-type(2) .diagram-icon{color:#66d78b;background:linear-gradient(145deg,rgba(54,196,105,.22),var(--surface));border-color:rgba(54,196,105,.36);box-shadow:0 10px 24px rgba(54,196,105,.13)}
+.workspace-ready .lesson-diagram .diagram-node:nth-of-type(3) .diagram-icon{color:#f1be4d;background:linear-gradient(145deg,rgba(236,177,44,.22),var(--surface));border-color:rgba(236,177,44,.36);box-shadow:0 10px 24px rgba(236,177,44,.13)}
+.workspace-ready .lesson-diagram .diagram-node:nth-of-type(4) .diagram-icon{color:#c27aff;background:linear-gradient(145deg,rgba(175,78,255,.22),var(--surface));border-color:rgba(175,78,255,.36);box-shadow:0 10px 24px rgba(175,78,255,.13)}
+.workspace-ready .lesson-diagram .diagram-node:nth-of-type(5) .diagram-icon{color:#55d7ca;background:linear-gradient(145deg,rgba(51,199,187,.22),var(--surface));border-color:rgba(51,199,187,.36);box-shadow:0 10px 24px rgba(51,199,187,.13)}
+.workspace-ready .lesson-diagram .diagram-node:nth-of-type(6) .diagram-icon{color:#f0a154;background:linear-gradient(145deg,rgba(235,135,48,.22),var(--surface));border-color:rgba(235,135,48,.36);box-shadow:0 10px 24px rgba(235,135,48,.13)}
+.workspace-ready .lesson-diagram .diagram-node:nth-of-type(7) .diagram-icon{color:#ff7f96;background:linear-gradient(145deg,rgba(239,83,112,.22),var(--surface));border-color:rgba(239,83,112,.36);box-shadow:0 10px 24px rgba(239,83,112,.13)}
+.workspace-ready .lesson-diagram .diagram-node:nth-of-type(8) .diagram-icon{color:#8e9cff;background:linear-gradient(145deg,rgba(101,115,255,.22),var(--surface));border-color:rgba(101,115,255,.36);box-shadow:0 10px 24px rgba(101,115,255,.13)}
+.workspace-ready .lesson-diagram .diagram-node.active .diagram-icon{filter:saturate(1.12) brightness(1.06)}
+.workspace-ready .workspace-rail-video{border-color:color-mix(in srgb,var(--primary) 25%,var(--line))}
+.workspace-ready .workspace-video-player{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
