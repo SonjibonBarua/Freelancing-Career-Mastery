@@ -23,9 +23,10 @@ A complete Basic-to-Advanced freelancing learning platform built as 8 career mod
 - Structured objectives, deep dives, concepts and practical frameworks
 - A custom educational visual model for every lesson (64 lesson-wise diagrams)
 - Interactive diagram nodes with mobile-responsive layouts
-- Curated companion videos embedded directly inside selected lessons across all 8 modules
-- Privacy-enhanced YouTube embeds and an official Upwork Vimeo learning resource
-- No external video link is required to watch the embedded companion resources
+- A topic-matched embedded companion video for every lesson across all 8 modules
+- Privacy-enhanced YouTube embeds that play inside the learning workspace
+- Lesson-specific context and “what to watch for” guidance for companion videos
+- No external redirect is required to watch the embedded companion resources
 - Real-life client scenarios in every lesson
 - Applied-output prompts that turn reading into usable work
 - Action checklists and locally saved progress
@@ -44,7 +45,7 @@ A complete Basic-to-Advanced freelancing learning platform built as 8 career mod
 
 Every lesson has a topic-specific visual model, for example: value exchange, mindset ladders, decision trees, portfolio trust stacks, acquisition funnels, proposal architecture, scope-control flows, payment protection, risk radar, retention flywheels, AI workflow, delegation and long-term career strategy.
 
-Companion videos are used selectively where watching a real walkthrough adds learning value rather than simply decorating the page. Current embedded video lessons include foundation, portfolio, personal branding, marketplaces, cold outreach, proposals, project planning, pricing and responsible AI workflows.
+Every lesson also has a companion video selected to reinforce the specific topic. Strong resources may be reused across tightly related lessons, but each placement includes lesson-specific context and three watch-for prompts so the video supports the current learning objective instead of acting like a generic playlist.
 
 ## Real-Life Freelancer Survival Lab
 
