@@ -2,13 +2,13 @@
 
 This repository is being developed as a structured Basic-to-Advanced freelancing learning platform.
 
-## Module 1 — Freelancing Foundation (Lessons 1–6)
-1. Freelancing Explained: Career, Business & Value
-2. Freelancer Mindset: From Earner to Problem Solver
-3. Skills, Services & Client Value
+## Module 1 — Freelancing Foundation (Lessons 1–6) — **Published**
+1. Freelancing Explained: Career, Business & Value — **Published**
+2. Freelancer Mindset: From Earner to Problem Solver — **Published**
+3. Skills, Services & Client Value — **Published**
 4. Understanding Client Problems: Known vs Unknown Phase — **Published**
-5. Choosing Problems Worth Solving
-6. Building Your Personal Freelancing Roadmap
+5. Choosing Problems Worth Solving — **Published**
+6. Building Your Personal Freelancing Roadmap — **Published**
 
 ## Module 2 — Skill, Niche & Portfolio (Lessons 7–13)
 Covers strategic skill selection, deliberate practice, turning skills into services, niche selection, portfolio strategy, case studies, and positioning.
