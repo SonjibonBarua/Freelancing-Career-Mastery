@@ -5,12 +5,12 @@ window.COURSE_MODULES = [
     subtitle: 'Understand how freelancing works, how value is created, and how to think like a problem-solver.',
     level: 'Beginner',
     lessons: [
-      {n:1,title:'Freelancing Explained: Career, Business & Value',status:'planned'},
-      {n:2,title:'Freelancer Mindset: From Earner to Problem Solver',status:'planned'},
-      {n:3,title:'Skills, Services & Client Value',status:'planned'},
+      {n:1,title:'Freelancing Explained: Career, Business & Value',status:'available',href:'lesson-01.html'},
+      {n:2,title:'Freelancer Mindset: From Earner to Problem Solver',status:'available',href:'lesson-02.html'},
+      {n:3,title:'Skills, Services & Client Value',status:'available',href:'lesson-03.html'},
       {n:4,title:'Understanding Client Problems: Known vs Unknown Phase',status:'available',href:'lesson-04.html'},
-      {n:5,title:'Choosing Problems Worth Solving',status:'planned'},
-      {n:6,title:'Building Your Personal Freelancing Roadmap',status:'planned'}
+      {n:5,title:'Choosing Problems Worth Solving',status:'available',href:'lesson-05.html'},
+      {n:6,title:'Building Your Personal Freelancing Roadmap',status:'available',href:'lesson-06.html'}
     ]
   },
   {
@@ -128,9 +128,4 @@ window.COURSE_MODULES = [
     ]
   }
 ];
-
-window.REAL_LIFE_TOPICS = [
-  'Client ghosting', 'Late payment', 'Scope creep', 'Endless revisions', 'Difficult clients',
-  'Fake clients & scams', 'Project cancellation', 'Refunds & disputes', 'Missed deadlines',
-  'Bad feedback', 'Client retention', 'Confidentiality', 'Professional boundaries', 'Burnout'
-];
+window.REAL_LIFE_TOPICS = ['Client ghosting','Late payment','Scope creep','Endless revisions','Difficult clients','Fake clients & scams','Project cancellation','Refunds & disputes','Missed deadlines','Bad feedback','Client retention','Confidentiality','Professional boundaries','Burnout'];
