@@ -8,9 +8,10 @@
   const doneEl=document.getElementById('caseDone');
   const totalEl=document.getElementById('caseTotal');
   const complete=document.getElementById('survivalComplete');
-  const KEY='sure-earning-survival-progress';
-  let progress={};
+  const KEY='sure-earning-survival-progress', REFKEY='sure-earning-survival-reflections';
+  let progress={},reflections={};
   try{progress=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(_){progress={}}
+  try{reflections=JSON.parse(localStorage.getItem(REFKEY)||'{}')}catch(_){reflections={}}
   let active=0;
   const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
 
@@ -20,10 +21,16 @@
   applyTheme(savedTheme||(systemDark?'dark':'light'));
   themeToggle.addEventListener('click',()=>{const next=document.body.classList.contains('dark')?'light':'dark';applyTheme(next);localStorage.setItem('sure-earning-theme',next)});
 
+  function profile(){const p={good:0,mixed:0,bad:0};cases.forEach(c=>{const i=progress[c.id];if(i===undefined)return;const type=c.choices[i]?.type;if(type&&p[type]!==undefined)p[type]++});return p}
+  function ensureProfile(){const card=document.querySelector('.hero-card');if(!card||document.getElementById('judgmentProfile'))return;const box=document.createElement('div');box.className='judgment-profile';box.id='judgmentProfile';box.innerHTML='<div class="profile-head"><strong>Judgment profile</strong><small>Not a grade · a pattern check</small></div><div class="profile-grid"><div class="profile-stat good"><b id="strongCount">0</b><span>Strong</span></div><div class="profile-stat mixed"><b id="mixedCount">0</b><span>Mixed</span></div><div class="profile-stat bad"><b id="riskCount">0</b><span>High-risk</span></div></div>';card.appendChild(box)}
+  ensureProfile();
+
   function updateProgress(){
     const done=cases.filter(c=>progress[c.id]!==undefined).length;
     doneEl.textContent=done;totalEl.textContent=cases.length;meter.style.width=`${cases.length?done/cases.length*100:0}%`;
+    const p=profile();const s=document.getElementById('strongCount'),m=document.getElementById('mixedCount'),r=document.getElementById('riskCount');if(s)s.textContent=p.good;if(m)m.textContent=p.mixed;if(r)r.textContent=p.bad;
     complete.classList.toggle('show',done===cases.length&&cases.length>0);
+    if(done===cases.length&&cases.length>0){const dominant=p.bad>p.good?'Your answers show several pressure points worth revisiting. That is useful evidence: build boundaries, payment systems and response scripts before you need them.':p.mixed>p.good?'You often see the risk but may hesitate on the cleanest professional response. Revisit the mixed cases and turn the debriefs into personal rules.':'Your choices generally protect clarity, boundaries and long-term trust. Keep the scripts flexible and verify the facts of each real situation.';complete.innerHTML=`<span class="case-badge">SURVIVAL LAB COMPLETE</span><h2>You finished all ${cases.length} cases.</h2><p>${dominant}</p><div class="final-profile"><span><b>${p.good}</b> Strong</span><span><b>${p.mixed}</b> Mixed</span><span><b>${p.bad}</b> High-risk</span></div><p class="final-note">The goal was never perfect answers. It was to notice what stress makes you want to do—and replace impulse with a repeatable professional system.</p><a href="index.html">Return to course dashboard →</a>`}
     renderList();
   }
 
@@ -35,8 +42,10 @@
   function typeLabel(type){return type==='good'?'Strong choice':type==='mixed'?'Reasonable, but incomplete':'High-risk choice'}
 
   function renderDebrief(c){
-    debrief.innerHTML=`<h3>What a professional should notice</h3><div class="debrief-grid"><div class="debrief-block"><small>WHAT IS ACTUALLY HAPPENING</small><p>${esc(c.reality)}</p></div><div class="debrief-block"><small>PREVENTION SYSTEM</small><p>${esc(c.prevention)}</p></div><div class="debrief-block"><small>RED FLAGS</small><ul>${c.redFlags.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div class="debrief-block"><small>WHAT TO DO NEXT</small><ul>${c.next.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div><div class="script-box"><strong>Possible response — adapt it to your facts and agreement:</strong>\n\n${esc(c.script)}</div>`;
+    const reflection=reflections[c.id]||'';
+    debrief.innerHTML=`<h3>What a professional should notice</h3><div class="debrief-grid"><div class="debrief-block"><small>WHAT IS ACTUALLY HAPPENING</small><p>${esc(c.reality)}</p></div><div class="debrief-block"><small>PREVENTION SYSTEM</small><p>${esc(c.prevention)}</p></div><div class="debrief-block"><small>RED FLAGS</small><ul>${c.redFlags.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div class="debrief-block"><small>WHAT TO DO NEXT</small><ul>${c.next.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div><div class="script-box"><strong>Possible response — adapt it to your facts and agreement:</strong>\n\n${esc(c.script)}</div><div class="survival-reflection"><span class="case-badge">PERSONAL REFLECTION</span><h4>What pressure in this case could make you react badly?</h4><p>Write the trigger and the rule you want to follow instead. This turns the scenario into a personal operating principle.</p><textarea id="caseReflection" placeholder="Example: When I fear losing the client, I tend to accept extra work too quickly. My rule: pause, check scope, then respond in writing.">${esc(reflection)}</textarea><small id="reflectionStatus">Saved automatically on this device.</small></div>`;
     debrief.classList.add('show');
+    document.getElementById('caseReflection')?.addEventListener('input',e=>{reflections[c.id]=e.target.value;localStorage.setItem(REFKEY,JSON.stringify(reflections));const st=document.getElementById('reflectionStatus');if(st){st.textContent='Saved ✓';clearTimeout(st.t);st.t=setTimeout(()=>st.textContent='Saved automatically on this device.',1200)}})
   }
 
   function choose(index){
