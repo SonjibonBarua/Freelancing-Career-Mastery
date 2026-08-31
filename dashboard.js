@@ -145,6 +145,14 @@
   const topics = window.REAL_LIFE_TOPICS || [];
   document.getElementById('survivalTopics').innerHTML = topics.map(t => `<span class="topic">${t}</span>`).join('');
 
+  if(!document.querySelector('link[data-premium-polish-css]')){
+    const polish=document.createElement('link');
+    polish.rel='stylesheet';
+    polish.href='premium-polish.css';
+    polish.dataset.premiumPolishCss='true';
+    document.head.appendChild(polish);
+  }
+
   if(!document.querySelector('script[data-premium-motion-loader]')){
     const premium=document.createElement('script');
     premium.src='premium-motion.js';
