@@ -13,7 +13,14 @@
   const complete=n=>localStorage.getItem(`sure-earning-lesson-${String(n).padStart(2,'0')}-complete`)==='true'||(n===4&&localStorage.getItem('sure-earning-class11-complete')==='true');
   const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
 
-  function ensureCss(){if($('link[data-workspace-css]'))return;const l=document.createElement('link');l.rel='stylesheet';l.href='learning-workspace.css';l.dataset.workspaceCss='true';document.head.appendChild(l)}
+  function ensureCss(){
+    if(!$('link[data-workspace-css]')){const l=document.createElement('link');l.rel='stylesheet';l.href='learning-workspace.css';l.dataset.workspaceCss='true';document.head.appendChild(l)}
+    if(!$('#workspaceEnhancementCss')){const s=document.createElement('style');s.id='workspaceEnhancementCss';s.textContent=`
+      .workspace-phase-tabs{width:min(100% - 36px,980px);margin:0 auto;padding:10px 0 0;display:flex;gap:5px;overflow:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+      .workspace-phase-tabs::-webkit-scrollbar{display:none}.workspace-phase-tab{flex:0 0 auto;display:flex;align-items:center;gap:7px;padding:11px 13px;border-bottom:2px solid transparent;color:var(--muted);text-decoration:none;font-size:.7rem;font-weight:800;transition:.2s}.workspace-phase-tab i{font-style:normal;color:var(--primary)}.workspace-phase-tab:hover,.workspace-phase-tab.active{color:var(--text);border-bottom-color:var(--primary);background:linear-gradient(180deg,transparent,var(--primary-soft))}
+      @media(max-width:1180px){.workspace-phase-tabs{width:min(100% - 30px,980px)}}@media(max-width:680px){.workspace-phase-tabs{width:calc(100% - 22px);padding-top:6px}.workspace-phase-tab{padding:10px 9px;font-size:.63rem}}
+    `;document.head.appendChild(s)}
+  }
   ensureCss();
 
   function withCourseData(callback){
@@ -30,6 +37,7 @@
     body.classList.add('workspace-ready');
     setupSidebar(modules,currentModule);
     setupTopbar(all,current);
+    setupPhaseTabs();
     setupRightRail(all,current,currentModule);
     setTimeout(()=>$('.workspace-lesson-link.current')?.scrollIntoView({block:'center'}),80);
   }
@@ -61,6 +69,24 @@
     const overall=document.createElement('div');overall.className='workspace-overall';overall.innerHTML=`<small>Overall Progress</small><div class="workspace-overall-meter"><span style="width:${pct}%"></span></div><b>${pct}%</b>`;
     const actions=$('.top-actions',bar);actions?.insertAdjacentElement('beforebegin',overall);
     if(actions&&!$('#workspaceToolsToggle')){const t=document.createElement('button');t.className='icon-btn workspace-tools-toggle';t.id='workspaceToolsToggle';t.type='button';t.setAttribute('aria-label','Open lesson tools');t.textContent='▣';actions.prepend(t)}
+  }
+
+  function setupPhaseTabs(){
+    if($('#workspacePhaseTabs'))return;
+    const hero=$('.hero');if(!hero)return;
+    const candidates=[
+      ['✦','Learn','#overview'],
+      ['✓','Practice',$('#action')?'#action':($('#practice-lab')?'#practice-lab':'#lessonVisualModel')],
+      ['▣','Quiz',$('#quiz')?'#quiz':'#practice-lab'],
+      ['◇','Reflection',$('#notes')?'#notes':'#completion'],
+      ['↗','Resources',$('#video')?'#video':'#lessonVisualModel']
+    ].filter(x=>x[2]&&$(x[2]));
+    if(!candidates.length)return;
+    const tabs=document.createElement('nav');tabs.id='workspacePhaseTabs';tabs.className='workspace-phase-tabs';tabs.setAttribute('aria-label','Lesson learning stages');
+    tabs.innerHTML=candidates.map((x,i)=>`<a class="workspace-phase-tab ${i===0?'active':''}" href="${x[2]}"><i>${x[0]}</i><span>${x[1]}</span></a>`).join('');
+    hero.insertAdjacentElement('afterend',tabs);
+    const map=new Map(candidates.map(x=>[x[2],$(x[2])]));
+    if('IntersectionObserver' in window){const o=new IntersectionObserver(entries=>entries.forEach(e=>{if(!e.isIntersecting)return;$$('.workspace-phase-tab',tabs).forEach(a=>a.classList.toggle('active',a.getAttribute('href')===`#${e.target.id}`))}),{rootMargin:'-22% 0px -65% 0px',threshold:.01});map.forEach(el=>el&&o.observe(el))}
   }
 
   function videoInfo(){
@@ -103,8 +129,7 @@
     addEventListener('scroll',()=>updateReadingProgress(rail),{passive:true});
     const toggle=$('#workspaceToolsToggle');toggle?.addEventListener('click',()=>rail.classList.add('open'));
     $('#workspaceRailClose',rail)?.addEventListener('click',()=>rail.classList.remove('open'));
-    if(innerWidth<=1180){$('#workspaceRailClose',rail).style.display='grid'}
-    addEventListener('resize',()=>{const c=$('#workspaceRailClose',rail);if(c)c.style.display=innerWidth<=1180?'grid':'none'});
+    const renderClose=()=>{const c=$('#workspaceRailClose',rail);if(c)c.style.display=innerWidth<=1180?'grid':'none'};renderClose();addEventListener('resize',renderClose);
   }
 
   function setupRailActions(rail){
@@ -112,7 +137,7 @@
     const favBtn=$('#workspaceFavorite',rail);const renderFav=()=>{const on=fav.includes(lessonNo);if(favBtn){$('i',favBtn).textContent=on?'♥':'♡';$('span',favBtn).textContent=on?'Saved to favorites':'Save lesson to favorites'}};renderFav();
     favBtn?.addEventListener('click',()=>{fav=fav.includes(lessonNo)?fav.filter(n=>n!==lessonNo):[...fav,lessonNo];localStorage.setItem(favKey,JSON.stringify(fav));renderFav()});
     $('#workspaceComplete',rail)?.addEventListener('click',()=>{const btn=$('#completeBtn,#markCompleteHero');btn?.click();setTimeout(()=>{const done=complete(lessonNo);const w=$('#workspaceComplete',rail);if(w)$('span',w).textContent=done?'Mark as incomplete':'Mark lesson complete';const state=$('#workspaceLessonState',rail);if(state)state.textContent=done?'Completed':'In progress';updateReadingProgress(rail)},80)});
-    $('#workspacePrint',rail)?.addEventListener('click',()=>{$('#printBtn')?.click()||window.print()});
+    $('#workspacePrint',rail)?.addEventListener('click',()=>{const b=$('#printBtn');if(b)b.click();else window.print()});
     $('#workspaceCopy',rail)?.addEventListener('click',()=>{const b=$('#copyLinkBtn');if(b)b.click();else navigator.clipboard?.writeText(location.href.split('#')[0])});
     $('#workspaceDashboard',rail)?.addEventListener('click',()=>location.href='index.html');
   }
