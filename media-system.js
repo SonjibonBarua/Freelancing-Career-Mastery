@@ -59,8 +59,8 @@
     const main=$('.lesson-main')||$('article')||$('main');
     if(!main)return;
     const section=document.createElement('section');
-    section.id='lessonVisualModel';section.className='lesson-media-section reveal lesson-section';section.dataset.sectionTitle='Visual model';
-    section.innerHTML=`<div class="lesson-media-card motion-card"><div class="lesson-media-head"><div><span class="lesson-media-kicker">CUSTOM EDUCATIONAL DIAGRAM</span><h3>${esc(spec.title)}</h3><p>${esc(captionFor(type))}</p></div><span class="media-badge">Lesson ${lessonNo} · Visual model</span></div>${diagram()}<div class="diagram-focus" id="diagramFocus"><b>How to use it:</b><span>${esc(captionFor(type))}</span></div></div>`;
+    section.id='lessonVisualModel';section.className='lesson-media-section reveal visible lesson-section';section.dataset.sectionTitle='Visual model';
+    section.innerHTML=`<div class="lesson-media-card motion-card motion-item motion-visible"><div class="lesson-media-head"><div><span class="lesson-media-kicker">CUSTOM EDUCATIONAL DIAGRAM</span><h3>${esc(spec.title)}</h3><p>${esc(captionFor(type))}</p></div><span class="media-badge">Lesson ${lessonNo} · Visual model</span></div>${diagram()}<div class="diagram-focus" id="diagramFocus"><b>How to use it:</b><span>${esc(captionFor(type))}</span></div></div>`;
     if(firstSection) firstSection.insertAdjacentElement('afterend',section); else main.prepend(section);
     const focus=$('#diagramFocus',section);
     $$('[data-media-node]',section).forEach((el,i)=>{
@@ -81,9 +81,9 @@
   function insertVideo(){
     if(!spec.video)return;
     const old=$('#video');if(old)old.remove();
-    const section=document.createElement('section');section.id='video';section.className='lesson-video-section reveal lesson-section';section.dataset.sectionTitle='Companion video';
+    const section=document.createElement('section');section.id='video';section.className='lesson-video-section reveal visible lesson-section';section.dataset.sectionTitle='Companion video';
     const v=spec.video;
-    section.innerHTML=`<div class="inline-video-card motion-card"><div class="inline-video-copy"><span class="video-chip">▶ WATCH INSIDE THIS LESSON</span><h3>${esc(v.title)}</h3><p><strong>${esc(v.channel)}</strong> · ${esc(v.note)}</p><ul>${(v.watch||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul><p class="video-privacy-note">The video plays directly inside this course page using YouTube's privacy-enhanced embed. Platform interfaces and policies can change, so verify current rules when the lesson depends on them.</p></div><div class="inline-video-player"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.id)}?rel=0" title="${esc(v.title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>`;
+    section.innerHTML=`<div class="inline-video-card motion-card motion-item motion-visible"><div class="inline-video-copy"><span class="video-chip">▶ WATCH INSIDE THIS LESSON</span><h3>${esc(v.title)}</h3><p><strong>${esc(v.channel)}</strong> · ${esc(v.note)}</p><ul>${(v.watch||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul><p class="video-privacy-note">The video plays directly inside this course page using YouTube's privacy-enhanced embed. Platform interfaces and policies can change, so verify current rules when the lesson depends on them.</p></div><div class="inline-video-player"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.id)}?rel=0" title="${esc(v.title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>`;
     const anchor=$('#summary')||$('#notes')||$('#completion');
     if(anchor)anchor.insertAdjacentElement('beforebegin',section);
     else ($('.lesson-main')||$('article')||$('main'))?.appendChild(section);
