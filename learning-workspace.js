@@ -37,8 +37,8 @@
     body.classList.add('workspace-ready');
     setupSidebar(modules,currentModule);
     setupTopbar(all,current);
-    setupPhaseTabs();
     setupRightRail(all,current,currentModule);
+    setupPhaseTabs();
     setTimeout(()=>$('.workspace-lesson-link.current')?.scrollIntoView({block:'center'}),80);
   }
 
@@ -79,7 +79,7 @@
       ['✓','Practice',$('#action')?'#action':($('#practice-lab')?'#practice-lab':'#lessonVisualModel')],
       ['▣','Quiz',$('#quiz')?'#quiz':'#practice-lab'],
       ['◇','Reflection',$('#notes')?'#notes':'#completion'],
-      ['↗','Resources',$('#video')?'#video':'#lessonVisualModel']
+      ['↗','Resources','#lessonVisualModel']
     ].filter(x=>x[2]&&$(x[2]));
     if(!candidates.length)return;
     const tabs=document.createElement('nav');tabs.id='workspacePhaseTabs';tabs.className='workspace-phase-tabs';tabs.setAttribute('aria-label','Lesson learning stages');
