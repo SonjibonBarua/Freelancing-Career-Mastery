@@ -93,6 +93,15 @@
     document.body.appendChild(premium);
   }
 
+  function loadWorkspace(){
+    if(document.querySelector('script[data-learning-workspace-loader]'))return;
+    const workspace=document.createElement('script');
+    workspace.src='learning-workspace.js';
+    workspace.dataset.learningWorkspaceLoader='true';
+    document.body.appendChild(workspace);
+  }
+  loadWorkspace();
+
   function loadMediaSystem(){
     const boot=()=>{if(document.querySelector('script[data-media-system-loader]'))return;const media=document.createElement('script');media.src='media-system.js';media.dataset.mediaSystemLoader='true';document.body.appendChild(media)};
     if(window.LESSON_MEDIA){boot();return;}
