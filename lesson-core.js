@@ -124,6 +124,15 @@
     const course=document.createElement('script');course.src='course-data.js';course.dataset.trainingCourseData='true';course.onload=loadTraining;document.body.appendChild(course);
   }
 
+  function loadWorkspace(){
+    if(document.querySelector('script[data-learning-workspace-loader]')) return;
+    const workspace=document.createElement('script');
+    workspace.src='learning-workspace.js';
+    workspace.dataset.learningWorkspaceLoader='true';
+    document.body.appendChild(workspace);
+  }
+  loadWorkspace();
+
   function loadMediaSystem(){
     if(document.querySelector('script[data-media-system-loader]')) return;
     const boot=()=>{if(document.querySelector('script[data-media-system-loader]'))return;const media=document.createElement('script');media.src='media-system.js';media.dataset.mediaSystemLoader='true';document.body.appendChild(media)};
