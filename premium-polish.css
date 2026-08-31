@@ -1,0 +1,236 @@
+/* Premium Light + Mobile polish layer */
+
+/* ---------- Light mode: richer visual hierarchy ---------- */
+body:not(.dark){
+  --premium-ink:#121a2d;
+  --premium-muted:#5f6c82;
+  --premium-violet:#6850df;
+  --premium-cyan:#398fa2;
+  --premium-glass:rgba(255,255,255,.72);
+  --premium-glass-strong:rgba(255,255,255,.84);
+  --premium-edge:rgba(103,82,184,.14);
+  --premium-shadow:0 28px 70px rgba(83,72,137,.11),0 8px 24px rgba(75,104,147,.06),inset 0 1px 0 rgba(255,255,255,.92);
+}
+
+/* Aurora layer that feels brighter and more dimensional than a flat white page */
+body:not(.dark)::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(700px 520px at 18% 12%,rgba(180,158,255,.20),transparent 72%),
+    radial-gradient(620px 500px at 86% 27%,rgba(120,211,239,.16),transparent 72%),
+    radial-gradient(700px 560px at 22% 76%,rgba(126,224,190,.13),transparent 72%),
+    radial-gradient(580px 460px at 82% 88%,rgba(255,176,207,.13),transparent 72%);
+  filter:saturate(108%);
+}
+
+/* Lesson hero: pearlescent light-mode treatment */
+body.lesson-page:not(.dark) .hero{
+  color:var(--premium-ink);
+  background:
+    radial-gradient(620px 320px at 14% 12%,rgba(255,255,255,.90),transparent 62%),
+    radial-gradient(520px 360px at 88% 22%,rgba(160,209,255,.35),transparent 66%),
+    radial-gradient(560px 360px at 72% 96%,rgba(184,160,255,.30),transparent 67%),
+    linear-gradient(135deg,#f7f4ff 0%,#eef7ff 48%,#f6f3ff 100%);
+  border-bottom:1px solid rgba(102,82,180,.12);
+  box-shadow:inset 0 -1px 0 rgba(255,255,255,.75),0 22px 60px rgba(89,75,145,.08);
+}
+body.lesson-page:not(.dark) .hero:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:linear-gradient(115deg,rgba(255,255,255,.58),transparent 36%,rgba(119,90,224,.035) 64%,rgba(255,255,255,.38));
+}
+body.lesson-page:not(.dark) .hero h1{color:var(--premium-ink);text-shadow:0 1px 0 rgba(255,255,255,.8)}
+body.lesson-page:not(.dark) .hero h1 span{
+  background:linear-gradient(90deg,#5f43d4,#7c67ea 48%,#318ca0);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+body.lesson-page:not(.dark) .hero-copy{color:#526177}
+body.lesson-page:not(.dark) .hero .breadcrumb{color:#6c7387}
+body.lesson-page:not(.dark) .hero .eyebrow{color:#6046d5}
+body.lesson-page:not(.dark) .hero .primary-btn{background:linear-gradient(135deg,#6449dc,#8069ed);color:#fff;box-shadow:0 14px 34px rgba(96,72,210,.22)}
+body.lesson-page:not(.dark) .hero .ghost-btn{background:rgba(255,255,255,.58);color:#4c3b9c;border-color:rgba(95,72,182,.18);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+body.lesson-page:not(.dark) .hero .reading-time{color:#6c7487}
+body.lesson-page:not(.dark) .premium-hero-viz .orbit{stroke:rgba(92,68,172,.22)}
+body.lesson-page:not(.dark) .premium-hero-viz .core{fill:rgba(255,255,255,.38);stroke:rgba(92,68,172,.19)}
+body.lesson-page:not(.dark) .premium-hero-viz .dot{fill:#6c52dc;filter:drop-shadow(0 0 8px rgba(108,82,220,.28))}
+body.lesson-page:not(.dark) .premium-orb.one{background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.92),rgba(151,126,243,.25) 42%,transparent 72%)}
+body.lesson-page:not(.dark) .premium-orb.two{background:radial-gradient(circle,rgba(74,185,203,.20),transparent 68%)}
+body.lesson-page:not(.dark) .premium-orb.three{border-color:rgba(99,77,177,.12);background:rgba(255,255,255,.24);box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}
+
+/* Frosted surfaces for lesson content */
+body.lesson-page:not(.dark) :is(
+  .learning-goals,.concept-card,.example-card,.framework-card,.mistake-card,.reflection-card,.quiz-card,.lesson-note,
+  .decision-card,.framework-step,.action-item,.nav-lesson,.phase-card,.compare-strip,.lesson-card,.check-item,.action-progress-card,
+  .takeaway,.faq-item,.completion-card,.course-nav,.practice-shell,.scenario-box,.quiz-box,.note-box,.flash-face-x,.client-line,
+  .phase-choice,.outline-card,.side-progress-card,.bookmarks-box-x,.overall-box-x,.lesson-complete-panel
+){
+  background:linear-gradient(145deg,rgba(255,255,255,.79),rgba(250,251,255,.61))!important;
+  border-color:var(--premium-edge)!important;
+  box-shadow:var(--premium-shadow)!important;
+  -webkit-backdrop-filter:blur(20px) saturate(128%);backdrop-filter:blur(20px) saturate(128%);
+}
+
+/* A small optical edge/highlight makes glass look more physical */
+body.lesson-page:not(.dark) :is(.concept-card,.example-card,.mistake-card,.decision-card,.quiz-card,.learning-goals,.lesson-card,.takeaway,.completion-card,.lesson-complete-panel,.nav-lesson){
+  position:relative;
+}
+body.lesson-page:not(.dark) :is(.concept-card,.example-card,.mistake-card,.decision-card,.quiz-card,.learning-goals,.lesson-card,.takeaway,.completion-card,.lesson-complete-panel,.nav-lesson):before{
+  content:"";position:absolute;left:12%;right:12%;top:0;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.98),transparent);opacity:.84;
+}
+body.lesson-page:not(.dark) .section-heading h2,
+body.lesson-page:not(.dark) :is(.concept-card,.example-card,.framework-card,.mistake-card,.decision-card,.quiz-card,.lesson-card,.takeaway,.completion-card,.lesson-complete-panel) h3,
+body.lesson-page:not(.dark) :is(.lesson-card,.completion-card,.lesson-complete-panel) h2{color:var(--premium-ink)}
+body.lesson-page:not(.dark) :is(.section-heading,.concept-card,.example-card,.framework-card,.mistake-card,.decision-card,.lesson-card,.takeaway,.faq-item,.completion-card,.lesson-complete-panel) p{color:var(--premium-muted)}
+
+/* More refined interactive states in light mode */
+@media(hover:hover) and (pointer:fine){
+  body.lesson-page:not(.dark) .motion-card:hover{
+    border-color:rgba(103,79,210,.24)!important;
+    box-shadow:0 30px 72px rgba(81,66,153,.15),0 12px 28px rgba(65,127,154,.07),inset 0 1px 0 rgba(255,255,255,.98)!important;
+  }
+  body.lesson-page:not(.dark) .motion-card:hover:after{opacity:.86}
+  body.lesson-page:not(.dark) .nav-lesson:hover{transform:translateY(-3px);border-color:rgba(103,79,210,.26)!important}
+  body.lesson-page:not(.dark) .outline-link:hover{background:rgba(105,80,232,.065)}
+}
+body.lesson-page:not(.dark) .motion-card:after{
+  background:radial-gradient(360px circle at var(--card-x,50%) var(--card-y,50%),rgba(255,255,255,.72),rgba(135,112,229,.055) 35%,transparent 56%);
+}
+body.lesson-page:not(.dark) .premium-journey{
+  background:linear-gradient(145deg,rgba(255,255,255,.81),rgba(247,249,255,.68));
+  border-color:rgba(95,76,164,.14);box-shadow:0 16px 44px rgba(72,66,118,.10),inset 0 1px 0 rgba(255,255,255,.92);
+}
+body.lesson-page:not(.dark) .premium-step i{background:rgba(255,255,255,.86)}
+body.lesson-page:not(.dark) .section-bookmark,
+body.lesson-page:not(.dark) .focus-mode-btn{background:rgba(255,255,255,.76);border-color:rgba(95,76,164,.14);box-shadow:0 9px 24px rgba(73,66,125,.08)}
+body.lesson-page:not(.dark) .premium-continue{box-shadow:0 18px 42px rgba(87,67,174,.20),inset 0 1px 0 rgba(255,255,255,.24)}
+body.lesson-page:not(.dark) .outline-card{background:rgba(255,255,255,.66)!important}
+body.lesson-page:not(.dark) .sidebar{background:rgba(248,249,255,.78);border-right-color:rgba(92,75,156,.11);-webkit-backdrop-filter:blur(24px) saturate(125%);backdrop-filter:blur(24px) saturate(125%)}
+body.lesson-page:not(.dark) .topbar{background:rgba(255,255,255,.68);border-bottom-color:rgba(92,75,156,.10);box-shadow:0 8px 30px rgba(80,72,128,.055);-webkit-backdrop-filter:blur(24px) saturate(130%);backdrop-filter:blur(24px) saturate(130%)}
+body.lesson-page:not(.dark) footer{background:rgba(255,255,255,.58);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+body.lesson-page:not(.dark) .quiz-option{background:rgba(249,250,255,.76)}
+body.lesson-page:not(.dark) .quiz-option.selected{box-shadow:0 8px 20px rgba(105,80,232,.07)}
+body.lesson-page:not(.dark) :is(.reflection-card textarea,.lesson-note textarea,.note-box textarea){background:rgba(255,255,255,.65)!important;border-color:rgba(99,80,170,.14)!important;box-shadow:inset 0 1px 2px rgba(72,67,118,.035)}
+body.lesson-page:not(.dark) :is(.reflection-card textarea,.lesson-note textarea,.note-box textarea):focus{background:rgba(255,255,255,.86)!important;box-shadow:0 0 0 4px rgba(105,80,232,.08),inset 0 1px 0 rgba(255,255,255,.95)!important}
+
+/* ---------- Dashboard light-mode premium treatment ---------- */
+body:not(.dark) :is(.hero-card,.module,.survival,.search-panel,.roadmap-strip){
+  background:linear-gradient(145deg,rgba(255,255,255,.78),rgba(248,250,255,.61));
+  border-color:rgba(93,76,162,.13);
+  box-shadow:0 28px 70px rgba(82,71,137,.10),0 8px 24px rgba(67,111,143,.055),inset 0 1px 0 rgba(255,255,255,.96);
+}
+body:not(.dark) .topbar{box-shadow:0 8px 32px rgba(73,67,117,.05)}
+body:not(.dark) .hero-card{position:relative;overflow:hidden}
+body:not(.dark) .hero-card:before{content:"";position:absolute;right:-80px;top:-90px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(143,116,238,.16),transparent 70%);pointer-events:none}
+body:not(.dark) .stat{background:rgba(255,255,255,.52);box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
+body:not(.dark) .module-number{box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 8px 20px rgba(105,80,232,.08)}
+body:not(.dark) .lesson-row.available{background:linear-gradient(90deg,rgba(112,83,231,.095),rgba(61,163,174,.055));box-shadow:inset 0 1px 0 rgba(255,255,255,.82)}
+body:not(.dark) .lesson-row.done{background:linear-gradient(90deg,rgba(32,167,112,.10),rgba(84,184,171,.055))}
+body:not(.dark) .topic{background:rgba(255,255,255,.52);box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
+body:not(.dark) .roadmap-strip{position:relative;overflow:hidden}
+body:not(.dark) .roadmap-strip:before{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 0 38%,rgba(255,255,255,.48) 48%,transparent 58%);transform:translateX(-110%);animation:roadmapPearl 8s ease-in-out infinite;pointer-events:none}
+@keyframes roadmapPearl{0%,60%{transform:translateX(-110%)}100%{transform:translateX(110%)}}
+@media(hover:hover) and (pointer:fine){
+  body:not(.dark) .lesson-row.available:hover{transform:translateX(3px);box-shadow:0 10px 26px rgba(91,72,163,.075),inset 0 1px 0 rgba(255,255,255,.9)}
+  body:not(.dark) .topic:hover{border-color:rgba(103,79,210,.22);transform:translateY(-2px)}
+}
+body:not(.dark) .topic{transition:.24s cubic-bezier(.2,.8,.2,1)}
+
+/* ---------- Mobile and tablet polish ---------- */
+@media(max-width:980px){
+  body.lesson-page .topbar{padding-inline:14px}
+  body.lesson-page .top-actions{gap:6px}
+  body.lesson-page .top-actions .icon-btn,body.lesson-page .theme-toggle{width:36px;height:36px}
+  body.lesson-page .hero-inner{padding-top:70px;padding-bottom:78px}
+  body.lesson-page .lesson-layout{gap:0}
+  body.lesson-page .section{padding-top:62px;padding-bottom:62px}
+  body.lesson-page .premium-journey{border-radius:14px}
+  body.lesson-page .premium-time-left strong{font-size:.7rem}
+  body.lesson-page .premium-continue{right:12px;bottom:76px;min-height:42px}
+  body.lesson-page .sidebar{box-shadow:24px 0 70px rgba(34,31,60,.16)}
+  body.lesson-page .mobile-overlay.show{-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+}
+
+@media(max-width:720px){
+  body.lesson-page .content-width{width:min(100% - 28px,1110px)}
+  body.lesson-page .hero-inner{padding:62px 0 68px}
+  body.lesson-page .hero h1{font-size:clamp(2.35rem,12.8vw,3.8rem);line-height:1.01;letter-spacing:-.05em}
+  body.lesson-page .hero-copy{font-size:.96rem;line-height:1.65;margin-top:20px}
+  body.lesson-page .breadcrumb{font-size:.68rem;flex-wrap:wrap}
+  body.lesson-page .eyebrow{font-size:.64rem;letter-spacing:.10em}
+  body.lesson-page .section{padding:54px 0}
+  body.lesson-page .section-heading{margin-bottom:26px}
+  body.lesson-page .section-heading h2{font-size:clamp(1.75rem,8.5vw,2.35rem)}
+  body.lesson-page :is(.concept-card,.example-card,.framework-card,.mistake-card,.reflection-card,.quiz-card,.lesson-note,.decision-card,.learning-goals,.lesson-card,.takeaway,.completion-card,.lesson-complete-panel){border-radius:18px;padding:20px}
+  body.lesson-page .framework-step{padding:16px;grid-template-columns:38px 1fr}
+  body.lesson-page .framework-step>span{width:36px;height:36px}
+  body.lesson-page .action-item{padding:15px}
+  body.lesson-page .quiz-option{padding:12px 11px}
+  body.lesson-page .section-bookmark{top:-2px;right:0}
+  body.lesson-page .prev-next{gap:10px;margin-bottom:64px}
+  body.lesson-page .nav-lesson{padding:17px}
+  body.lesson-page .premium-continue{bottom:14px;right:14px;border-radius:50%;width:46px;height:46px;padding:0;display:grid;place-items:center}
+  body.lesson-page .premium-continue i{width:auto;height:auto;background:transparent;font-size:1.05rem}
+  body.lesson-page .premium-continue span{display:none}
+  body.lesson-page .toast{left:14px;right:14px;bottom:72px;text-align:center}
+
+  body:not(.dark) .hero{padding-top:64px}
+  body:not(.dark) .hero-grid{gap:28px}
+  body:not(.dark) .hero h1{font-size:clamp(2.55rem,13.2vw,4rem)}
+  body:not(.dark) .hero-copy{font-size:.98rem}
+  body:not(.dark) .hero-card{padding:20px;border-radius:20px}
+  body:not(.dark) .roadmap-strip{margin-top:10px;margin-bottom:38px;padding:12px}
+  body:not(.dark) .milestone{padding:10px 7px}
+  body:not(.dark) .module{border-radius:18px}
+  body:not(.dark) .module-head{padding:16px!important;padding-right:50px!important;gap:12px}
+  body:not(.dark) .lesson-row{padding:11px 8px}
+  body:not(.dark) .survival{margin-bottom:60px}
+}
+
+@media(max-width:520px){
+  body.lesson-page .topbar-title strong{max-width:46vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  body.lesson-page .hero-actions{gap:9px}
+  body.lesson-page .hero-actions .primary-btn,body.lesson-page .hero-actions .ghost-btn{width:100%}
+  body.lesson-page .reading-time{font-size:.76rem}
+  body.lesson-page .learning-goals{grid-template-columns:42px 1fr;gap:13px}
+  body.lesson-page .goal-icon{width:42px;height:42px;border-radius:12px}
+  body.lesson-page .concept-grid,body.lesson-page .mistake-grid,body.lesson-page .decision-grid{gap:11px}
+  body.lesson-page .lesson-complete-panel{padding:20px}
+  body.lesson-page .lesson-complete-btn{width:100%}
+  body.lesson-page .prev-next{grid-template-columns:1fr}
+  body.lesson-page .nav-lesson.next{text-align:left}
+  body.lesson-page :is(.reflection-card textarea,.lesson-note textarea,.note-box textarea){min-height:135px}
+
+  body:not(.dark) .wrap{width:min(100% - 24px,1180px)}
+  body:not(.dark) .brand-copy small{display:none}
+  body:not(.dark) .hero{padding:52px 0 44px}
+  body:not(.dark) .hero-actions{flex-direction:column}
+  body:not(.dark) .hero-actions a{width:100%}
+  body:not(.dark) .stat-grid{gap:8px}
+  body:not(.dark) .stat{padding:13px}
+  body:not(.dark) .stat strong{font-size:1.28rem}
+  body:not(.dark) .roadmap-strip{grid-template-columns:1fr 1fr;gap:6px}
+  body:not(.dark) .module-title small{font-size:.69rem;line-height:1.45}
+  body:not(.dark) .lesson-copy strong{font-size:.84rem;line-height:1.35}
+  body:not(.dark) .lesson-copy small{font-size:.67rem;line-height:1.4}
+  body:not(.dark) .search-panel{top:74px;width:calc(100% - 20px);inset-inline:10px;transform:none}
+}
+
+/* Touch devices get feedback without desktop tilt */
+@media(hover:none){
+  .motion-card:active,.lesson-row.available:active,.nav-lesson:active,.action-item:active,.quiz-option:active{transform:scale(.985)!important}
+  .motion-card,.lesson-row,.nav-lesson,.action-item,.quiz-option{transition-duration:.16s!important}
+}
+
+/* Keep accessibility preferences authoritative */
+@media(prefers-reduced-motion:reduce){
+  body:not(.dark) .roadmap-strip:before{animation:none}
+  body:not(.dark)::after{display:none}
+}
