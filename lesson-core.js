@@ -96,7 +96,7 @@
   function renderComplete(){const yes=completed();completePanel?.classList.toggle('completed',yes);if(completeBtn)completeBtn.textContent=yes?'Completed ✓':'Mark lesson complete';const title=$('#completionTitle');if(title)title.textContent=yes?'Lesson completed.':'Ready to complete this lesson?';const text=$('#completionText');if(text)text.textContent=yes?'Your completion is saved on this device and reflected on the course dashboard.':'Complete the lesson when you understand the core ideas and finish the practice.'}
   completeBtn?.addEventListener('click',()=>{const next=!completed();localStorage.setItem(store.complete,String(next));renderComplete();showToast(next?'Lesson marked complete ✓':'Completion removed')});renderComplete();
 
-  const lessonUrl = body.dataset.url || location.href.split('#')[0];
+  const lessonUrl = location.href.split('#')[0];
   async function copyLink(){try{await navigator.clipboard.writeText(lessonUrl);showToast('Lesson link copied ✓')}catch(_){showToast('Copy is unavailable in this browser')}}
   async function share(){if(navigator.share){try{await navigator.share({title:document.title,url:lessonUrl});return}catch(_){}}copyLink()}
   $('#shareBtn')?.addEventListener('click',share);$('#footerShare')?.addEventListener('click',share);$('#copyLinkBtn')?.addEventListener('click',copyLink);$('#printBtn')?.addEventListener('click',()=>print());
