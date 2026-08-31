@@ -159,4 +159,7 @@
     premium.dataset.premiumMotionLoader='true';
     document.body.appendChild(premium);
   }
+  if(!document.querySelector('script[data-training-product-loader]')){
+    const training=document.createElement('script');training.src='training-product.js';training.dataset.trainingProductLoader='true';document.body.appendChild(training);
+  }
 })();
