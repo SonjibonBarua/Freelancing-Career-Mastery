@@ -5,7 +5,7 @@
   const lesson = all[requested];
   const mount = document.getElementById('lessonMount');
   const modules = window.COURSE_MODULES || [];
-  const esc = value => String(value ?? '').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+  const esc = value => String(value ?? '').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[m]));
   const hrefFor = n => n <= 6 ? `lesson-${String(n).padStart(2,'0')}.html` : `lesson.html?lesson=${n}`;
 
   if(!lesson){
@@ -16,7 +16,7 @@
 
   const module = modules.find(m=>m.id===lesson.module);
   document.body.dataset.lesson=`lesson-${String(lesson.n).padStart(2,'0')}`;
-  document.body.dataset.url=`https://sonjibonbarua.github.io/Sure-Earning-Class-Lesson/${hrefFor(lesson.n)}`;
+  document.body.dataset.url=`https://sonjibonbarua.github.io/Freelancing-Career-Mastery/${hrefFor(lesson.n)}`;
   document.title=`Lesson ${lesson.n} — ${lesson.title} | Freelancing Career Mastery`;
   document.getElementById('metaDescription')?.setAttribute('content',lesson.description);
   document.getElementById('sideModuleName').textContent=`Module ${lesson.module} · ${module?.title || ''}`;
@@ -36,7 +36,7 @@
   const actions=lesson.actions.map((a,i)=>`<label class="action-item"><input type="checkbox" data-check="a${i+1}"><span><strong>${esc(a.title)}</strong><small>${esc(a.text)}</small></span></label>`).join('');
   const quiz=lesson.quiz.map((q,i)=>`<article class="quiz-card" data-correct="${q.correct}"><fieldset><legend>${i+1}. ${esc(q.q)}</legend>${q.options.map((o,j)=>`<label class="quiz-option"><input type="radio" name="q${i+1}" value="${String.fromCharCode(97+j)}"> ${esc(o)}</label>`).join('')}</fieldset><div class="quiz-feedback">${esc(q.feedback)}</div></article>`).join('');
   const takeaways=lesson.takeaways.map((t,i)=>`<div class="summary-point"><b>${String(i+1).padStart(2,'0')}</b><strong>${esc(t)}</strong></div>`).join('');
-  const video=lesson.video?`<section class="section reveal lesson-section" id="video" data-section-title="Recommended video"><div class="section-heading"><span class="section-tag">RECOMMENDED VIDEO</span><h2>Watch a useful companion resource</h2><p>This external video supports the topic. Platform interfaces and policies can change, so use it for concepts and verify current platform rules when needed.</p></div><div class="video-resource"><div><span class="resource-chip">▶ ${esc(lesson.video.channel)}</span><h3>${esc(lesson.video.title)}</h3><p>${esc(lesson.video.note)}</p><a class="video-link" href="${esc(lesson.video.url)}" target="_blank" rel="noopener">Open on YouTube ↗</a><div class="lesson-disclaimer">External learning resource. We do not own or reproduce the video content.</div></div><div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/${esc(lesson.video.id)}" title="${esc(lesson.video.title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div></section>`:'';
+  const video=lesson.video?`<section class="section reveal lesson-section" id="video" data-section-title="Recommended video"><div class="section-heading"><span class="section-tag">RECOMMENDED VIDEO</span><h2>Watch a useful companion resource</h2><p>This embedded video supports the topic. Platform interfaces and policies can change, so use it for concepts and verify current platform rules when needed.</p></div><div class="video-resource"><div><span class="resource-chip">▶ ${esc(lesson.video.channel)}</span><h3>${esc(lesson.video.title)}</h3><p>${esc(lesson.video.note)}</p><div class="lesson-disclaimer">Watch directly inside this course page. We do not own or reproduce the external video content.</div></div><div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/${esc(lesson.video.id)}" title="${esc(lesson.video.title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div></section>`:'';
 
   const previous=lesson.n-1, next=lesson.n+1;
   const prevLink=previous>=1?`<a class="nav-lesson" href="${hrefFor(previous)}"><small>PREVIOUS · LESSON ${previous}</small><strong>← ${esc(modules.flatMap(m=>m.lessons).find(l=>l.n===previous)?.title||'Previous lesson')}</strong></a>`:`<a class="nav-lesson disabled" href="#"><small>PREVIOUS</small><strong>Course start</strong></a>`;
