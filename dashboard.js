@@ -58,18 +58,27 @@
     head.style.cursor = 'pointer';
     head.tabIndex = 0;
     head.setAttribute('role','button');
-    head.setAttribute('aria-expanded','true');
-    head.title = 'Click to collapse or expand this module';
+    head.setAttribute('aria-expanded','false');
+    head.title = 'Click to expand or collapse this module';
+    list.hidden = true;
+
     const indicator = document.createElement('span');
     indicator.textContent = '⌄';
     indicator.setAttribute('aria-hidden','true');
-    Object.assign(indicator.style,{position:'absolute',right:'18px',top:'50%',transform:'translateY(-50%)',width:'28px',height:'28px',display:'grid',placeItems:'center',borderRadius:'9px',background:'var(--soft)',color:'var(--primary)',fontWeight:'900',transition:'transform .28s cubic-bezier(.2,.8,.2,1)'});
+    Object.assign(indicator.style,{position:'absolute',right:'18px',top:'50%',transform:'translateY(-50%) rotate(0deg)',width:'28px',height:'28px',display:'grid',placeItems:'center',borderRadius:'9px',background:'var(--soft)',color:'var(--primary)',fontWeight:'900',transition:'transform .28s cubic-bezier(.2,.8,.2,1)'});
     head.appendChild(indicator);
+
     const toggle = () => {
       const open = head.getAttribute('aria-expanded') === 'true';
-      head.setAttribute('aria-expanded', String(!open));
-      indicator.style.transform = `translateY(-50%) rotate(${open ? 180 : 0}deg)`;
-      if(reduceMotion){list.hidden = open;return;}
+      const willOpen = !open;
+      head.setAttribute('aria-expanded', String(willOpen));
+      indicator.style.transform = `translateY(-50%) rotate(${willOpen ? 180 : 0}deg)`;
+
+      if(reduceMotion){
+        list.hidden = !willOpen;
+        return;
+      }
+
       if(open){
         const h = list.scrollHeight;
         const anim = list.animate([{height:`${h}px`,opacity:1},{height:'0px',opacity:0}],{duration:300,easing:'cubic-bezier(.2,.8,.2,1)'});
@@ -81,6 +90,7 @@
         anim.onfinish = () => {list.style.height='';list.style.opacity=''};
       }
     };
+
     head.addEventListener('click', toggle);
     head.addEventListener('keydown', e => {if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}});
     if(!reduceMotion) section.animate([{opacity:.3,transform:'translateY(10px)'},{opacity:1,transform:'none'}],{duration:420,easing:'cubic-bezier(.2,.8,.2,1)'});
