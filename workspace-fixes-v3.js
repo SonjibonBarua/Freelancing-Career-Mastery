@@ -9,7 +9,7 @@
     if ($('link[data-workspace-fixes-v3-css]')) return;
     const l=document.createElement('link');
     l.rel='stylesheet';
-    l.href='workspace-fixes-v2.css?v=20260901-3';
+    l.href='workspace-fixes-v2.css?v=20260901-4';
     l.dataset.workspaceFixesV3Css='true';
     document.head.appendChild(l);
   }
@@ -50,12 +50,10 @@
       if(attempt<160)setTimeout(()=>boot(attempt+1),75);
       return;
     }
-    if(document.documentElement.dataset.workspaceDrawerBindings==='v3')return;
-    document.documentElement.dataset.workspaceDrawerBindings='v3';
+    if(document.documentElement.dataset.workspaceDrawerBindings==='v4')return;
+    document.documentElement.dataset.workspaceDrawerBindings='v4';
 
-    /* Old scripts may have capture-phase listeners that cannot be removed by
-       reference. Replacing only the controls drops every stale click listener
-       while preserving their id, classes, attributes and visual markup. */
+    /* Replace stale controls so older cached open-only listeners cannot win. */
     const courseHandle=replaceNode(rawCourse);
     const resourceHandle=replaceNode(rawResource);
     const courseClose=replaceNode($('#closeMenu'));
@@ -63,14 +61,14 @@
     const overlay=$('#mobileOverlay');
 
     if(!courseHandle||!resourceHandle)return;
-
-    /* Prevent any subsequently loaded v1/v2 stability script from rebinding. */
     document.documentElement.dataset.workspaceFixesReady='v2';
 
     const courseClosedHtml=courseHandle.innerHTML||'☰';
     const resourceClosedHtml=resourceHandle.innerHTML||'▣';
     const finePointer=matchMedia('(hover:hover) and (pointer:fine)').matches;
     let courseTimer=0, resourceTimer=0;
+    let courseScrollTop=sidebar.scrollTop||0;
+    let resourceScrollTop=rail.scrollTop||0;
 
     courseHandle.title='Open or close course navigation';
     resourceHandle.title='Open or close lesson resources';
@@ -108,12 +106,14 @@
       cancelCourse();
       if(open){rail.classList.remove('open');cancelResource()}
       sidebar.classList.toggle('open',Boolean(open));
+      if(open)sidebar.scrollTop=courseScrollTop;
       render();
     }
     function setResources(open){
       cancelResource();
       if(open){sidebar.classList.remove('open');cancelCourse()}
       rail.classList.toggle('open',Boolean(open));
+      if(open)rail.scrollTop=resourceScrollTop;
       render();
     }
 
@@ -127,6 +127,23 @@
       if(e.key==='Escape'){setCourse(false);setResources(false)}
     });
 
+    sidebar.addEventListener('scroll',()=>{courseScrollTop=sidebar.scrollTop},{passive:true});
+    rail.addEventListener('scroll',()=>{resourceScrollTop=rail.scrollTop},{passive:true});
+
+    /* Main lesson scrolling never changes drawer position or its internal
+       scroll position. It also cancels a pending mouse-leave collapse so a
+       reader can keep a drawer open while scrolling the lesson behind it. */
+    addEventListener('scroll',()=>{
+      if(sidebar.classList.contains('open')){
+        cancelCourse();
+        if(sidebar.scrollTop!==courseScrollTop)sidebar.scrollTop=courseScrollTop;
+      }
+      if(rail.classList.contains('open')){
+        cancelResource();
+        if(rail.scrollTop!==resourceScrollTop)rail.scrollTop=resourceScrollTop;
+      }
+    },{passive:true});
+
     if(finePointer){
       sidebar.addEventListener('pointerenter',cancelCourse);
       courseHandle.addEventListener('pointerenter',cancelCourse);
@@ -134,7 +151,7 @@
         cancelCourse();
         courseTimer=setTimeout(()=>{
           if(!sidebar.matches(':hover')&&!courseHandle.matches(':hover')&&!sidebar.contains(document.activeElement))setCourse(false)
-        },650);
+        },900);
       });
 
       rail.addEventListener('pointerenter',cancelResource);
@@ -143,7 +160,7 @@
         cancelResource();
         resourceTimer=setTimeout(()=>{
           if(!rail.matches(':hover')&&!resourceHandle.matches(':hover')&&!rail.contains(document.activeElement))setResources(false)
-        },650);
+        },900);
       });
     }
 
