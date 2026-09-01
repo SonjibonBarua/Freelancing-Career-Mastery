@@ -14,12 +14,20 @@
     document.head.appendChild(l);
   }
   function ensurePalette(){
-    if ($('link[data-workspace-palette-theme]')) return;
-    const l=document.createElement('link');
-    l.rel='stylesheet';
-    l.href='palette-theme.css?v=20260901-palette2';
-    l.dataset.workspacePaletteTheme='true';
-    document.head.appendChild(l);
+    if (!$('link[data-workspace-palette-theme]')){
+      const l=document.createElement('link');
+      l.rel='stylesheet';
+      l.href='palette-theme.css?v=20260901-palette2';
+      l.dataset.workspacePaletteTheme='true';
+      document.head.appendChild(l);
+    }
+    if (!$('link[data-workspace-continuous-theme]')){
+      const c=document.createElement('link');
+      c.rel='stylesheet';
+      c.href='palette-continuous.css?v=20260901-continuous1';
+      c.dataset.workspaceContinuousTheme='true';
+      document.head.appendChild(c);
+    }
   }
   ensureCss();
   ensurePalette();
@@ -66,7 +74,6 @@
     const courseHome=rawCourse.parentElement;
     const resourceHome=rawResource.parentElement;
 
-    /* Replace stale controls so older cached open-only listeners cannot win. */
     const courseHandle=replaceNode(rawCourse);
     const resourceHandle=replaceNode(rawResource);
     const courseClose=replaceNode($('#closeMenu'));
@@ -162,8 +169,6 @@
       if(e.key==='Escape'){setCourse(false);setResources(false)}
     });
 
-    /* Drawer content keeps its own position. Scrolling the lesson does not
-       touch either drawer's scrollTop; only scrolling inside the drawer does. */
     sidebar.addEventListener('scroll',()=>{courseScrollTop=sidebar.scrollTop},{passive:true});
     rail.addEventListener('scroll',()=>{resourceScrollTop=rail.scrollTop},{passive:true});
     addEventListener('scroll',()=>{
