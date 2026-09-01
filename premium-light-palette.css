@@ -1,0 +1,293 @@
+/* Premium welcoming light palette — layered color without sacrificing readability */
+
+body:not(.dark){
+  --bg:#f3f5ff;
+  --surface:rgba(255,255,255,.82);
+  --surface-2:rgba(245,247,255,.78);
+  --text:#18213b;
+  --muted:#596783;
+  --line:rgba(84,72,145,.14);
+  --primary:#6750d8;
+  --primary-2:#8b72f0;
+  --primary-soft:rgba(103,80,216,.10);
+  --known:#159a73;
+  --known-soft:rgba(21,154,115,.10);
+  --unknown:#c78520;
+  --unknown-soft:rgba(199,133,32,.11);
+  --light-lavender:#eee9ff;
+  --light-blue:#eaf6ff;
+  --light-mint:#eafaf3;
+  --light-peach:#fff2e8;
+  --light-rose:#fff0f6;
+  --light-ink:#18213b;
+  --light-copy:#53617d;
+  --shadow:0 22px 64px rgba(72,66,126,.12),0 2px 8px rgba(80,91,135,.05);
+  color:var(--text);
+  background:
+    radial-gradient(900px 620px at 0% 8%,rgba(185,168,255,.26),transparent 68%),
+    radial-gradient(820px 580px at 100% 18%,rgba(126,207,255,.24),transparent 67%),
+    radial-gradient(760px 560px at 8% 72%,rgba(126,224,187,.18),transparent 68%),
+    radial-gradient(820px 620px at 96% 88%,rgba(255,178,204,.18),transparent 70%),
+    linear-gradient(135deg,#f6f3ff 0%,#f2f8ff 35%,#f2fbf7 62%,#fff7f2 100%);
+}
+
+body:not(.dark) .site-shell,
+body:not(.dark) .site-shell main{
+  color:var(--text);
+  background:
+    radial-gradient(760px 520px at 6% 9%,rgba(199,185,255,.24),transparent 66%),
+    radial-gradient(700px 500px at 94% 24%,rgba(154,218,255,.23),transparent 66%),
+    radial-gradient(720px 520px at 12% 61%,rgba(167,235,209,.18),transparent 68%),
+    radial-gradient(720px 500px at 91% 86%,rgba(255,192,211,.17),transparent 70%),
+    linear-gradient(180deg,#f8f6ff 0%,#f4f8ff 26%,#f2fbfa 54%,#fff8f4 78%,#f8f4ff 100%)!important;
+}
+
+/* Navigation and workspace chrome: tinted glass, not white slabs. */
+body:not(.dark) .topbar,
+body:not(.dark).workspace-ready .topbar{
+  background:linear-gradient(90deg,rgba(246,243,255,.88),rgba(241,248,255,.84),rgba(250,246,255,.86))!important;
+  border-bottom-color:rgba(91,76,154,.14)!important;
+  box-shadow:0 10px 34px rgba(73,68,123,.08)!important;
+}
+body:not(.dark) .sidebar,
+body:not(.dark).workspace-ready .sidebar{
+  background:linear-gradient(180deg,rgba(247,244,255,.94),rgba(241,249,255,.91),rgba(246,252,248,.92))!important;
+  border-color:rgba(91,76,154,.14)!important;
+}
+body:not(.dark) .workspace-right-rail{
+  background:linear-gradient(180deg,rgba(247,244,255,.96),rgba(240,249,255,.94),rgba(250,247,255,.95))!important;
+  border-color:rgba(91,76,154,.15)!important;
+}
+body:not(.dark) footer{
+  background:linear-gradient(90deg,rgba(247,244,255,.88),rgba(240,249,255,.86),rgba(246,252,248,.88))!important;
+}
+
+/* Hero becomes a welcoming premium light gradient while preserving strong contrast. */
+body:not(.dark).lesson-page .hero{
+  background:
+    radial-gradient(520px 320px at 12% 20%,rgba(255,255,255,.70),transparent 72%),
+    radial-gradient(520px 360px at 88% 22%,rgba(255,255,255,.48),transparent 72%),
+    linear-gradient(118deg,#e8ddff 0%,#dfe7ff 34%,#dff5ff 66%,#e9f8ef 100%)!important;
+  border-bottom-color:rgba(93,77,158,.13)!important;
+}
+body:not(.dark).lesson-page .hero h1{
+  color:#31205f!important;
+  background:linear-gradient(100deg,#352163 0%,#5f43b6 42%,#366a9f 78%,#26765f 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+body:not(.dark).lesson-page .hero-copy,
+body:not(.dark).lesson-page .hero .breadcrumb,
+body:not(.dark).lesson-page .hero .eyebrow{
+  color:#51617c!important;
+}
+body:not(.dark).lesson-page .hero .eyebrow{color:#684ab6!important}
+body:not(.dark) .premium-hero-viz .orbit{stroke:rgba(86,66,157,.23)!important}
+body:not(.dark) .premium-hero-viz .core{fill:rgba(111,87,201,.10)!important;stroke:rgba(86,66,157,.24)!important}
+body:not(.dark) .premium-hero-viz .dot{fill:#6d55cf!important}
+
+/* Main reading canvas: subtle color zones instead of a flat white page. */
+body:not(.dark).lesson-page .lesson-main{
+  color:var(--light-ink);
+}
+body:not(.dark).lesson-page .lesson-main p,
+body:not(.dark).lesson-page .lesson-main li{
+  color:#52617c;
+}
+body:not(.dark).lesson-page .lesson-main .lesson-section{
+  position:relative;
+}
+body:not(.dark).lesson-page .lesson-main .lesson-section::before{
+  content:"";
+  position:absolute;
+  inset:16px -18px;
+  z-index:-1;
+  border-radius:28px;
+  pointer-events:none;
+  opacity:.72;
+}
+body:not(.dark).lesson-page .lesson-main .lesson-section:nth-of-type(4n+1)::before{
+  background:linear-gradient(135deg,rgba(238,233,255,.46),rgba(255,255,255,.18));
+}
+body:not(.dark).lesson-page .lesson-main .lesson-section:nth-of-type(4n+2)::before{
+  background:linear-gradient(135deg,rgba(232,247,255,.48),rgba(255,255,255,.16));
+}
+body:not(.dark).lesson-page .lesson-main .lesson-section:nth-of-type(4n+3)::before{
+  background:linear-gradient(135deg,rgba(234,250,243,.50),rgba(255,255,255,.16));
+}
+body:not(.dark).lesson-page .lesson-main .lesson-section:nth-of-type(4n)::before{
+  background:linear-gradient(135deg,rgba(255,242,232,.48),rgba(255,240,246,.25));
+}
+
+/* Headings use controlled color hierarchy rather than one repeated black. */
+body:not(.dark) .section-heading h2,
+body:not(.dark) .lesson-main h2{
+  color:#35265f!important;
+}
+body:not(.dark) .lesson-main h3,
+body:not(.dark) .learning-goals h3,
+body:not(.dark) .takeaway h3{
+  color:#425b8f!important;
+}
+body:not(.dark) .section-tag,
+body:not(.dark) .lesson-media-kicker,
+body:not(.dark) .workspace-video-copy small,
+body:not(.dark) .card-label,
+body:not(.dark) .mini-badge{
+  color:#6b4cc4!important;
+}
+body:not(.dark) a:not(.btn):not(.primary-btn):not(.secondary-btn){
+  text-decoration-color:rgba(90,69,183,.28);
+}
+
+/* Premium card palette — rotate cool/warm tones while keeping text contrast. */
+body:not(.dark) .learning-goals,
+body:not(.dark) .lesson-card,
+body:not(.dark) .phase-card,
+body:not(.dark) .takeaway,
+body:not(.dark) .faq-item,
+body:not(.dark) .check-item,
+body:not(.dark) .action-progress-card,
+body:not(.dark) .completion-card,
+body:not(.dark) .course-nav,
+body:not(.dark) .practice-shell,
+body:not(.dark) .scenario-box,
+body:not(.dark) .quiz-box,
+body:not(.dark) .note-box,
+body:not(.dark) .lesson-media-card,
+body:not(.dark) .inline-video-card,
+body:not(.dark) .workspace-rail-card,
+body:not(.dark) .workspace-side-progress,
+body:not(.dark) .workspace-module.current{
+  border-color:rgba(92,75,156,.14)!important;
+  box-shadow:0 20px 58px rgba(77,70,133,.10),0 1px 0 rgba(255,255,255,.86) inset!important;
+}
+body:not(.dark) .learning-goals,
+body:not(.dark) .workspace-side-progress,
+body:not(.dark) .workspace-rail-card:nth-of-type(4n+1){
+  background:linear-gradient(145deg,rgba(248,245,255,.92),rgba(238,246,255,.80))!important;
+}
+body:not(.dark) .lesson-card:nth-of-type(3n+1),
+body:not(.dark) .phase-card:nth-of-type(3n+1),
+body:not(.dark) .workspace-rail-card:nth-of-type(4n+2){
+  background:linear-gradient(145deg,rgba(239,247,255,.92),rgba(234,250,246,.80))!important;
+}
+body:not(.dark) .lesson-card:nth-of-type(3n+2),
+body:not(.dark) .phase-card:nth-of-type(3n+2),
+body:not(.dark) .workspace-rail-card:nth-of-type(4n+3){
+  background:linear-gradient(145deg,rgba(247,242,255,.92),rgba(255,242,248,.79))!important;
+}
+body:not(.dark) .lesson-card:nth-of-type(3n),
+body:not(.dark) .phase-card:nth-of-type(3n),
+body:not(.dark) .workspace-rail-card:nth-of-type(4n){
+  background:linear-gradient(145deg,rgba(255,247,238,.92),rgba(244,250,255,.80))!important;
+}
+body:not(.dark) .takeaway,
+body:not(.dark) .completion-card.completed{
+  background:linear-gradient(135deg,rgba(235,250,243,.92),rgba(237,247,255,.84))!important;
+}
+body:not(.dark) .inline-video-card{
+  background:linear-gradient(135deg,rgba(241,236,255,.92),rgba(233,247,255,.88),rgba(238,251,245,.84))!important;
+}
+body:not(.dark) .lesson-media-card{
+  background:linear-gradient(145deg,rgba(246,242,255,.92),rgba(237,249,255,.86),rgba(244,252,247,.82))!important;
+}
+
+/* Diagram nodes and controls receive soft colored identities. */
+body:not(.dark) .diagram-node{
+  background:linear-gradient(145deg,rgba(255,255,255,.88),rgba(240,245,255,.76))!important;
+  border-color:rgba(88,74,148,.13)!important;
+}
+body:not(.dark) .diagram-node:nth-of-type(4n+1){background:linear-gradient(145deg,#f5f1ff,#edf4ff)!important}
+body:not(.dark) .diagram-node:nth-of-type(4n+2){background:linear-gradient(145deg,#edf8ff,#eefaf4)!important}
+body:not(.dark) .diagram-node:nth-of-type(4n+3){background:linear-gradient(145deg,#fff7ed,#fff0f6)!important}
+body:not(.dark) .diagram-node:nth-of-type(4n){background:linear-gradient(145deg,#eefaf4,#f4f2ff)!important}
+body:not(.dark) .workspace-nav-arrow,
+body:not(.dark) .workspace-tool i,
+body:not(.dark) .workspace-module-num,
+body:not(.dark) .workspace-lesson-dot,
+body:not(.dark) .icon-btn,
+body:not(.dark) .theme-toggle{
+  background:linear-gradient(145deg,rgba(255,255,255,.88),rgba(239,243,255,.82))!important;
+  border-color:rgba(88,74,148,.14)!important;
+  color:#6348bd!important;
+}
+
+/* Current navigation states become more colorful and obvious. */
+body:not(.dark) .workspace-module.current{
+  background:linear-gradient(135deg,rgba(235,229,255,.72),rgba(232,246,255,.62))!important;
+}
+body:not(.dark) .workspace-lesson-link.current{
+  background:linear-gradient(90deg,rgba(117,84,220,.17),rgba(91,169,221,.10),rgba(74,183,141,.08))!important;
+  border-color:rgba(105,77,196,.24)!important;
+}
+body:not(.dark) .workspace-survival-link{
+  background:linear-gradient(135deg,rgba(247,231,255,.82),rgba(234,243,255,.78),rgba(255,239,247,.72))!important;
+}
+body:not(.dark) .workspace-phase-tabs{
+  border-bottom-color:rgba(91,76,154,.13)!important;
+}
+body:not(.dark) .workspace-phase-tab{
+  color:#66728c!important;
+}
+body:not(.dark) .workspace-phase-tab.active,
+body:not(.dark) .workspace-phase-tab:hover{
+  color:#5d42b6!important;
+  background:linear-gradient(180deg,rgba(241,236,255,.18),rgba(232,240,255,.68))!important;
+}
+
+/* Drawer discovery tabs match the light palette rather than floating white. */
+body:not(.dark) .hero .menu-btn,
+body:not(.dark) .hero .workspace-tools-toggle{
+  background:linear-gradient(135deg,rgba(238,232,255,.96),rgba(226,244,255,.94))!important;
+  color:#4f3997!important;
+  border-color:rgba(97,70,185,.24)!important;
+  box-shadow:0 16px 40px rgba(80,67,148,.16)!important;
+}
+body:not(.dark) .hero .menu-btn::after,
+body:not(.dark) .hero .workspace-tools-toggle::after{
+  color:#49388b!important;
+}
+
+/* Buttons: richer but still elegant. */
+body:not(.dark) .primary-btn,
+body:not(.dark) .hero .primary-btn{
+  background:linear-gradient(135deg,#654ad3,#7d65e6 52%,#567fcb)!important;
+  color:#fff!important;
+  border-color:transparent!important;
+  box-shadow:0 14px 34px rgba(91,69,184,.24)!important;
+}
+body:not(.dark) .secondary-btn{
+  background:linear-gradient(145deg,rgba(255,255,255,.86),rgba(237,244,255,.82))!important;
+  color:#58449c!important;
+  border-color:rgba(90,70,170,.16)!important;
+}
+
+/* Improve text color separation in utility/meta areas. */
+body:not(.dark) .workspace-lesson-count strong,
+body:not(.dark) .workspace-rail-title strong,
+body:not(.dark) .workspace-video-copy strong,
+body:not(.dark) .workspace-side-progress strong,
+body:not(.dark) .workspace-module-head strong{
+  color:#243252!important;
+}
+body:not(.dark) .workspace-lesson-count small,
+body:not(.dark) .workspace-rail-title small,
+body:not(.dark) .workspace-video-copy p,
+body:not(.dark) .workspace-video-note,
+body:not(.dark) .workspace-module-head small,
+body:not(.dark) .workspace-lesson-link small,
+body:not(.dark) .workspace-tool,
+body:not(.dark) .workspace-takeaway p{
+  color:#60708d!important;
+}
+
+@media(max-width:680px){
+  body:not(.dark).lesson-page .lesson-main .lesson-section::before{inset:12px -8px;border-radius:22px}
+  body:not(.dark).lesson-page .hero{background:linear-gradient(135deg,#e8ddff 0%,#e2edff 52%,#e8f8ef 100%)!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  body:not(.dark){background-attachment:scroll!important}
+}
