@@ -13,7 +13,16 @@
     l.dataset.workspaceFixesV3Css='true';
     document.head.appendChild(l);
   }
+  function ensurePalette(){
+    if ($('link[data-workspace-palette-theme]')) return;
+    const l=document.createElement('link');
+    l.rel='stylesheet';
+    l.href='palette-theme.css?v=20260901-palette2';
+    l.dataset.workspacePaletteTheme='true';
+    document.head.appendChild(l);
+  }
   ensureCss();
+  ensurePalette();
 
   function restoreVisible(){
     body.classList.remove('page-leaving');
