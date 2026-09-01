@@ -1,12 +1,10 @@
-/* Continuous premium backdrop
-   Royal Violet #5B2EFF · Electric Blue #3767FF · Aqua #29C7C9 · Warm Ivory #FFF3D6 */
+/* Continuous calm-premium backdrop
+   Emerald #087F8C · Cobalt #3155D9 · Lavender #9A86FD · Champagne #FFF0CF */
 
-/* LIGHT MODE: ivory carries most of the reading canvas while violet/blue/aqua
-   stay visibly present as ambient color, avoiding both dullness and fatigue. */
 body:not(.dark){
   background:
-    linear-gradient(rgba(255,248,231,.56),rgba(249,252,247,.62)),
-    linear-gradient(122deg,#5b2eff -8%,#3767ff 31%,#29c7c9 68%,#fff3d6 112%)!important;
+    linear-gradient(rgba(255,248,232,.58),rgba(248,252,248,.64)),
+    linear-gradient(122deg,#087f8c -8%,#3155d9 31%,#9a86fd 68%,#fff0cf 112%)!important;
   background-attachment:fixed!important;
   background-size:cover!important;
   background-repeat:no-repeat!important;
@@ -18,29 +16,27 @@ body:not(.dark)::before{
   z-index:-2!important;
   pointer-events:none!important;
   background:
-    radial-gradient(980px 720px at -8% 10%,rgba(91,46,255,.25),transparent 68%),
-    radial-gradient(920px 700px at 33% 36%,rgba(55,103,255,.18),transparent 69%),
-    radial-gradient(940px 720px at 84% 48%,rgba(41,199,201,.22),transparent 70%),
-    radial-gradient(1040px 800px at 48% 98%,rgba(255,243,214,.55),transparent 72%)!important;
+    radial-gradient(980px 720px at -8% 10%,rgba(8,127,140,.24),transparent 68%),
+    radial-gradient(920px 700px at 34% 36%,rgba(49,85,217,.18),transparent 69%),
+    radial-gradient(940px 720px at 84% 48%,rgba(154,134,253,.22),transparent 70%),
+    radial-gradient(1040px 800px at 48% 98%,rgba(255,240,207,.58),transparent 72%)!important;
 }
 
-/* DARK MODE: deep violet/blue with aqua lift, still recognizably the same brand. */
 body.dark{
   background:
-    radial-gradient(920px 680px at 0% 12%,rgba(91,46,255,.22),transparent 68%),
-    radial-gradient(920px 700px at 96% 30%,rgba(41,199,201,.14),transparent 69%),
-    linear-gradient(122deg,#0d0826 0%,#18104b 34%,#153a70 70%,#0b5b62 100%)!important;
+    radial-gradient(920px 680px at 0% 12%,rgba(8,127,140,.20),transparent 68%),
+    radial-gradient(920px 700px at 96% 30%,rgba(154,134,253,.15),transparent 69%),
+    linear-gradient(122deg,#061820 0%,#10283b 30%,#152d69 62%,#493f7d 100%)!important;
   background-attachment:fixed!important;
   background-size:cover!important;
 }
 body.dark::before{
   background:
-    radial-gradient(920px 680px at 5% 14%,rgba(91,46,255,.28),transparent 68%),
-    radial-gradient(920px 710px at 56% 54%,rgba(55,103,255,.15),transparent 70%),
-    radial-gradient(920px 720px at 96% 30%,rgba(41,199,201,.16),transparent 69%)!important;
+    radial-gradient(920px 680px at 5% 14%,rgba(8,127,140,.25),transparent 68%),
+    radial-gradient(920px 710px at 56% 54%,rgba(49,85,217,.16),transparent 70%),
+    radial-gradient(920px 720px at 96% 30%,rgba(154,134,253,.17),transparent 69%)!important;
 }
 
-/* The canvas never restarts between hero, curriculum, lessons or Survival Lab. */
 body:not(.dark) > main,
 body:not(.dark) .site-shell,
 body:not(.dark) .site-shell > main,
@@ -56,34 +52,32 @@ body.dark #lessonMount{
   background:transparent!important;
 }
 
-/* Hero is the highest-energy moment of the same palette rather than a separate color block. */
 body:not(.dark) .hero,
 body:not(.dark).lesson-page .hero{
   background:
-    radial-gradient(560px 360px at 86% 20%,rgba(255,243,214,.26),transparent 70%),
-    linear-gradient(112deg,rgba(91,46,255,.96) 0%,rgba(55,103,255,.91) 45%,rgba(41,199,201,.82) 78%,rgba(255,243,214,.66) 118%)!important;
-  border-bottom-color:rgba(91,46,255,.10)!important;
+    radial-gradient(560px 360px at 87% 20%,rgba(255,240,207,.27),transparent 70%),
+    linear-gradient(112deg,rgba(8,127,140,.96) 0%,rgba(49,85,217,.92) 45%,rgba(154,134,253,.84) 78%,rgba(255,240,207,.67) 118%)!important;
+  border-bottom-color:rgba(49,85,217,.10)!important;
 }
 body.dark .hero,
 body.dark.lesson-page .hero{
   background:
-    radial-gradient(560px 360px at 88% 18%,rgba(41,199,201,.12),transparent 70%),
-    linear-gradient(112deg,rgba(29,14,80,.96),rgba(43,40,126,.92) 48%,rgba(15,92,103,.88))!important;
-  border-bottom-color:rgba(147,218,218,.10)!important;
+    radial-gradient(560px 360px at 88% 18%,rgba(154,134,253,.13),transparent 70%),
+    linear-gradient(112deg,rgba(7,39,48,.97),rgba(24,51,101,.93) 48%,rgba(74,61,129,.89))!important;
+  border-bottom-color:rgba(204,214,255,.10)!important;
 }
 body:not(.dark) .hero h1,body:not(.dark) .hero h1 span,
 body.dark .hero h1,body.dark .hero h1 span{
   color:#fff!important;
   -webkit-text-fill-color:#fff!important;
-  text-shadow:0 4px 24px rgba(34,17,92,.22)!important;
+  text-shadow:0 4px 24px rgba(15,37,80,.23)!important;
 }
-body:not(.dark) .hero-copy,body:not(.dark) .hero p{color:rgba(255,255,255,.92)!important}
-body:not(.dark) .hero .eyebrow,body:not(.dark) .hero .breadcrumb{color:#fff4da!important}
-body.dark .hero-copy,body.dark .hero p{color:#efeaff!important}
-body.dark .hero .eyebrow,body.dark .hero .breadcrumb{color:#8be7e4!important}
+body:not(.dark) .hero-copy,body:not(.dark) .hero p{color:rgba(255,255,255,.93)!important}
+body:not(.dark) .hero .eyebrow,body:not(.dark) .hero .breadcrumb{color:#fff4d9!important}
+body.dark .hero-copy,body.dark .hero p{color:#f1efff!important}
+body.dark .hero .eyebrow,body.dark .hero .breadcrumb{color:#83dfdf!important}
 body:not(.dark) .hero::after,body.dark .hero::after{opacity:.55!important}
 
-/* Main sections remain transparent so the gradient is visibly continuous. */
 body:not(.dark) #curriculum,
 body:not(.dark) .modules,
 body:not(.dark) .lesson-layout,
@@ -97,7 +91,6 @@ body.dark .lab-layout{
   background:transparent!important;
 }
 
-/* Stronger glass separation on top of the richer canvas. */
 body:not(.dark) .hero-card,
 body:not(.dark) .module,
 body:not(.dark) .survival,
@@ -122,13 +115,11 @@ body:not(.dark) .case-nav,
 body:not(.dark) .case-stage,
 body:not(.dark) .debrief,
 body:not(.dark) .completion-panel{
-  -webkit-backdrop-filter:blur(24px) saturate(132%)!important;
-  backdrop-filter:blur(24px) saturate(132%)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(128%)!important;
+  backdrop-filter:blur(24px) saturate(128%)!important;
 }
 
-body:not(.dark) footer{
-  background:linear-gradient(90deg,rgba(255,244,220,.74),rgba(242,242,255,.72),rgba(222,247,247,.75))!important;
-}
+body:not(.dark) footer{background:linear-gradient(90deg,rgba(255,241,211,.76),rgba(242,244,255,.73),rgba(224,247,244,.76))!important}
 
 @media(max-width:680px){
   body:not(.dark),body.dark{background-attachment:scroll!important}
