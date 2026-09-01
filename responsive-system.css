@@ -1,0 +1,204 @@
+/* Freelancing Career Mastery — Responsive System v1
+   Device-adaptive learning UX for phone, tablet, laptop and desktop. */
+
+:root{
+  --mobile-dock-h:64px;
+  --mobile-safe-bottom:env(safe-area-inset-bottom,0px);
+  --responsive-reading:1080px;
+}
+
+/* Stable media and long-content behavior across every device. */
+img,svg,video,iframe{max-width:100%}
+iframe{display:block}
+.lesson-main,.lesson-section,.section,.module,.lesson-card,.phase-card,.inline-video-card,.lesson-media-card{min-width:0}
+.lesson-main p,.lesson-main li,.section-head p,.lesson-copy small{overflow-wrap:anywhere}
+
+/* Tablet: keep the lesson canvas dominant; drawers stay optional. */
+@media (min-width:768px) and (max-width:1024px){
+  .workspace-ready .site-shell{margin-inline:0!important}
+  .workspace-ready .hero-inner,
+  .workspace-ready .lesson-layout,
+  .workspace-ready footer .content-width{width:min(100% - 40px,900px)!important}
+  .workspace-ready .topbar{padding-inline:14px!important;gap:8px!important}
+  .workspace-ready .sidebar{width:min(360px,86vw)!important}
+  .workspace-right-rail{width:min(380px,calc(100vw - 32px))!important}
+  .workspace-ready .section{padding-block:48px!important}
+  .inline-video-card{grid-template-columns:1fr!important}
+  .lesson-media-card,.inline-video-card{padding:21px!important}
+  .diagram-grid,.diagram-matrix,.diagram-score,.diagram-compass,.diagram-persona,.diagram-position,.diagram-map,.diagram-balance,.diagram-buffer,.diagram-compare,.diagram-org,.diagram-anatomy,.diagram-box,.diagram-gate,.diagram-shield,.diagram-boundary,.diagram-decision,.diagram-radar{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+
+/* Large tablet / compact laptop: content-first, comfortable reading measure. */
+@media (min-width:1025px) and (max-width:1366px){
+  .workspace-ready .hero-inner,
+  .workspace-ready .lesson-layout,
+  .workspace-ready footer .content-width{width:min(100% - 52px,1000px)!important}
+  .workspace-ready .section{padding-block:52px!important}
+}
+
+/* PHONE EXPERIENCE ------------------------------------------------------- */
+@media (max-width:767px){
+  html{scroll-padding-bottom:calc(var(--mobile-dock-h) + var(--mobile-safe-bottom) + 18px)}
+  body.lesson-page{padding-bottom:calc(var(--mobile-dock-h) + var(--mobile-safe-bottom) + 18px)!important}
+  body.lesson-page.workspace-ready{overflow-x:hidden!important}
+
+  /* Topbar: preserve only essential lesson context and theme action. */
+  .workspace-ready .topbar{
+    min-height:58px!important;height:58px!important;
+    padding:0 10px!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
+    gap:8px!important;
+  }
+  .workspace-ready .topbar > #menuBtn,
+  .workspace-ready .topbar #workspaceToolsToggle,
+  .workspace-ready #menuBtn,
+  .workspace-ready #workspaceToolsToggle{display:none!important}
+  .workspace-ready .topbar-title,.workspace-ready .workspace-overall{display:none!important}
+  .workspace-ready .workspace-top-nav{grid-column:1;grid-template-columns:34px minmax(0,1fr) 34px!important;gap:5px!important}
+  .workspace-ready .workspace-nav-arrow{height:34px!important;min-width:34px!important;border-radius:10px!important}
+  .workspace-ready .workspace-lesson-count small{font-size:.66rem!important}
+  .workspace-ready .workspace-lesson-count strong{font-size:.76rem!important;line-height:1.2!important}
+  .workspace-ready .top-actions{grid-column:2;gap:4px!important}
+  .workspace-ready .top-actions .icon-btn,.workspace-ready .theme-toggle{width:36px!important;height:36px!important;min-width:36px!important}
+  .workspace-ready #shareBtn{display:none!important}
+
+  /* Hero: less vertical cost, more content visible on first screen. */
+  .workspace-ready .hero{padding:22px 0 18px!important;min-height:0!important}
+  .workspace-ready .hero-inner,.workspace-ready .lesson-layout,.workspace-ready footer .content-width{width:min(100% - 28px,var(--responsive-reading))!important}
+  .workspace-ready .hero h1{font-size:clamp(2rem,10.8vw,3.15rem)!important;line-height:1.01!important;letter-spacing:-.045em!important}
+  .workspace-ready .hero-copy{font-size:.96rem!important;line-height:1.62!important;margin-top:16px!important}
+  .workspace-ready .hero-actions{display:grid!important;grid-template-columns:1fr!important;gap:9px!important;margin-top:20px!important}
+  .workspace-ready .hero-actions a,.workspace-ready .hero-actions button{width:100%!important;min-height:48px!important}
+  .workspace-ready .breadcrumb{font-size:.72rem!important;flex-wrap:wrap!important}
+  .workspace-ready .eyebrow{font-size:.68rem!important;letter-spacing:.1em!important}
+
+  /* Reading density and touch comfort. */
+  .workspace-ready .section{padding-block:38px!important}
+  .lesson-main p,.lesson-main li{font-size:1rem!important;line-height:1.72!important}
+  .lesson-main h2{font-size:clamp(1.65rem,7vw,2.2rem)!important;line-height:1.12!important}
+  .lesson-main h3{font-size:clamp(1.2rem,5.5vw,1.55rem)!important;line-height:1.2!important}
+  .lesson-card,.phase-card,.takeaway,.faq-item,.check-item,.completion-card,.practice-shell,.scenario-box,.quiz-box,.note-box{border-radius:16px!important}
+
+  /* Companion video: video-first on phone for faster discovery. */
+  .inline-video-card{display:flex!important;flex-direction:column!important;gap:16px!important;padding:15px!important;border-radius:18px!important}
+  .inline-video-player{order:-1!important;width:100%!important;border-radius:13px!important;aspect-ratio:16/9!important}
+  .inline-video-copy h3{font-size:1.24rem!important}
+  .inline-video-copy p,.inline-video-copy li{font-size:.88rem!important;line-height:1.55!important}
+  .lesson-video-section{padding-bottom:44px!important}
+
+  /* Diagrams reflow instead of shrinking desktop diagrams. */
+  .lesson-media-card{padding:15px!important;border-radius:18px!important}
+  .lesson-media-head{gap:10px!important;margin-bottom:14px!important}
+  .lesson-media-head h3{font-size:1.28rem!important}
+  .lesson-diagram{padding:10px!important;min-height:0!important;border-radius:15px!important}
+  .diagram-grid,.diagram-matrix,.diagram-score,.diagram-compass,.diagram-persona,.diagram-position,.diagram-map,.diagram-balance,.diagram-buffer,.diagram-compare,.diagram-org,.diagram-anatomy,.diagram-box,.diagram-gate,.diagram-shield,.diagram-boundary,.diagram-decision,.diagram-radar,.diagram-cycle,.diagram-orbit,.diagram-engine,.diagram-network{grid-template-columns:1fr!important;padding:4px!important;gap:9px!important}
+  .diagram-flow,.diagram-timeline,.diagram-sequence,.diagram-pipeline,.diagram-rhythm,.diagram-lanes,.diagram-loop{display:flex!important;overflow-x:auto!important;overscroll-behavior-inline:contain!important;scroll-snap-type:x proximity!important;padding:6px 2px 12px!important;gap:10px!important}
+  .diagram-flow .diagram-node,.diagram-timeline .diagram-node,.diagram-sequence .diagram-node,.diagram-pipeline .diagram-node,.diagram-rhythm .diagram-node,.diagram-lanes .diagram-node,.diagram-loop .diagram-node{flex:0 0 min(78vw,280px)!important;scroll-snap-align:start!important}
+  .diagram-node{min-width:0!important;min-height:96px!important;padding:13px!important}
+  .diagram-ladder,.diagram-stack,.diagram-funnel,.diagram-pyramid{padding-inline:0!important}
+  .diagram-ladder .diagram-node,.diagram-stack .diagram-node,.diagram-funnel .diagram-node,.diagram-pyramid .diagram-node{width:100%!important;margin-left:0!important}
+  .diagram-venn{display:grid!important;gap:9px!important;min-height:0!important}
+  .venn-circle{position:static!important;width:100%!important;height:auto!important;min-height:88px!important;border-radius:15px!important}
+
+  /* Course + Resources become native-feeling bottom sheets. */
+  .workspace-ready .sidebar,
+  .workspace-right-rail{
+    position:fixed!important;
+    left:8px!important;right:8px!important;
+    top:auto!important;
+    bottom:calc(var(--mobile-dock-h) + var(--mobile-safe-bottom) + 8px)!important;
+    width:auto!important;
+    height:auto!important;
+    max-height:min(78dvh,720px)!important;
+    border-radius:22px 22px 16px 16px!important;
+    border:1px solid var(--line)!important;
+    padding:10px!important;
+    overflow:auto!important;
+    overscroll-behavior:contain!important;
+    transform:translateY(calc(100% + 110px))!important;
+    transition:transform .28s cubic-bezier(.2,.8,.2,1),opacity .2s ease!important;
+    opacity:0!important;
+    z-index:1310!important;
+    box-shadow:0 24px 80px rgba(0,0,0,.72)!important;
+  }
+  .workspace-ready .sidebar.open,
+  .workspace-right-rail.open{transform:translateY(0)!important;opacity:1!important}
+  .workspace-ready .sidebar-head{position:sticky!important;top:-10px!important;height:auto!important;min-height:54px!important;padding:8px!important;z-index:6!important}
+  .workspace-ready .sidebar .close-menu,.workspace-right-rail .workspace-rail-close{display:grid!important}
+  .workspace-right-rail{gap:8px!important}
+  .workspace-rail-card{border-radius:14px!important}
+
+  /* Bottom dock: primary mobile navigation. */
+  .mobile-learning-dock{
+    position:fixed;left:8px;right:8px;bottom:max(8px,var(--mobile-safe-bottom));
+    z-index:1350;height:var(--mobile-dock-h);
+    display:grid;grid-template-columns:1.05fr .8fr .8fr 1.05fr;gap:6px;
+    padding:6px;border:1px solid var(--line);border-radius:18px;
+    background:color-mix(in srgb,var(--bg) 94%,transparent);
+    -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+    box-shadow:0 16px 48px rgba(0,0,0,.45);
+  }
+  .mobile-learning-dock button,.mobile-learning-dock a{
+    min-width:0;min-height:50px;border:1px solid var(--line);border-radius:13px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+    padding:4px 5px;text-decoration:none;background:var(--surface);color:var(--text);
+    font-weight:800;line-height:1.05;touch-action:manipulation;
+  }
+  .mobile-learning-dock b{font-size:1rem;line-height:1}
+  .mobile-learning-dock span{font-size:.65rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+  .mobile-learning-dock .is-primary{background:var(--primary)!important;color:var(--bg)!important;border-color:var(--primary)!important}
+  .mobile-learning-dock .is-disabled{opacity:.38;pointer-events:none}
+
+  /* Dashboard phone composition. */
+  body:not(.lesson-page) .wrap{width:min(100% - 24px,1180px)!important}
+  body:not(.lesson-page) .topbar-inner{height:60px!important}
+  body:not(.lesson-page) .brand-copy small{display:none!important}
+  body:not(.lesson-page) .hero{padding:54px 0 34px!important}
+  body:not(.lesson-page) .hero-grid{grid-template-columns:1fr!important;gap:24px!important}
+  body:not(.lesson-page) .hero h1{font-size:clamp(2.45rem,12.5vw,4rem)!important}
+  body:not(.lesson-page) .hero-copy{font-size:1rem!important;line-height:1.65!important}
+  body:not(.lesson-page) .hero-actions{display:grid!important;grid-template-columns:1fr!important}
+  body:not(.lesson-page) .hero-actions a{width:100%!important}
+  body:not(.lesson-page) .hero-card{padding:18px!important;border-radius:19px!important}
+  body:not(.lesson-page) .stat-grid{grid-template-columns:1fr 1fr!important;gap:8px!important}
+  body:not(.lesson-page) .stat{padding:12px!important}
+  body:not(.lesson-page) .roadmap-strip{grid-template-columns:1fr 1fr!important;padding:12px!important;gap:7px!important}
+  body:not(.lesson-page) .section-head{flex-direction:column!important;align-items:stretch!important;gap:14px!important}
+  body:not(.lesson-page) .section-head h2{font-size:clamp(2rem,10vw,2.8rem)!important}
+  body:not(.lesson-page) .module-head{padding:15px!important;grid-template-columns:42px minmax(0,1fr) 28px!important;gap:10px!important}
+  body:not(.lesson-page) .module-number{width:40px!important;height:40px!important}
+  body:not(.lesson-page) .module-title strong{font-size:.98rem!important}
+  body:not(.lesson-page) .module-title small{font-size:.74rem!important;line-height:1.35!important}
+  body:not(.lesson-page) .lesson-row{grid-template-columns:36px minmax(0,1fr)!important;padding:11px 8px!important;gap:9px!important}
+  body:not(.lesson-page) .status{grid-column:2!important;justify-self:start!important;margin-top:3px!important}
+
+  /* Survival Lab becomes a single reading flow on phone. */
+  .lab-layout{display:grid!important;grid-template-columns:1fr!important;gap:16px!important}
+  .case-nav{position:static!important;max-height:none!important;overflow:visible!important}
+  .case-list{display:flex!important;overflow-x:auto!important;gap:8px!important;scroll-snap-type:x proximity!important;padding-bottom:7px!important}
+  .case-list .case-link{flex:0 0 min(78vw,300px)!important;scroll-snap-align:start!important}
+}
+
+/* Very small phones. */
+@media (max-width:420px){
+  :root{--mobile-dock-h:60px}
+  .mobile-learning-dock{left:5px;right:5px;gap:4px;padding:5px;border-radius:16px}
+  .mobile-learning-dock button,.mobile-learning-dock a{min-height:46px;border-radius:11px}
+  .mobile-learning-dock span{font-size:.6rem}
+  .workspace-ready .hero h1{font-size:clamp(1.85rem,10.4vw,2.65rem)!important}
+  body:not(.lesson-page) .stat-grid{grid-template-columns:1fr!important}
+}
+
+/* Performance mode for touch-first devices. */
+@media (max-width:767px), (hover:none){
+  .motion-card,.lesson-media-card,.inline-video-card,.workspace-rail-card,.module,.hero-card,.survival{
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  }
+  .premium-orb,.lesson-diagram:after,.roadmap-strip:before{animation:none!important}
+  .motion-card:hover,.diagram-node:hover{transform:none!important}
+  .lesson-section,.section{content-visibility:auto;contain-intrinsic-size:700px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .mobile-learning-dock,.workspace-ready .sidebar,.workspace-right-rail{transition:none!important}
+}
