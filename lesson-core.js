@@ -18,6 +18,33 @@
   const overlay = $('#mobileOverlay');
   const toast = $('#toast');
 
+  /* Browser back/forward can restore the outgoing transition frame from BFCache.
+     Reset it immediately, before any optional motion/workspace script runs. */
+  function restoreHistoryState(){
+    body.classList.remove('page-leaving');
+    document.documentElement.classList.remove('page-leaving');
+    body.style.setProperty('opacity','1','important');
+    body.style.setProperty('visibility','visible','important');
+    body.style.setProperty('filter','none','important');
+    body.style.setProperty('transform','none','important');
+    body.style.setProperty('pointer-events','auto','important');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      if(body.classList.contains('page-leaving'))return;
+      ['opacity','visibility','filter','transform','pointer-events'].forEach(p=>body.style.removeProperty(p));
+    }));
+  }
+  restoreHistoryState();
+  addEventListener('pageshow',restoreHistoryState,{capture:true});
+  addEventListener('popstate',restoreHistoryState,{capture:true});
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)restoreHistoryState()});
+
+  if(!document.querySelector('script[data-workspace-stability-v2-loader]')){
+    const stability=document.createElement('script');
+    stability.src='workspace-fixes-v2.js?v=20260901-2';
+    stability.dataset.workspaceStabilityV2Loader='true';
+    document.head.appendChild(stability);
+  }
+
   function showToast(msg){
     if(!toast) return;
     toast.textContent = msg;
@@ -110,7 +137,7 @@
 
   if(!document.querySelector('script[data-premium-motion-loader]')){
     const premium=document.createElement('script');
-    premium.src='premium-motion.js';
+    premium.src='premium-motion.js?v=20260901-2';
     premium.dataset.premiumMotionLoader='true';
     document.body.appendChild(premium);
   }
@@ -127,7 +154,7 @@
   function loadWorkspace(){
     if(document.querySelector('script[data-learning-workspace-loader]')) return;
     const workspace=document.createElement('script');
-    workspace.src='learning-workspace.js';
+    workspace.src='learning-workspace.js?v=20260901-2';
     workspace.dataset.learningWorkspaceLoader='true';
     document.body.appendChild(workspace);
   }
@@ -148,7 +175,7 @@
       const existing=document.querySelector('script[data-media-system-loader]');
       if(existing){if(document.documentElement.dataset.lessonMediaReady)loadWorkspace();else existing.addEventListener('load',loadWorkspace,{once:true});return;}
       const media=document.createElement('script');
-      media.src='media-system.js';
+      media.src='media-system.js?v=20260901-2';
       media.dataset.mediaSystemLoader='true';
       media.addEventListener('load',loadWorkspace,{once:true});
       document.body.appendChild(media);
