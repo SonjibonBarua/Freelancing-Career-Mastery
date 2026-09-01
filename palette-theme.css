@@ -243,6 +243,22 @@ body:not(.dark) p,body.dark p,body:not(.dark) li,body.dark li,body:not(.dark) sm
   box-shadow:0 0 18px rgba(57,255,20,.38)!important;
 }
 
+/* Dashboard Course Status: keep neon labels, turn previously-black values white. */
+.hero .hero-card .stat strong,
+.hero .hero-card .progress-head,
+.hero .hero-card .progress-head span,
+.hero .hero-card .progress-head strong{
+  color:#fff!important;
+  -webkit-text-fill-color:#fff!important;
+  text-shadow:none!important;
+}
+.hero .hero-card h2,
+.hero .hero-card .stat small,
+.hero .hero-card .progress-box > small{
+  color:#39ff14!important;
+  -webkit-text-fill-color:#39ff14!important;
+}
+
 /* Survival Lab */
 .message{background:#39ff14!important;color:#030603!important}
 .choice.good,.choice.mixed,.choice.bad{background:#030603!important;color:#39ff14!important;border-color:rgba(57,255,20,.24)!important}
