@@ -164,10 +164,39 @@
   if(!document.querySelector('link[data-palette-theme-css]')){
     const palette=document.createElement('link');
     palette.rel='stylesheet';
-    palette.href='palette-theme.css?v=20260901-palette1';
+    palette.href='palette-theme.css?v=20260901-neon2';
     palette.dataset.paletteThemeCss='true';
     document.head.appendChild(palette);
   }
+
+  /* Final dashboard-only contrast layer. This is inserted after premium-polish so
+     the Course Status values cannot fall back to the old black text rules. */
+  let statusFix=document.getElementById('courseStatusNeonContrastFix');
+  if(!statusFix){
+    statusFix=document.createElement('style');
+    statusFix.id='courseStatusNeonContrastFix';
+    document.head.appendChild(statusFix);
+  }
+  statusFix.textContent=`
+    body .hero .hero-card .stat strong,
+    body .hero .hero-card .progress-box .progress-head,
+    body .hero .hero-card .progress-box .progress-head > span,
+    body .hero .hero-card .progress-box .progress-head > strong,
+    body .hero .hero-card #buildPercent,
+    body .hero .hero-card #availableProgress{
+      color:#ffffff !important;
+      -webkit-text-fill-color:#ffffff !important;
+      opacity:1 !important;
+      text-shadow:none !important;
+    }
+    body .hero .hero-card h2,
+    body .hero .hero-card .stat small,
+    body .hero .hero-card .progress-box > small{
+      color:#39ff14 !important;
+      -webkit-text-fill-color:#39ff14 !important;
+      opacity:1 !important;
+    }
+  `;
 
   if(!document.querySelector('script[data-premium-motion-loader]')){
     const premium=document.createElement('script');
