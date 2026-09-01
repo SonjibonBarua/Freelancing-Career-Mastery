@@ -8,6 +8,8 @@
   function setDeviceClass(){
     const w=innerWidth;
     document.documentElement.dataset.deviceClass=w<=480?'phone-small':w<=767?'phone':w<=1024?'tablet':w<=1366?'compact-desktop':'desktop';
+    const dock=$('#mobileLearningDock');
+    if(dock)dock.style.display=phone()?'':'none';
   }
   setDeviceClass();
   addEventListener('resize',setDeviceClass,{passive:true});
@@ -44,6 +46,7 @@
         <button type="button" id="mobileResourcesBtn" aria-label="Open lesson resources"><b>▣</b><span>Resources</span></button>`;
       document.body.appendChild(dock);
     }
+    dock.style.display=phone()?'':'none';
 
     const courseBtn=$('#mobileCourseBtn',dock), resourceBtn=$('#mobileResourcesBtn',dock);
     const prevBtn=$('#mobilePrevBtn',dock), nextBtn=$('#mobileNextBtn',dock);
@@ -67,6 +70,7 @@
       courseBtn.querySelector('span').textContent=c?'Close':'Course';
       resourceBtn.querySelector('b').textContent=r?'×':'▣';
       resourceBtn.querySelector('span').textContent=r?'Close':'Resources';
+      dock.style.display=phone()?'':'none';
     };
     new MutationObserver(sync).observe(sidebar,{attributes:true,attributeFilter:['class']});
     new MutationObserver(sync).observe(rail,{attributes:true,attributeFilter:['class']});
