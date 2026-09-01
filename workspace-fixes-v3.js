@@ -9,7 +9,7 @@
     if ($('link[data-workspace-fixes-v3-css]')) return;
     const l=document.createElement('link');
     l.rel='stylesheet';
-    l.href='workspace-fixes-v2.css?v=20260901-5';
+    l.href='workspace-fixes-v2.css?v=20260901-6';
     l.dataset.workspaceFixesV3Css='true';
     document.head.appendChild(l);
   }
@@ -46,12 +46,16 @@
     const rail=$('#workspaceRightRail');
     const rawCourse=$('#menuBtn');
     const rawResource=$('#workspaceToolsToggle');
-    if(!sidebar||!rail||!rawCourse||!rawResource){
+    const hero=$('.hero');
+    if(!sidebar||!rail||!rawCourse||!rawResource||!hero){
       if(attempt<160)setTimeout(()=>boot(attempt+1),75);
       return;
     }
-    if(document.documentElement.dataset.workspaceDrawerBindings==='v4')return;
-    document.documentElement.dataset.workspaceDrawerBindings='v4';
+    if(document.documentElement.dataset.workspaceDrawerBindings==='v5')return;
+    document.documentElement.dataset.workspaceDrawerBindings='v5';
+
+    const courseHome=rawCourse.parentElement;
+    const resourceHome=rawResource.parentElement;
 
     /* Replace stale controls so older cached open-only listeners cannot win. */
     const courseHandle=replaceNode(rawCourse);
@@ -76,6 +80,28 @@
     const mobile=()=>innerWidth<=680;
     const cancelCourse=()=>{clearTimeout(courseTimer);courseTimer=0};
     const cancelResource=()=>{clearTimeout(resourceTimer);resourceTimer=0};
+
+    function updateDrawerAnchor(){
+      if(mobile()){
+        document.documentElement.style.removeProperty('--workspace-drawer-anchor-top');
+        return;
+      }
+      const rect=hero.getBoundingClientRect();
+      const top=Math.round(rect.top+scrollY+8);
+      document.documentElement.style.setProperty('--workspace-drawer-anchor-top',`${top}px`);
+    }
+
+    function placeHandles(){
+      if(!mobile()){
+        if(courseHandle.parentElement!==hero)hero.appendChild(courseHandle);
+        if(resourceHandle.parentElement!==hero)hero.appendChild(resourceHandle);
+        updateDrawerAnchor();
+      }else{
+        if(courseHome&&courseHandle.parentElement!==courseHome)courseHome.appendChild(courseHandle);
+        if(resourceHome&&resourceHandle.parentElement!==resourceHome)resourceHome.prepend(resourceHandle);
+        document.documentElement.style.removeProperty('--workspace-drawer-anchor-top');
+      }
+    }
 
     function syncLock(){
       const anyOpen=sidebar.classList.contains('open')||rail.classList.contains('open');
@@ -127,21 +153,13 @@
       if(e.key==='Escape'){setCourse(false);setResources(false)}
     });
 
+    /* Drawer content keeps its own position. Scrolling the lesson does not
+       touch either drawer's scrollTop; only scrolling inside the drawer does. */
     sidebar.addEventListener('scroll',()=>{courseScrollTop=sidebar.scrollTop},{passive:true});
     rail.addEventListener('scroll',()=>{resourceScrollTop=rail.scrollTop},{passive:true});
-
-    /* Main lesson scrolling never changes drawer position or its internal
-       scroll position. It also cancels a pending mouse-leave collapse so a
-       reader can keep a drawer open while scrolling the lesson behind it. */
     addEventListener('scroll',()=>{
-      if(sidebar.classList.contains('open')){
-        cancelCourse();
-        if(sidebar.scrollTop!==courseScrollTop)sidebar.scrollTop=courseScrollTop;
-      }
-      if(rail.classList.contains('open')){
-        cancelResource();
-        if(rail.scrollTop!==resourceScrollTop)rail.scrollTop=resourceScrollTop;
-      }
+      if(sidebar.classList.contains('open'))cancelCourse();
+      if(rail.classList.contains('open'))cancelResource();
     },{passive:true});
 
     if(finePointer){
@@ -164,9 +182,12 @@
       });
     }
 
-    addEventListener('resize',render,{passive:true});
-    addEventListener('pageshow',()=>{setCourse(false);setResources(false);restoreVisible()});
+    placeHandles();
     render();
+
+    addEventListener('resize',()=>{placeHandles();render()},{passive:true});
+    addEventListener('load',updateDrawerAnchor,{once:true});
+    addEventListener('pageshow',()=>{placeHandles();setCourse(false);setResources(false);restoreVisible()});
   }
 
   boot();
