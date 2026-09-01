@@ -1,0 +1,242 @@
+/* Content-first dual drawer workspace.
+   Loaded after learning-workspace.css so these rules intentionally win. */
+
+@media (min-width:681px){
+  :root{--drawer-left:340px;--drawer-right:400px;--edge-handle:48px}
+
+  /* Main lesson owns the viewport. Side systems float above it only on demand. */
+  .workspace-ready .site-shell{
+    margin-left:0!important;
+    margin-right:0!important;
+    min-width:0;
+  }
+  .workspace-ready .hero-inner,
+  .workspace-ready .lesson-layout,
+  .workspace-ready footer .content-width{
+    width:min(100% - 64px,1180px)!important;
+    max-width:1180px!important;
+  }
+  .workspace-ready .lesson-layout{grid-template-columns:minmax(0,1fr)!important}
+  .workspace-ready .lesson-outline{display:none!important}
+  .workspace-ready .hero-copy{max-width:920px;line-height:1.7}
+  .workspace-ready .lesson-main{font-size:1rem}
+  .workspace-ready .lesson-main p,
+  .workspace-ready .lesson-main li{line-height:1.72}
+
+  /* LEFT: full curriculum becomes a closed-by-default drawer. */
+  .workspace-ready .sidebar{
+    position:fixed!important;
+    left:10px!important;
+    top:10px!important;
+    bottom:10px!important;
+    width:min(var(--drawer-left),calc(100vw - 28px))!important;
+    height:auto!important;
+    z-index:1220!important;
+    padding:0 10px 12px!important;
+    border:1px solid var(--line)!important;
+    border-radius:20px!important;
+    background:color-mix(in srgb,var(--bg) 96%,transparent)!important;
+    box-shadow:0 30px 90px rgba(0,0,0,.34)!important;
+    backdrop-filter:blur(22px) saturate(130%);
+    overflow:auto!important;
+    transform:translateX(calc(-100% - 24px))!important;
+    transition:transform .28s cubic-bezier(.2,.8,.2,1)!important;
+  }
+  .workspace-ready .sidebar.open{transform:translateX(0)!important}
+  .workspace-ready .sidebar .close-menu{display:grid!important}
+  .workspace-ready .sidebar-head{
+    position:sticky!important;
+    top:0!important;
+    z-index:5!important;
+    background:color-mix(in srgb,var(--bg) 96%,transparent)!important;
+    backdrop-filter:blur(18px);
+  }
+
+  /* RIGHT: resources/tools are also a closed-by-default drawer. */
+  .workspace-right-rail{
+    position:fixed!important;
+    right:10px!important;
+    top:10px!important;
+    bottom:10px!important;
+    width:min(var(--drawer-right),calc(100vw - 28px))!important;
+    z-index:1220!important;
+    padding:10px!important;
+    display:flex!important;
+    flex-direction:column!important;
+    gap:10px!important;
+    overflow:auto!important;
+    border:1px solid var(--line)!important;
+    border-radius:20px!important;
+    background:color-mix(in srgb,var(--bg) 96%,transparent)!important;
+    box-shadow:0 30px 90px rgba(0,0,0,.34)!important;
+    backdrop-filter:blur(22px) saturate(130%);
+    transform:translateX(calc(100% + 24px))!important;
+    transition:transform .28s cubic-bezier(.2,.8,.2,1)!important;
+  }
+  .workspace-right-rail.open{transform:translateX(0)!important}
+  .workspace-right-rail .workspace-rail-close{
+    display:grid!important;
+    position:sticky!important;
+    top:0!important;
+    z-index:5!important;
+    margin:0 0 2px auto!important;
+    flex:0 0 auto;
+  }
+
+  /* Existing topbar buttons become edge handles. They keep their current JS. */
+  .workspace-ready .menu-btn,
+  .workspace-ready .workspace-tools-toggle{
+    display:flex!important;
+    position:fixed!important;
+    top:46%!important;
+    transform:translateY(-50%)!important;
+    width:var(--edge-handle)!important;
+    min-width:var(--edge-handle)!important;
+    height:54px!important;
+    padding:0 14px!important;
+    z-index:1190!important;
+    gap:9px!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    overflow:hidden!important;
+    white-space:nowrap!important;
+    color:var(--text)!important;
+    border:1px solid color-mix(in srgb,var(--primary) 32%,var(--line))!important;
+    background:color-mix(in srgb,var(--surface) 92%,transparent)!important;
+    box-shadow:0 14px 38px rgba(0,0,0,.18)!important;
+    backdrop-filter:blur(16px) saturate(130%);
+    transition:width .22s ease,background .22s ease,border-color .22s ease,box-shadow .22s ease!important;
+  }
+  .workspace-ready .menu-btn{
+    left:0!important;
+    right:auto!important;
+    border-left:0!important;
+    border-radius:0 15px 15px 0!important;
+  }
+  .workspace-ready .workspace-tools-toggle{
+    right:0!important;
+    left:auto!important;
+    border-right:0!important;
+    border-radius:15px 0 0 15px!important;
+  }
+  .workspace-ready .menu-btn::after,
+  .workspace-ready .workspace-tools-toggle::after{
+    display:block!important;
+    opacity:0;
+    max-width:0;
+    overflow:hidden;
+    font-size:.68rem;
+    font-weight:850;
+    letter-spacing:.01em;
+    transition:opacity .16s ease,max-width .22s ease;
+  }
+  .workspace-ready .menu-btn::after{content:'Course';}
+  .workspace-ready .workspace-tools-toggle::after{content:'Resources';}
+  .workspace-ready .menu-btn:hover,
+  .workspace-ready .menu-btn:focus-visible,
+  .workspace-ready .workspace-tools-toggle:hover,
+  .workspace-ready .workspace-tools-toggle:focus-visible{
+    width:126px!important;
+    background:color-mix(in srgb,var(--surface) 84%,var(--primary-soft))!important;
+    border-color:color-mix(in srgb,var(--primary) 52%,var(--line))!important;
+    box-shadow:0 18px 46px rgba(0,0,0,.22),0 0 0 4px color-mix(in srgb,var(--primary) 8%,transparent)!important;
+  }
+  .workspace-ready .menu-btn:hover::after,
+  .workspace-ready .menu-btn:focus-visible::after,
+  .workspace-ready .workspace-tools-toggle:hover::after,
+  .workspace-ready .workspace-tools-toggle:focus-visible::after{
+    opacity:1;
+    max-width:74px;
+  }
+
+  /* Topbar no longer reserves columns for side panels. */
+  .workspace-ready .topbar{
+    grid-template-columns:minmax(300px,1.25fr) minmax(180px,.65fr) auto!important;
+    padding-inline:28px!important;
+  }
+  .workspace-ready .topbar-title{display:none!important}
+  .workspace-overall{min-width:190px}
+
+  /* Keep full curriculum names readable inside the drawer. */
+  .workspace-ready .workspace-module-head strong{font-size:.78rem;line-height:1.28}
+  .workspace-ready .workspace-module-head small{
+    font-size:.64rem;
+    line-height:1.35;
+    white-space:normal!important;
+    overflow:visible!important;
+    text-overflow:clip!important;
+  }
+  .workspace-ready .workspace-lesson-link{grid-template-columns:27px minmax(0,1fr) 18px;gap:9px;padding:9px 8px}
+  .workspace-ready .workspace-lesson-link strong{font-size:.72rem;line-height:1.3}
+  .workspace-ready .workspace-lesson-link small{
+    font-size:.65rem;
+    line-height:1.4;
+    white-space:normal!important;
+    overflow:visible!important;
+    text-overflow:clip!important;
+    overflow-wrap:anywhere;
+  }
+
+  /* Main companion video appears early in the lesson, not buried near notes. */
+  .workspace-ready .lesson-video-section{
+    padding:18px 0 42px!important;
+    scroll-margin-top:92px;
+  }
+  .workspace-ready .inline-video-card{
+    border-color:color-mix(in srgb,var(--primary) 24%,var(--line));
+  }
+  .workspace-ready .inline-video-copy .video-chip{letter-spacing:.04em}
+  .inline-video-proof{
+    margin-top:12px;
+    padding:11px 12px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:color-mix(in srgb,var(--surface) 88%,transparent);
+    display:grid;
+    gap:4px;
+  }
+  .inline-video-proof b{color:var(--primary);font-size:.65rem;letter-spacing:.06em;text-transform:uppercase}
+  .inline-video-proof span{color:var(--muted);font-size:.76rem;line-height:1.48}
+
+  /* Right drawer keeps source context but jumps to the single full player. */
+  .workspace-right-rail .workspace-rail-video .workspace-video-player{display:none!important}
+  .workspace-right-rail .workspace-rail-video .workspace-video-note{font-size:.66rem;line-height:1.5}
+  .workspace-video-jump{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin:0 13px 13px;
+    padding:10px 11px;
+    border:1px solid color-mix(in srgb,var(--primary) 30%,var(--line));
+    border-radius:11px;
+    background:var(--primary-soft);
+    color:var(--primary);
+    text-decoration:none;
+    font-size:.68rem;
+    font-weight:850;
+  }
+  .workspace-video-jump:hover{border-color:color-mix(in srgb,var(--primary) 55%,var(--line));transform:translateY(-1px)}
+}
+
+/* Phones retain the familiar topbar menu buttons; both panels are already drawers. */
+@media(max-width:680px){
+  .workspace-ready .site-shell{margin-left:0!important;margin-right:0!important}
+  .workspace-ready .lesson-video-section{padding-top:12px;padding-bottom:34px}
+  .inline-video-proof{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--surface)}
+  .inline-video-proof b{display:block;color:var(--primary);font-size:.62rem;margin-bottom:3px}
+  .inline-video-proof span{font-size:.72rem;line-height:1.45;color:var(--muted)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .workspace-ready .menu-btn,
+  .workspace-ready .workspace-tools-toggle,
+  .workspace-ready .sidebar,
+  .workspace-right-rail,
+  .workspace-video-jump{transition:none!important}
+}
+
+@media print{
+  .workspace-ready .menu-btn,
+  .workspace-ready .workspace-tools-toggle{display:none!important}
+}
