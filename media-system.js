@@ -178,6 +178,14 @@
     document.body.appendChild(s);
   }
 
-  function init(){ insertVisual();insertVideo();removeRedirectVideoLinks();loadWorkspace(); }
+  function loadWorkspaceFixes(){
+    if($('script[data-workspace-fixes-loader]'))return;
+    const s=document.createElement('script');
+    s.src='workspace-fixes.js';
+    s.dataset.workspaceFixesLoader='true';
+    document.body.appendChild(s);
+  }
+
+  function init(){ insertVisual();insertVideo();removeRedirectVideoLinks();loadWorkspace();loadWorkspaceFixes(); }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
