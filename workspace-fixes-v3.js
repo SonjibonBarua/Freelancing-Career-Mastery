@@ -9,7 +9,7 @@
     if ($('link[data-workspace-fixes-v3-css]')) return;
     const l=document.createElement('link');
     l.rel='stylesheet';
-    l.href='workspace-fixes-v2.css?v=20260901-4';
+    l.href='workspace-fixes-v2.css?v=20260901-5';
     l.dataset.workspaceFixesV3Css='true';
     document.head.appendChild(l);
   }
