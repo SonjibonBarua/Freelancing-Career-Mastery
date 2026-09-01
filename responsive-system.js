@@ -5,6 +5,16 @@
   const body=document.body;
   const phone=()=>matchMedia('(max-width:767px)').matches;
 
+  function ensureCssFinal(){
+    document.querySelectorAll('link[data-responsive-runtime-final]').forEach(link=>link.remove());
+    const link=document.createElement('link');
+    link.rel='stylesheet';
+    link.href='responsive-system.css?v=20260901-responsive1';
+    link.dataset.responsiveRuntimeFinal='true';
+    document.head.appendChild(link);
+  }
+  ensureCssFinal();
+
   function setDeviceClass(){
     const w=innerWidth;
     document.documentElement.dataset.deviceClass=w<=480?'phone-small':w<=767?'phone':w<=1024?'tablet':w<=1366?'compact-desktop':'desktop';
@@ -76,7 +86,6 @@
     new MutationObserver(sync).observe(rail,{attributes:true,attributeFilter:['class']});
     sync();
 
-    /* Swipe down on either mobile sheet to dismiss it. */
     [sidebar,rail].forEach((panel)=>{
       if(panel.dataset.mobileSwipeBound)return;
       panel.dataset.mobileSwipeBound='true';
@@ -105,6 +114,7 @@
   }
 
   function boot(){
+    ensureCssFinal();
     optimizeMedia();
     setupLessonMobile();
   }
