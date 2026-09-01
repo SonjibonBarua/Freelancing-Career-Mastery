@@ -1,0 +1,85 @@
+/* Stability + discoverability overrides for the dual-drawer lesson workspace. */
+
+@media (min-width:681px){
+  /* Place drawer handles near the beginning of the main lesson panel instead
+     of halfway down the viewport. */
+  .workspace-ready .menu-btn,
+  .workspace-ready .workspace-tools-toggle{
+    top:132px!important;
+    transform:none!important;
+    z-index:1260!important;
+    width:54px!important;
+    min-width:54px!important;
+    height:56px!important;
+  }
+
+  .workspace-ready .menu-btn:hover,
+  .workspace-ready .menu-btn:focus-visible,
+  .workspace-ready .workspace-tools-toggle:hover,
+  .workspace-ready .workspace-tools-toggle:focus-visible{
+    width:132px!important;
+  }
+
+  /* Keep the same handle clickable while its drawer is open. */
+  .workspace-ready .menu-btn.is-active,
+  .workspace-ready .workspace-tools-toggle.is-active{
+    z-index:1275!important;
+    border-color:color-mix(in srgb,var(--primary) 62%,var(--line))!important;
+    background:color-mix(in srgb,var(--surface) 78%,var(--primary-soft))!important;
+    box-shadow:0 18px 48px rgba(0,0,0,.26),0 0 0 4px color-mix(in srgb,var(--primary) 9%,transparent)!important;
+    font-size:1.25rem!important;
+  }
+
+  /* Explicit close controls inside both drawers. */
+  .workspace-ready .sidebar .close-menu,
+  .workspace-right-rail .workspace-rail-close{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:7px!important;
+    width:auto!important;
+    min-width:78px!important;
+    height:36px!important;
+    padding:0 11px!important;
+    border:1px solid color-mix(in srgb,var(--primary) 28%,var(--line))!important;
+    border-radius:10px!important;
+    background:var(--surface)!important;
+    color:var(--text)!important;
+    font-size:1rem!important;
+    line-height:1!important;
+    box-shadow:0 8px 24px rgba(0,0,0,.10)!important;
+    cursor:pointer!important;
+  }
+  .workspace-ready .sidebar .close-menu::after,
+  .workspace-right-rail .workspace-rail-close::after{
+    content:'Close';
+    font-size:.66rem;
+    font-weight:850;
+    letter-spacing:.02em;
+  }
+  .workspace-ready .sidebar .close-menu:hover,
+  .workspace-right-rail .workspace-rail-close:hover{
+    border-color:color-mix(in srgb,var(--primary) 52%,var(--line))!important;
+    background:var(--primary-soft)!important;
+  }
+
+  /* Resource close button must remain visible regardless of the old inline
+     display value or old desktop breakpoint code. */
+  .workspace-right-rail .workspace-rail-close{
+    position:sticky!important;
+    top:0!important;
+    z-index:20!important;
+    margin:0 0 6px auto!important;
+    align-self:flex-end!important;
+  }
+
+  .workspace-ready .sidebar .close-menu{
+    position:relative!important;
+    z-index:20!important;
+  }
+}
+
+@media(max-width:680px){
+  .workspace-right-rail .workspace-rail-close,
+  .workspace-ready .sidebar .close-menu{display:grid!important}
+}
