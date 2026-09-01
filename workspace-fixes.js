@@ -22,10 +22,26 @@
     }
   };
 
+  const appendResponsive=()=>{
+    document.querySelectorAll('link[data-responsive-system-final]').forEach(link=>link.remove());
+    const css=document.createElement('link');
+    css.rel='stylesheet';
+    css.href='responsive-system.css?v=20260901-responsive1';
+    css.dataset.responsiveSystemFinal='true';
+    document.head.appendChild(css);
+    if(!document.querySelector('script[data-responsive-system-loader]')){
+      const rs=document.createElement('script');
+      rs.src='responsive-system.js?v=20260901-responsive1';
+      rs.dataset.responsiveSystemLoader='true';
+      document.body.appendChild(rs);
+    }
+  };
+
   const s=document.createElement('script');
   s.src='workspace-fixes-v3.js?v=20260901-13';
   s.dataset.workspaceStabilityV3Loader='true';
-  s.addEventListener('load',()=>appendNeonPalette(true),{once:true});
+  s.addEventListener('load',()=>{appendNeonPalette(true);appendResponsive()},{once:true});
   document.head.appendChild(s);
   appendNeonPalette();
+  appendResponsive();
 })();
