@@ -17,14 +17,14 @@
     if (!$('link[data-workspace-palette-theme]')){
       const l=document.createElement('link');
       l.rel='stylesheet';
-      l.href='palette-theme.css?v=20260901-palette2';
+      l.href='palette-theme.css?v=20260901-blue1';
       l.dataset.workspacePaletteTheme='true';
       document.head.appendChild(l);
     }
     if (!$('link[data-workspace-continuous-theme]')){
       const c=document.createElement('link');
       c.rel='stylesheet';
-      c.href='palette-continuous.css?v=20260901-continuous1';
+      c.href='palette-continuous.css?v=20260901-blue1';
       c.dataset.workspaceContinuousTheme='true';
       document.head.appendChild(c);
     }
