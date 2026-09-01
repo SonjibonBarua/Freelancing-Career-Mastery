@@ -1,0 +1,96 @@
+/* Continuous light-mode palette backdrop.
+   Keeps the Color Hunt identity across the whole document instead of
+   restarting the background after the hero. */
+
+body:not(.dark){
+  background:
+    linear-gradient(rgba(255,248,231,.54),rgba(247,253,249,.56)),
+    linear-gradient(118deg,#df301c 0%,#ff9100 34%,#fff1d1 66%,#00b7cd 100%)!important;
+  background-attachment:fixed!important;
+  background-size:cover!important;
+  background-repeat:no-repeat!important;
+}
+
+/* One ambient layer for the full page. Large glows keep the exact palette
+   visible without turning reading areas into four hard color bands. */
+body:not(.dark)::before{
+  content:""!important;
+  position:fixed!important;
+  inset:0!important;
+  z-index:-2!important;
+  pointer-events:none!important;
+  background:
+    radial-gradient(950px 720px at -5% 12%,rgba(223,48,28,.24),transparent 69%),
+    radial-gradient(980px 720px at 26% 44%,rgba(255,145,0,.20),transparent 70%),
+    radial-gradient(980px 760px at 69% 62%,rgba(255,241,209,.52),transparent 72%),
+    radial-gradient(980px 760px at 106% 30%,rgba(0,183,205,.24),transparent 70%)!important;
+}
+
+/* Structural containers stay transparent so the backdrop never restarts. */
+body:not(.dark) > main,
+body:not(.dark) .site-shell,
+body:not(.dark) .site-shell > main,
+body:not(.dark) .site-shell main,
+body:not(.dark) main#top,
+body:not(.dark) #lessonMount{
+  background:transparent!important;
+}
+
+/* Hero belongs to the same canvas instead of being a separate saturated band. */
+body:not(.dark) .hero,
+body:not(.dark).lesson-page .hero{
+  background:
+    linear-gradient(90deg,rgba(255,241,209,.10),rgba(255,255,255,.05) 48%,rgba(0,183,205,.07))!important;
+  border-bottom-color:rgba(104,73,39,.10)!important;
+}
+body:not(.dark) .hero::after{
+  opacity:.26!important;
+}
+
+/* Dashboard / curriculum wrappers must not create a cream sheet over the
+   continuous theme. Cards remain translucent and therefore still readable. */
+body:not(.dark) #curriculum,
+body:not(.dark) .modules,
+body:not(.dark) .lesson-layout,
+body:not(.dark) .lesson-main,
+body:not(.dark) .lab-layout{
+  background:transparent!important;
+}
+
+/* Slightly clearer glass surfaces now that richer color sits behind them. */
+body:not(.dark) .hero-card,
+body:not(.dark) .module,
+body:not(.dark) .survival,
+body:not(.dark) .roadmap-strip,
+body:not(.dark) .learning-goals,
+body:not(.dark) .lesson-card,
+body:not(.dark) .phase-card,
+body:not(.dark) .takeaway,
+body:not(.dark) .faq-item,
+body:not(.dark) .check-item,
+body:not(.dark) .completion-card,
+body:not(.dark) .course-nav,
+body:not(.dark) .practice-shell,
+body:not(.dark) .scenario-box,
+body:not(.dark) .quiz-box,
+body:not(.dark) .note-box,
+body:not(.dark) .lesson-media-card,
+body:not(.dark) .inline-video-card,
+body:not(.dark) .workspace-rail-card,
+body:not(.dark) .workspace-side-progress,
+body:not(.dark) .case-nav,
+body:not(.dark) .case-stage,
+body:not(.dark) .debrief,
+body:not(.dark) .completion-panel{
+  -webkit-backdrop-filter:blur(22px) saturate(120%)!important;
+  backdrop-filter:blur(22px) saturate(120%)!important;
+}
+
+/* Preserve a seamless footer transition as well. */
+body:not(.dark) footer{
+  background:linear-gradient(90deg,rgba(255,241,209,.72),rgba(255,249,233,.68),rgba(232,251,253,.70))!important;
+}
+
+@media(max-width:680px){
+  body:not(.dark){background-attachment:scroll!important}
+}
