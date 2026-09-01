@@ -1,5 +1,16 @@
 /* Stability + discoverability overrides for the dual-drawer lesson workspace. */
 
+/* Never fade an outgoing lesson page to opacity:0. This keeps browser
+   Back/Forward (BFCache) restores visible even if a stale page-leaving class
+   is restored before JavaScript receives pageshow. Entrance motion remains. */
+body.lesson-page.page-leaving{
+  animation:none!important;
+  opacity:1!important;
+  visibility:visible!important;
+  filter:none!important;
+  transform:none!important;
+}
+
 @media (min-width:681px){
   /* Place drawer handles near the beginning of the main lesson panel instead
      of halfway down the viewport. */
