@@ -12,15 +12,20 @@ body.lesson-page.page-leaving{
 }
 
 @media (min-width:681px){
-  /* Keep both discovery handles exactly at the vertical midpoint of the
-     viewport, attached to the two page edges and independent of the topbar. */
-  .workspace-ready .menu-btn,
-  .workspace-ready .workspace-tools-toggle{
-    position:fixed!important;
-    top:50%!important;
+  /* The two drawer triggers live inside the hero itself. This matches the
+     marked reference: left/right edge, roughly halfway down the purple hero,
+     below the full topbar. Because they are absolute to the hero, they scroll
+     away naturally with the lesson instead of staying glued to the viewport. */
+  .workspace-ready .hero{
+    position:relative!important;
+  }
+  .workspace-ready .hero .menu-btn,
+  .workspace-ready .hero .workspace-tools-toggle{
+    position:absolute!important;
+    top:55%!important;
     bottom:auto!important;
     transform:translateY(-50%)!important;
-    z-index:1260!important;
+    z-index:30!important;
     width:112px!important;
     min-width:112px!important;
     height:62px!important;
@@ -39,22 +44,22 @@ body.lesson-page.page-leaving{
     backdrop-filter:blur(18px) saturate(135%);
     animation:drawerDiscover 1.25s ease-in-out .7s 2;
   }
-  .workspace-ready .menu-btn{
+  .workspace-ready .hero .menu-btn{
     left:0!important;
     right:auto!important;
     border-left:0!important;
     border-radius:0 18px 18px 0!important;
   }
-  .workspace-ready .workspace-tools-toggle{
+  .workspace-ready .hero .workspace-tools-toggle{
     right:0!important;
     left:auto!important;
     border-right:0!important;
     border-radius:18px 0 0 18px!important;
   }
 
-  /* Labels are always visible so a learner immediately understands the tabs. */
-  .workspace-ready .menu-btn::after,
-  .workspace-ready .workspace-tools-toggle::after{
+  /* Labels stay visible at first glance. */
+  .workspace-ready .hero .menu-btn::after,
+  .workspace-ready .hero .workspace-tools-toggle::after{
     display:block!important;
     opacity:1!important;
     max-width:88px!important;
@@ -66,13 +71,13 @@ body.lesson-page.page-leaving{
     color:var(--text)!important;
     transition:opacity .18s ease,max-width .2s ease!important;
   }
-  .workspace-ready .menu-btn::after{content:'Course'!important}
-  .workspace-ready .workspace-tools-toggle::after{content:'Resources'!important}
+  .workspace-ready .hero .menu-btn::after{content:'Course'!important}
+  .workspace-ready .hero .workspace-tools-toggle::after{content:'Resources'!important}
 
-  .workspace-ready .menu-btn:hover,
-  .workspace-ready .menu-btn:focus-visible,
-  .workspace-ready .workspace-tools-toggle:hover,
-  .workspace-ready .workspace-tools-toggle:focus-visible{
+  .workspace-ready .hero .menu-btn:hover,
+  .workspace-ready .hero .menu-btn:focus-visible,
+  .workspace-ready .hero .workspace-tools-toggle:hover,
+  .workspace-ready .hero .workspace-tools-toggle:focus-visible{
     width:142px!important;
     min-width:142px!important;
     border-color:color-mix(in srgb,var(--primary) 68%,var(--line))!important;
@@ -80,10 +85,9 @@ body.lesson-page.page-leaving{
     box-shadow:0 20px 54px rgba(0,0,0,.24),0 0 0 5px color-mix(in srgb,var(--primary) 9%,transparent)!important;
   }
 
-  /* Keep the same handle clickable while its drawer is open. */
-  .workspace-ready .menu-btn.is-active,
-  .workspace-ready .workspace-tools-toggle.is-active{
-    z-index:1275!important;
+  .workspace-ready .hero .menu-btn.is-active,
+  .workspace-ready .hero .workspace-tools-toggle.is-active{
+    z-index:45!important;
     width:104px!important;
     min-width:104px!important;
     border-color:color-mix(in srgb,var(--primary) 62%,var(--line))!important;
@@ -92,27 +96,29 @@ body.lesson-page.page-leaving{
     font-size:1.25rem!important;
     animation:none!important;
   }
-  .workspace-ready .menu-btn.is-active::after,
-  .workspace-ready .workspace-tools-toggle.is-active::after{
+  .workspace-ready .hero .menu-btn.is-active::after,
+  .workspace-ready .hero .workspace-tools-toggle.is-active::after{
     content:'Close'!important;
     max-width:56px!important;
   }
 
-  /* Drawers are viewport-locked. Scrolling the main lesson cannot move the
-     drawer or its visible text. Each drawer only scrolls when the user scrolls
-     inside that drawer itself. */
+  /* Drawer shells are intentionally NOT viewport-fixed. Their document top is
+     aligned to the start of the hero, so the complete topbar always remains
+     visible. When the main page scrolls the shell moves with the page. Its own
+     internal scrollTop is independent, so text/control positions do not jump
+     merely because the lesson behind it is scrolling. */
   .workspace-ready .sidebar,
   .workspace-right-rail{
-    position:fixed!important;
-    top:10px!important;
-    bottom:10px!important;
-    height:auto!important;
-    max-height:calc(100dvh - 20px)!important;
-    overscroll-behavior:contain!important;
-    scroll-behavior:auto!important;
+    position:absolute!important;
+    top:var(--workspace-drawer-anchor-top,76px)!important;
+    bottom:auto!important;
+    height:min(760px,calc(100vh - 92px))!important;
+    max-height:calc(100vh - 92px)!important;
+    min-height:420px;
     overflow-x:hidden!important;
     overflow-y:auto!important;
-    contain:layout paint!important;
+    overscroll-behavior:contain!important;
+    scroll-behavior:auto!important;
   }
   .workspace-ready .sidebar{
     left:10px!important;
@@ -121,8 +127,8 @@ body.lesson-page.page-leaving{
     right:10px!important;
   }
 
-  /* Prevent the sticky panel headers from visually drifting while the lesson
-     behind the drawer is being scrolled. */
+  /* The controls inside a drawer stay anchored to the drawer while its own
+     content scrolls. Main-page scrolling never changes the drawer's scrollTop. */
   .workspace-ready .sidebar-head{
     position:sticky!important;
     top:0!important;
@@ -134,7 +140,6 @@ body.lesson-page.page-leaving{
     z-index:30!important;
   }
 
-  /* Explicit close controls inside both drawers. */
   .workspace-ready .sidebar .close-menu,
   .workspace-right-rail .workspace-rail-close{
     display:flex!important;
@@ -171,7 +176,6 @@ body.lesson-page.page-leaving{
     margin:0 0 6px auto!important;
     align-self:flex-end!important;
   }
-
   .workspace-ready .sidebar .close-menu{
     position:relative!important;
     z-index:30!important;
