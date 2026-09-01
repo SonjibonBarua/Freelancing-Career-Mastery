@@ -1,10 +1,13 @@
 /* Continuous calm-premium backdrop
-   Emerald #087F8C · Cobalt #3155D9 · Lavender #9A86FD · Champagne #FFF0CF */
+   Emerald #087F8C · Cobalt #3155D9 · Lavender #9A86FD · Champagne #FFF0CF
+   Light mode now uses one uninterrupted canvas, matching dark-mode continuity. */
 
 body:not(.dark){
   background:
-    linear-gradient(rgba(255,248,232,.58),rgba(248,252,248,.64)),
-    linear-gradient(122deg,#087f8c -8%,#3155d9 31%,#9a86fd 68%,#fff0cf 112%)!important;
+    radial-gradient(900px 720px at 7% 16%,rgba(8,127,140,.32),transparent 68%),
+    radial-gradient(980px 760px at 55% 44%,rgba(154,134,253,.22),transparent 70%),
+    radial-gradient(980px 760px at 96% 30%,rgba(255,240,207,.30),transparent 70%),
+    linear-gradient(118deg,#087f8c 0%,#3155d9 36%,#9a86fd 69%,#fff0cf 108%)!important;
   background-attachment:fixed!important;
   background-size:cover!important;
   background-repeat:no-repeat!important;
@@ -16,10 +19,8 @@ body:not(.dark)::before{
   z-index:-2!important;
   pointer-events:none!important;
   background:
-    radial-gradient(980px 720px at -8% 10%,rgba(8,127,140,.24),transparent 68%),
-    radial-gradient(920px 700px at 34% 36%,rgba(49,85,217,.18),transparent 69%),
-    radial-gradient(940px 720px at 84% 48%,rgba(154,134,253,.22),transparent 70%),
-    radial-gradient(1040px 800px at 48% 98%,rgba(255,240,207,.58),transparent 72%)!important;
+    radial-gradient(720px 560px at -4% 78%,rgba(255,240,207,.14),transparent 70%),
+    radial-gradient(760px 600px at 74% 88%,rgba(8,127,140,.10),transparent 72%)!important;
 }
 
 body.dark{
@@ -37,52 +38,24 @@ body.dark::before{
     radial-gradient(920px 720px at 96% 30%,rgba(154,134,253,.17),transparent 69%)!important;
 }
 
+/* Every major structural wrapper stays transparent: the palette never restarts. */
 body:not(.dark) > main,
 body:not(.dark) .site-shell,
 body:not(.dark) .site-shell > main,
 body:not(.dark) .site-shell main,
 body:not(.dark) main#top,
 body:not(.dark) #lessonMount,
-body.dark > main,
-body.dark .site-shell,
-body.dark .site-shell > main,
-body.dark .site-shell main,
-body.dark main#top,
-body.dark #lessonMount{
-  background:transparent!important;
-}
-
-body:not(.dark) .hero,
-body:not(.dark).lesson-page .hero{
-  background:
-    radial-gradient(560px 360px at 87% 20%,rgba(255,240,207,.27),transparent 70%),
-    linear-gradient(112deg,rgba(8,127,140,.96) 0%,rgba(49,85,217,.92) 45%,rgba(154,134,253,.84) 78%,rgba(255,240,207,.67) 118%)!important;
-  border-bottom-color:rgba(49,85,217,.10)!important;
-}
-body.dark .hero,
-body.dark.lesson-page .hero{
-  background:
-    radial-gradient(560px 360px at 88% 18%,rgba(154,134,253,.13),transparent 70%),
-    linear-gradient(112deg,rgba(7,39,48,.97),rgba(24,51,101,.93) 48%,rgba(74,61,129,.89))!important;
-  border-bottom-color:rgba(204,214,255,.10)!important;
-}
-body:not(.dark) .hero h1,body:not(.dark) .hero h1 span,
-body.dark .hero h1,body.dark .hero h1 span{
-  color:#fff!important;
-  -webkit-text-fill-color:#fff!important;
-  text-shadow:0 4px 24px rgba(15,37,80,.23)!important;
-}
-body:not(.dark) .hero-copy,body:not(.dark) .hero p{color:rgba(255,255,255,.93)!important}
-body:not(.dark) .hero .eyebrow,body:not(.dark) .hero .breadcrumb{color:#fff4d9!important}
-body.dark .hero-copy,body.dark .hero p{color:#f1efff!important}
-body.dark .hero .eyebrow,body.dark .hero .breadcrumb{color:#83dfdf!important}
-body:not(.dark) .hero::after,body.dark .hero::after{opacity:.55!important}
-
 body:not(.dark) #curriculum,
 body:not(.dark) .modules,
 body:not(.dark) .lesson-layout,
 body:not(.dark) .lesson-main,
 body:not(.dark) .lab-layout,
+body.dark > main,
+body.dark .site-shell,
+body.dark .site-shell > main,
+body.dark .site-shell main,
+body.dark main#top,
+body.dark #lessonMount,
 body.dark #curriculum,
 body.dark .modules,
 body.dark .lesson-layout,
@@ -91,6 +64,47 @@ body.dark .lab-layout{
   background:transparent!important;
 }
 
+/* Hero no longer starts a separate light-mode color block. */
+body:not(.dark) .hero,
+body:not(.dark).lesson-page .hero{
+  background:linear-gradient(110deg,rgba(6,45,82,.08),rgba(255,255,255,.03) 52%,rgba(255,240,207,.08))!important;
+  border-bottom-color:rgba(255,255,255,.16)!important;
+}
+body.dark .hero,
+body.dark.lesson-page .hero{
+  background:
+    radial-gradient(560px 360px at 88% 18%,rgba(154,134,253,.13),transparent 70%),
+    linear-gradient(112deg,rgba(7,39,48,.28),rgba(24,51,101,.20) 48%,rgba(74,61,129,.14))!important;
+  border-bottom-color:rgba(204,214,255,.10)!important;
+}
+
+body:not(.dark) .hero h1,body:not(.dark) .hero h1 span,
+body.dark .hero h1,body.dark .hero h1 span{
+  color:#fff!important;
+  -webkit-text-fill-color:#fff!important;
+  text-shadow:0 4px 24px rgba(15,37,80,.25)!important;
+}
+body:not(.dark) .hero-copy,body:not(.dark) .hero p{color:rgba(255,255,255,.94)!important}
+body:not(.dark) .hero .eyebrow,body:not(.dark) .hero .breadcrumb{color:#fff4d9!important}
+body.dark .hero-copy,body.dark .hero p{color:#f1efff!important}
+body.dark .hero .eyebrow,body.dark .hero .breadcrumb{color:#83dfdf!important}
+body:not(.dark) .hero::after,body.dark .hero::after{opacity:.48!important}
+
+/* Standalone dashboard headings sit directly on the gradient, so give them
+   a high-contrast treatment rather than putting a pale section behind them. */
+body:not(.dark) #curriculum > .section-head h2,
+body:not(.dark) #curriculum > .section-head p,
+body:not(.dark) #curriculum > .section-head .eyebrow,
+body:not(.dark) .survival > .section-head h2,
+body:not(.dark) .survival > .section-head p,
+body:not(.dark) .survival > .eyebrow{
+  color:#fff!important;
+  text-shadow:0 3px 18px rgba(19,32,79,.20)!important;
+}
+body:not(.dark) #curriculum > .section-head .eyebrow,
+body:not(.dark) .survival > .eyebrow{color:#fff4d9!important}
+
+/* Cards remain translucent glass; these are the only light reading surfaces. */
 body:not(.dark) .hero-card,
 body:not(.dark) .module,
 body:not(.dark) .survival,
@@ -119,7 +133,10 @@ body:not(.dark) .completion-panel{
   backdrop-filter:blur(24px) saturate(128%)!important;
 }
 
-body:not(.dark) footer{background:linear-gradient(90deg,rgba(255,241,211,.76),rgba(242,244,255,.73),rgba(224,247,244,.76))!important}
+body:not(.dark) footer{
+  background:linear-gradient(90deg,rgba(8,127,140,.18),rgba(49,85,217,.17),rgba(154,134,253,.16),rgba(255,240,207,.28))!important;
+  border-top-color:rgba(255,255,255,.18)!important;
+}
 
 @media(max-width:680px){
   body:not(.dark),body.dark{background-attachment:scroll!important}
