@@ -151,6 +151,13 @@
     polish.dataset.premiumPolishCss='true';
     document.head.appendChild(polish);
   }
+  if(!document.querySelector('link[data-palette-theme-css]')){
+    const palette=document.createElement('link');
+    palette.rel='stylesheet';
+    palette.href='palette-theme.css?v=20260901-palette1';
+    palette.dataset.paletteThemeCss='true';
+    document.head.appendChild(palette);
+  }
 
   if(!document.querySelector('script[data-premium-motion-loader]')){
     const premium=document.createElement('script');
