@@ -21,8 +21,8 @@
 
 /* --------------------------------------------------------------------------
    Content-first adaptive desktop
-   Keep the premium three-zone workspace on wide displays without shrinking
-   lesson copy on normal laptops/desktops.
+   Keep the premium three-zone workspace on truly wide displays without
+   shrinking lesson copy on normal Full HD laptops/desktops.
    -------------------------------------------------------------------------- */
 
 /* Never truncate curriculum labels. Full lesson names are more useful than
@@ -69,8 +69,8 @@
 .workspace-ready .lesson-main p,
 .workspace-ready .lesson-main li{line-height:1.72}
 
-/* True three-column mode: reserved for screens wide enough to support it. */
-@media(min-width:1720px){
+/* True three-column mode: only for genuinely ultra-wide displays. */
+@media(min-width:2100px){
   :root{--workspace-left:300px;--workspace-right:338px;--workspace-gap:16px}
   .workspace-ready .site-shell{
     margin-left:var(--workspace-left);
@@ -81,9 +81,9 @@
   .workspace-tools-toggle{display:none!important}
 }
 
-/* Normal desktop/laptop: curriculum + generous reading canvas.
+/* Normal desktop/laptop, including Full HD: curriculum + generous reading canvas.
    Resources/video become an on-demand rail instead of stealing reading width. */
-@media(min-width:1181px) and (max-width:1719px){
+@media(min-width:1181px) and (max-width:2099px){
   :root{--workspace-left:294px;--workspace-right:390px;--workspace-gap:0px}
   .workspace-ready .sidebar{width:var(--workspace-left)}
   .workspace-ready .site-shell{
