@@ -17,6 +17,15 @@
   }
   ensureCss();
 
+  function ensureDrawerCss(){
+    if($('link[data-workspace-drawers-css]'))return;
+    const l=document.createElement('link');
+    l.rel='stylesheet';
+    l.href='workspace-drawers.css';
+    l.dataset.workspaceDrawersCss='true';
+    document.head.appendChild(l);
+  }
+
   const type=spec.type||'grid';
   const horizontal=new Set(['flow','timeline','sequence','pipeline','rhythm','lanes','loop']);
   const layered=new Set(['ladder','stack','funnel','pyramid']);
@@ -52,6 +61,7 @@
   function node(item,i,indent=''){
     return `<button class="diagram-node" type="button" data-media-node="${i}" ${indent?`style="${indent}"`:''}><b>${String(i+1).padStart(2,'0')}</b><span class="diagram-icon" aria-hidden="true">${glyphFor(item,i)}</span><strong>${esc(item)}</strong></button>`;
   }
+
   function diagram(){
     const items=spec.items||[];
     if(type==='venn') return `<div class="lesson-diagram diagram-venn">${items.map((x,i)=>`<div class="venn-circle" tabindex="0" data-media-node="${i}"><span class="diagram-icon" aria-hidden="true">${glyphFor(x,i)}</span>${esc(x)}</div>`).join('')}</div>`;
@@ -97,29 +107,77 @@
     }
   }
 
+  function inlineVideoSrc(v){
+    const start=Number(v.start||v.startSeconds||0);
+    if(v.provider==='vimeo'){
+      return `https://player.vimeo.com/video/${encodeURIComponent(v.id)}?dnt=1&title=0&byline=0&portrait=0`;
+    }
+    const params=new URLSearchParams({rel:'0'});
+    if(start>0)params.set('start',String(start));
+    return `https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.id)}?${params.toString()}`;
+  }
+
   function insertVideo(){
     if(!spec.video)return;
     const old=$('#video');if(old)old.remove();
     const section=document.createElement('section');section.id='video';section.className='lesson-video-section reveal visible lesson-section';section.dataset.sectionTitle='Companion video';
     const v=spec.video;
-    const videoSrc=v.provider==='vimeo'?`https://player.vimeo.com/video/${encodeURIComponent(v.id)}?dnt=1&title=0&byline=0&portrait=0`:`https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.id)}?rel=0`;
-    section.innerHTML=`<div class="inline-video-card motion-card motion-item motion-visible"><div class="inline-video-copy"><span class="video-chip">▶ WATCH INSIDE THIS LESSON</span><h3>${esc(v.title)}</h3><p><strong>${esc(v.channel)}</strong> · ${esc(v.note)}</p><ul>${(v.watch||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul><p class="video-privacy-note">The video plays directly inside this course page through an embedded player. Platform interfaces and policies can change, so verify current rules when the lesson depends on them.</p></div><div class="inline-video-player"><iframe src="${videoSrc}" title="${esc(v.title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>`;
-    const anchor=$('#summary')||$('#notes')||$('#completion');
-    if(anchor)anchor.insertAdjacentElement('beforebegin',section);
-    else ($('.lesson-main')||$('article')||$('main'))?.appendChild(section);
+    const proof=v.credential?`<div class="inline-video-proof"><b>Why this source</b><span>${esc(v.credential)}</span></div>`:'';
+    section.innerHTML=`<div class="inline-video-card motion-card motion-item motion-visible"><div class="inline-video-copy"><span class="video-chip">▶ ${esc(v.practiceType||'EXPERT IN PRACTICE')}</span><h3>${esc(v.title)}</h3><p><strong>${esc(v.channel)}</strong> · ${esc(v.note)}</p>${proof}<ul>${(v.watch||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul><p class="video-privacy-note">The original publisher keeps control of this YouTube video. It plays here through YouTube's privacy-enhanced embedded player.</p></div><div class="inline-video-player"><iframe src="${inlineVideoSrc(v)}" title="${esc(v.title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>`;
+
+    const firstSection=$('.lesson-main .lesson-section')||$('.lesson-section');
+    const main=$('.lesson-main')||$('article')||$('main');
+    if(firstSection) firstSection.insertAdjacentElement('afterend',section);
+    else if(main) main.prepend(section);
+
     const outline=$('.outline-card');
     if(outline&&!outline.querySelector('a[href="#video"]')){
-      const target=outline.querySelector('a[href="#summary"],a[href="#notes"]');
+      const first=outline.querySelector('.outline-link');
       const a=document.createElement('a');a.href='#video';a.className='outline-link';a.textContent='Companion video';
-      if(target)target.insertAdjacentElement('beforebegin',a);else outline.appendChild(a);
+      first?.insertAdjacentElement('afterend',a);
     }
   }
 
-  function removeRedirectVideoLinks(){ $$('.video-link').forEach(a=>a.remove()); }
-  function loadWorkspace(){
-    if($('script[data-learning-workspace-loader]'))return;
-    const s=document.createElement('script');s.src='learning-workspace.js';s.dataset.learningWorkspaceLoader='true';document.body.appendChild(s);
+  function syncWorkspaceVideo(attempt=0){
+    ensureDrawerCss();
+    const rail=$('#workspaceRightRail');
+    if(!rail){
+      if(attempt<40)setTimeout(()=>syncWorkspaceVideo(attempt+1),100);
+      return;
+    }
+
+    if(spec.video&&!$('#video')) insertVideo();
+    const railVideo=$('.workspace-rail-video',rail);
+    if(railVideo){
+      $('.workspace-video-player',railVideo)?.remove();
+      const note=$('.workspace-video-note',railVideo);
+      if(note)note.textContent='The full companion video is placed near the beginning of the lesson so it is easy to discover while reading.';
+      if(!$('.workspace-video-jump',railVideo)){
+        const jump=document.createElement('a');
+        jump.className='workspace-video-jump';
+        jump.href='#video';
+        jump.innerHTML='<span>Watch in lesson</span><b>↓</b>';
+        jump.addEventListener('click',()=>rail.classList.remove('open'));
+        railVideo.appendChild(jump);
+      }
+    }
+
+    const resources=$$('.workspace-phase-tab').find(a=>/resources/i.test(a.textContent||''));
+    if(resources&&$('#video'))resources.setAttribute('href','#video');
   }
+
+  function removeRedirectVideoLinks(){ $$('.video-link').forEach(a=>a.remove()); }
+
+  function loadWorkspace(){
+    const existing=$('script[data-learning-workspace-loader]');
+    if(existing){syncWorkspaceVideo();return;}
+    const s=document.createElement('script');
+    s.src='learning-workspace.js';
+    s.dataset.learningWorkspaceLoader='true';
+    s.addEventListener('load',()=>syncWorkspaceVideo(),{once:true});
+    document.body.appendChild(s);
+  }
+
   function init(){ insertVisual();insertVideo();removeRedirectVideoLinks();loadWorkspace(); }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
