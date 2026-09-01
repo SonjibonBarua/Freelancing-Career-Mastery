@@ -1,18 +1,15 @@
-/* Continuous light-mode palette backdrop.
-   Keeps the Color Hunt identity across the whole document instead of
-   restarting the background after the hero. */
+/* Continuous blue-palette backdrop.
+   Exact palette: #091540 · #1B2CC1 · #7692FF · #ABD2FA */
 
 body:not(.dark){
   background:
-    linear-gradient(rgba(255,248,231,.54),rgba(247,253,249,.56)),
-    linear-gradient(118deg,#df301c 0%,#ff9100 34%,#fff1d1 66%,#00b7cd 100%)!important;
+    linear-gradient(rgba(240,246,255,.72),rgba(244,249,255,.74)),
+    linear-gradient(118deg,#091540 0%,#1b2cc1 32%,#7692ff 66%,#abd2fa 100%)!important;
   background-attachment:fixed!important;
   background-size:cover!important;
   background-repeat:no-repeat!important;
 }
 
-/* One ambient layer for the full page. Large glows keep the exact palette
-   visible without turning reading areas into four hard color bands. */
 body:not(.dark)::before{
   content:""!important;
   position:fixed!important;
@@ -20,44 +17,78 @@ body:not(.dark)::before{
   z-index:-2!important;
   pointer-events:none!important;
   background:
-    radial-gradient(950px 720px at -5% 12%,rgba(223,48,28,.24),transparent 69%),
-    radial-gradient(980px 720px at 26% 44%,rgba(255,145,0,.20),transparent 70%),
-    radial-gradient(980px 760px at 69% 62%,rgba(255,241,209,.52),transparent 72%),
-    radial-gradient(980px 760px at 106% 30%,rgba(0,183,205,.24),transparent 70%)!important;
+    radial-gradient(980px 720px at -7% 12%,rgba(9,21,64,.20),transparent 69%),
+    radial-gradient(980px 740px at 28% 42%,rgba(27,44,193,.18),transparent 70%),
+    radial-gradient(1000px 760px at 68% 66%,rgba(118,146,255,.22),transparent 72%),
+    radial-gradient(980px 760px at 106% 30%,rgba(171,210,250,.38),transparent 70%)!important;
 }
 
-/* Structural containers stay transparent so the backdrop never restarts. */
+body.dark{
+  background:
+    radial-gradient(900px 680px at 2% 12%,rgba(27,44,193,.20),transparent 68%),
+    radial-gradient(940px 720px at 96% 28%,rgba(118,146,255,.13),transparent 70%),
+    linear-gradient(120deg,#030817 0%,#091540 40%,#111f69 72%,#1b2cc1 100%)!important;
+  background-attachment:fixed!important;
+}
+body.dark::before{
+  background:
+    radial-gradient(920px 680px at 6% 14%,rgba(27,44,193,.26),transparent 68%),
+    radial-gradient(920px 700px at 94% 28%,rgba(118,146,255,.16),transparent 69%),
+    radial-gradient(900px 720px at 54% 88%,rgba(171,210,250,.08),transparent 70%)!important;
+}
+
+/* Structural wrappers remain transparent so the gradient never restarts. */
 body:not(.dark) > main,
 body:not(.dark) .site-shell,
 body:not(.dark) .site-shell > main,
 body:not(.dark) .site-shell main,
 body:not(.dark) main#top,
-body:not(.dark) #lessonMount{
+body:not(.dark) #lessonMount,
+body.dark > main,
+body.dark .site-shell,
+body.dark .site-shell > main,
+body.dark .site-shell main,
+body.dark main#top,
+body.dark #lessonMount{
   background:transparent!important;
 }
 
-/* Hero belongs to the same canvas instead of being a separate saturated band. */
+/* Hero is part of the same continuous canvas; only a translucent blue veil
+   separates the opening section without introducing a new background block. */
 body:not(.dark) .hero,
 body:not(.dark).lesson-page .hero{
-  background:
-    linear-gradient(90deg,rgba(255,241,209,.10),rgba(255,255,255,.05) 48%,rgba(0,183,205,.07))!important;
-  border-bottom-color:rgba(104,73,39,.10)!important;
+  background:linear-gradient(105deg,rgba(9,21,64,.08),rgba(27,44,193,.10) 36%,rgba(118,146,255,.10) 68%,rgba(171,210,250,.14))!important;
+  border-bottom-color:rgba(27,44,193,.12)!important;
 }
-body:not(.dark) .hero::after{
-  opacity:.26!important;
+body.dark .hero,
+body.dark.lesson-page .hero{
+  background:linear-gradient(105deg,rgba(9,21,64,.24),rgba(27,44,193,.18) 48%,rgba(118,146,255,.08))!important;
+  border-bottom-color:rgba(171,210,250,.11)!important;
 }
+body:not(.dark) .hero h1,body:not(.dark) .hero h1 span{
+  color:#091540!important;
+  -webkit-text-fill-color:#091540!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.32)!important;
+}
+body:not(.dark) .hero-copy,body:not(.dark) .hero p{color:#29385f!important}
+body:not(.dark) .hero .eyebrow,body:not(.dark) .hero .breadcrumb{color:#1b2cc1!important}
+body:not(.dark) .hero::after{opacity:.42!important}
 
-/* Dashboard / curriculum wrappers must not create a cream sheet over the
-   continuous theme. Cards remain translucent and therefore still readable. */
+/* Dashboard, curriculum, lesson and Survival Lab stay on the same canvas. */
 body:not(.dark) #curriculum,
 body:not(.dark) .modules,
 body:not(.dark) .lesson-layout,
 body:not(.dark) .lesson-main,
-body:not(.dark) .lab-layout{
+body:not(.dark) .lab-layout,
+body.dark #curriculum,
+body.dark .modules,
+body.dark .lesson-layout,
+body.dark .lesson-main,
+body.dark .lab-layout{
   background:transparent!important;
 }
 
-/* Slightly clearer glass surfaces now that richer color sits behind them. */
+/* Glass surfaces remain readable while allowing the palette to show through. */
 body:not(.dark) .hero-card,
 body:not(.dark) .module,
 body:not(.dark) .survival,
@@ -82,15 +113,14 @@ body:not(.dark) .case-nav,
 body:not(.dark) .case-stage,
 body:not(.dark) .debrief,
 body:not(.dark) .completion-panel{
-  -webkit-backdrop-filter:blur(22px) saturate(120%)!important;
-  backdrop-filter:blur(22px) saturate(120%)!important;
+  -webkit-backdrop-filter:blur(23px) saturate(125%)!important;
+  backdrop-filter:blur(23px) saturate(125%)!important;
 }
 
-/* Preserve a seamless footer transition as well. */
 body:not(.dark) footer{
-  background:linear-gradient(90deg,rgba(255,241,209,.72),rgba(255,249,233,.68),rgba(232,251,253,.70))!important;
+  background:linear-gradient(90deg,rgba(231,240,255,.76),rgba(247,251,255,.72),rgba(215,234,255,.76))!important;
 }
 
 @media(max-width:680px){
-  body:not(.dark){background-attachment:scroll!important}
+  body:not(.dark),body.dark{background-attachment:scroll!important}
 }
