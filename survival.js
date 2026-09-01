@@ -1,4 +1,12 @@
 (() => {
+  if(!document.querySelector('link[data-palette-theme-css]')){
+    const palette=document.createElement('link');
+    palette.rel='stylesheet';
+    palette.href='palette-theme.css?v=20260901-palette1';
+    palette.dataset.paletteThemeCss='true';
+    document.head.appendChild(palette);
+  }
+
   const cases=window.SURVIVAL_CASES||[];
   const list=document.getElementById('caseList');
   const stage=document.getElementById('caseStage');
@@ -13,7 +21,7 @@
   try{progress=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(_){progress={}}
   try{reflections=JSON.parse(localStorage.getItem(REFKEY)||'{}')}catch(_){reflections={}}
   let active=0;
-  const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[m]));
+  const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
 
   function applyTheme(theme){const dark=theme==='dark';document.body.classList.toggle('dark',dark);themeToggle.textContent=dark?'☀':'☾';themeToggle.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode')}
   const savedTheme=localStorage.getItem('sure-earning-theme');
