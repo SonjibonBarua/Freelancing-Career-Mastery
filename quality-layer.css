@@ -1,0 +1,35 @@
+/* Freelancing Career Mastery — Quality Layer v1
+   Performance, accessibility and rendering safeguards. */
+
+html{scroll-padding-top:84px}
+[id]{scroll-margin-top:84px}
+
+@supports (content-visibility:auto){
+  body.lesson-page .lesson-section:not(:first-child),
+  body.lesson-page .lesson-complete-panel,
+  body:not(.lesson-page) .module,
+  body:not(.lesson-page) .survival{
+    content-visibility:auto;
+    contain-intrinsic-size:1px 680px;
+  }
+}
+
+html[data-save-data="true"] *,html[data-slow-network="true"] *{
+  animation-duration:.001ms!important;
+  animation-iteration-count:1!important;
+  transition-duration:.001ms!important;
+  scroll-behavior:auto!important;
+}
+html[data-save-data="true"] :is(.hero-card,.module,.survival,.lesson-media-card,.inline-video-card,.workspace-rail-card,.case-stage,.debrief),
+html[data-slow-network="true"] :is(.hero-card,.module,.survival,.lesson-media-card,.inline-video-card,.workspace-rail-card,.case-stage,.debrief){
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  box-shadow:0 10px 28px rgba(0,0,0,.24)!important;
+}
+html[data-save-data="true"] :is(.premium-orb,.lesson-diagram:after,.roadmap-strip:before),
+html[data-slow-network="true"] :is(.premium-orb,.lesson-diagram:after,.roadmap-strip:before){display:none!important}
+
+[aria-disabled="true"],button:disabled{cursor:not-allowed}
+.quiz-result[aria-live],.feedback[aria-live],.branch-feedback[aria-live],#reflectionStatus,#noteStatus{min-height:1em}
+
+@media(max-width:767px){html{scroll-padding-top:70px}[id]{scroll-margin-top:70px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}}
