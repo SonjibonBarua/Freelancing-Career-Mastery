@@ -164,13 +164,12 @@
   if(!document.querySelector('link[data-palette-theme-css]')){
     const palette=document.createElement('link');
     palette.rel='stylesheet';
-    palette.href='palette-theme.css?v=20260901-neon2';
+    palette.href='palette-theme.css?v=20260903-softneon1';
     palette.dataset.paletteThemeCss='true';
     document.head.appendChild(palette);
   }
 
-  /* Final dashboard-only contrast layer. This is inserted after premium-polish so
-     the Course Status values cannot fall back to the old black text rules. */
+  /* Final dashboard-only contrast layer. Values stay white; labels are deliberately muted. */
   let statusFix=document.getElementById('courseStatusNeonContrastFix');
   if(!statusFix){
     statusFix=document.createElement('style');
@@ -189,11 +188,15 @@
       opacity:1 !important;
       text-shadow:none !important;
     }
-    body .hero .hero-card h2,
+    body .hero .hero-card h2{
+      color:#aefc83 !important;
+      -webkit-text-fill-color:#aefc83 !important;
+      opacity:1 !important;
+    }
     body .hero .hero-card .stat small,
     body .hero .hero-card .progress-box > small{
-      color:#39ff14 !important;
-      -webkit-text-fill-color:#39ff14 !important;
+      color:#9daa9a !important;
+      -webkit-text-fill-color:#9daa9a !important;
       opacity:1 !important;
     }
   `;
