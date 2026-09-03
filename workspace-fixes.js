@@ -67,13 +67,29 @@
     }
   };
 
+  const appendQuality=()=>{
+    document.querySelectorAll('link[data-quality-layer-final]').forEach(link=>link.remove());
+    const css=document.createElement('link');
+    css.rel='stylesheet';
+    css.href='quality-layer.css?v=20260903-quality1';
+    css.dataset.qualityLayerFinal='true';
+    document.head.appendChild(css);
+    if(!document.querySelector('script[data-quality-layer-loader]')){
+      const js=document.createElement('script');
+      js.src='quality-layer.js?v=20260903-quality1';
+      js.dataset.qualityLayerLoader='true';
+      document.body.appendChild(js);
+    }
+  };
+
   const s=document.createElement('script');
   s.src='workspace-fixes-v3.js?v=20260901-13';
   s.dataset.workspaceStabilityV3Loader='true';
-  s.addEventListener('load',()=>{appendSoftNeonPalette(true);appendResponsive();appendPlatform();appendLearningExperience()},{once:true});
+  s.addEventListener('load',()=>{appendSoftNeonPalette(true);appendResponsive();appendPlatform();appendLearningExperience();appendQuality()},{once:true});
   document.head.appendChild(s);
   appendSoftNeonPalette();
   appendResponsive();
   appendPlatform();
   appendLearningExperience();
+  appendQuality();
 })();
