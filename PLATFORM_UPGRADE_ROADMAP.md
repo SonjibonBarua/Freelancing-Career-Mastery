@@ -25,12 +25,14 @@ This roadmap keeps product improvements sequential so visual polish, learning st
 - Existing curriculum filtering retained.
 - Current-page navigation semantics improved.
 
-## Phase 4 — Learning Experience — NEXT
+## Phase 4 — Learning Experience — IMPLEMENTED / FOUNDATION
 - Companion video: Watch → Apply bridge.
-- Stronger post-video practice handoff.
-- Diagram: model → example → action handoff.
-- Lesson-level readiness summary without duplicating existing Training Product components.
-- Module-end recap screen refinement.
+- Post-video practice handoff.
+- Diagram: model → practice handoff.
+- Note word count and copy-note utility.
+- Completed lesson → next-lesson momentum prompt.
+- Existing Training Product mastery/readiness components remain the authority; no duplicate readiness widget was added.
+- Next refinement: richer module-end recap screen.
 
 ## Phase 5 — My Learning Workspace — NEXT
 - Central notes viewer.
