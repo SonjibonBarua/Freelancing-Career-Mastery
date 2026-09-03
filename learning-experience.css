@@ -1,0 +1,31 @@
+/* Freelancing Career Mastery — Learning Experience v1
+   Bridges passive content into action without duplicating core training components. */
+
+.video-apply-bridge,.diagram-apply-bridge{margin-top:14px;border:1px solid rgba(140,255,79,.14);border-radius:13px;background:rgba(140,255,79,.045)}
+.video-apply-bridge{padding:13px 14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center}
+.video-apply-bridge small,.diagram-apply-bridge small{display:block;color:var(--primary)!important;font-size:.61rem;font-weight:900;letter-spacing:.09em}
+.video-apply-bridge strong{display:block;margin-top:3px;color:var(--text)!important;font-size:.78rem;line-height:1.35}
+.video-apply-bridge a,.diagram-apply-bridge a{min-height:40px;padding:0 12px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;background:var(--primary);color:var(--bg)!important;font-size:.7rem;font-weight:900;white-space:nowrap}
+.diagram-apply-bridge{padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.diagram-apply-bridge span{color:var(--muted);font-size:.72rem;line-height:1.4}
+
+.platform-note-tools{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:9px;padding-top:9px;border-top:1px solid var(--line)}
+.platform-note-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:.66rem}
+.platform-note-meta span{padding:4px 7px;border-radius:999px;background:rgba(255,255,255,.025);border:1px solid var(--line)}
+.platform-note-copy{min-height:36px!important;padding:0 10px;border-radius:9px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:.68rem;font-weight:800}
+.platform-note-copy:hover{border-color:rgba(140,255,79,.34);color:var(--primary)}
+
+.platform-next-step{display:none;margin-top:14px;padding:12px;border-radius:13px;border:1px solid rgba(140,255,79,.16);background:rgba(140,255,79,.045);align-items:center;justify-content:space-between;gap:12px}
+.lesson-complete-panel.completed .platform-next-step{display:flex}
+.platform-next-step div strong{display:block;color:var(--text)!important;font-size:.76rem}
+.platform-next-step div small{display:block;margin-top:2px;color:var(--muted)!important;font-size:.64rem}
+.platform-next-step a{min-height:40px;padding:0 12px;border-radius:10px;background:var(--primary);color:var(--bg)!important;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;white-space:nowrap}
+
+@media(max-width:680px){
+  .video-apply-bridge{grid-template-columns:1fr}
+  .video-apply-bridge a{width:100%}
+  .diagram-apply-bridge{align-items:flex-start;flex-direction:column}
+  .diagram-apply-bridge a{width:100%}
+  .platform-next-step{align-items:stretch;flex-direction:column}
+  .platform-next-step a{width:100%}
+}
