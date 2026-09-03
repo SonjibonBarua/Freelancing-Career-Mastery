@@ -52,12 +52,28 @@
     }
   };
 
+  const appendLearningExperience=()=>{
+    document.querySelectorAll('link[data-learning-experience-final]').forEach(link=>link.remove());
+    const css=document.createElement('link');
+    css.rel='stylesheet';
+    css.href='learning-experience.css?v=20260903-learning1';
+    css.dataset.learningExperienceFinal='true';
+    document.head.appendChild(css);
+    if(!document.querySelector('script[data-learning-experience-loader]')){
+      const js=document.createElement('script');
+      js.src='learning-experience.js?v=20260903-learning1';
+      js.dataset.learningExperienceLoader='true';
+      document.body.appendChild(js);
+    }
+  };
+
   const s=document.createElement('script');
   s.src='workspace-fixes-v3.js?v=20260901-13';
   s.dataset.workspaceStabilityV3Loader='true';
-  s.addEventListener('load',()=>{appendSoftNeonPalette(true);appendResponsive();appendPlatform()},{once:true});
+  s.addEventListener('load',()=>{appendSoftNeonPalette(true);appendResponsive();appendPlatform();appendLearningExperience()},{once:true});
   document.head.appendChild(s);
   appendSoftNeonPalette();
   appendResponsive();
   appendPlatform();
+  appendLearningExperience();
 })();
