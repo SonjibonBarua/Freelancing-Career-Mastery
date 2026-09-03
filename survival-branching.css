@@ -1,0 +1,25 @@
+/* Survival Lab 2.0 — consequence + second-decision layer */
+.branch-stage{margin-top:16px;padding:16px;border:1px solid rgba(140,255,79,.16);border-radius:16px;background:radial-gradient(360px 220px at 100% 0%,rgba(140,255,79,.07),transparent 72%),rgba(4,9,4,.78)}
+.branch-stage-kicker{display:inline-flex;padding:5px 8px;border-radius:999px;background:rgba(140,255,79,.09);color:var(--primary);font-size:.6rem;font-weight:900;letter-spacing:.09em}
+.branch-stage h3{font:800 1.05rem/1.2 Manrope,sans-serif;margin:10px 0 6px;color:var(--text)!important}
+.branch-stage>p{margin:0;color:var(--muted)!important;font-size:.8rem;line-height:1.55}
+.branch-message{margin-top:12px;padding:12px;border-left:3px solid var(--primary);border-radius:0 11px 11px 0;background:rgba(140,255,79,.045)}
+.branch-message small{display:block;color:var(--primary)!important;font-size:.58rem;font-weight:900;letter-spacing:.08em}
+.branch-message p{margin:5px 0 0;color:var(--text)!important;font-size:.8rem;line-height:1.5}
+.branch-question{margin:14px 0 8px;color:var(--text);font-size:.76rem;font-weight:900}
+.branch-choices{display:grid;gap:8px}
+.branch-choice{width:100%;min-height:50px;padding:10px 11px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--text);display:grid;grid-template-columns:30px minmax(0,1fr);gap:9px;align-items:center;text-align:left}
+.branch-choice i{width:29px;height:29px;border-radius:8px;display:grid;place-items:center;background:rgba(140,255,79,.09);color:var(--primary);font-style:normal;font-size:.65rem;font-weight:900}
+.branch-choice span{font-size:.74rem;line-height:1.4}
+.branch-choice:hover{border-color:rgba(140,255,79,.34);background:rgba(140,255,79,.045)}
+.branch-choice:disabled{cursor:default;opacity:.76}
+.branch-choice.selected.good{border-color:rgba(140,255,79,.42);background:rgba(140,255,79,.075)}
+.branch-choice.selected.mixed{border-color:rgba(221,238,166,.28);background:rgba(221,238,166,.045)}
+.branch-choice.selected.bad{border-color:rgba(255,160,160,.26);background:rgba(255,160,160,.035)}
+.branch-feedback{display:none;margin-top:10px;padding:10px 11px;border-radius:11px;background:rgba(255,255,255,.025);border:1px solid var(--line)}
+.branch-feedback.show{display:block}
+.branch-feedback strong{display:block;color:var(--text)!important;font-size:.72rem}
+.branch-feedback p{margin:4px 0 0;color:var(--muted)!important;font-size:.7rem;line-height:1.45}
+.branch-recovery{display:inline-flex;margin-top:9px;padding:5px 7px;border-radius:999px;background:rgba(140,255,79,.07);color:var(--primary);font-size:.58rem;font-weight:900}
+.case-link.branch-complete:after{content:'2-step';justify-self:end;color:var(--primary);font-size:.52rem;font-weight:900;letter-spacing:.04em}
+@media(max-width:680px){.branch-stage{padding:13px}.branch-choice{grid-template-columns:28px minmax(0,1fr)}}
