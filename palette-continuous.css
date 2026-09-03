@@ -1,12 +1,12 @@
-/* Continuous Neon Black + Neon Green canvas
-   Black areas carry green type; green areas are intentional contrast zones with black type. */
+/* Soft Neon Lime + Black continuous canvas
+   The background stays dark; lime appears only as low-opacity ambient light. */
 
 body:not(.dark),body.dark{
   background:
-    radial-gradient(980px 720px at -8% 12%,rgba(57,255,20,.16),transparent 67%),
-    radial-gradient(920px 700px at 102% 24%,rgba(57,255,20,.12),transparent 68%),
-    radial-gradient(860px 640px at 52% 92%,rgba(57,255,20,.07),transparent 70%),
-    linear-gradient(135deg,#020402 0%,#030603 36%,#071007 70%,#020402 100%)!important;
+    radial-gradient(980px 720px at -8% 10%,rgba(140,255,79,.075),transparent 68%),
+    radial-gradient(920px 700px at 105% 23%,rgba(140,255,79,.055),transparent 70%),
+    radial-gradient(900px 700px at 50% 95%,rgba(57,255,20,.025),transparent 72%),
+    linear-gradient(135deg,#020402 0%,#030603 38%,#071007 72%,#020402 100%)!important;
   background-attachment:fixed!important;
   background-size:cover!important;
   background-repeat:no-repeat!important;
@@ -18,14 +18,14 @@ body:not(.dark)::before,body.dark::before{
   z-index:-2!important;
   pointer-events:none!important;
   background:
-    linear-gradient(115deg,transparent 0 18%,rgba(57,255,20,.035) 18% 28%,transparent 28% 68%,rgba(57,255,20,.028) 68% 78%,transparent 78%),
-    radial-gradient(680px 520px at 50% 8%,rgba(57,255,20,.06),transparent 68%)!important;
+    linear-gradient(115deg,transparent 0 20%,rgba(140,255,79,.014) 20% 29%,transparent 29% 70%,rgba(140,255,79,.012) 70% 79%,transparent 79%),
+    radial-gradient(700px 520px at 50% 6%,rgba(140,255,79,.025),transparent 70%)!important;
 }
 
-/* Structural wrappers never introduce white/light blocks. */
-body:not(.dark) > main,body.dark > main,
+/* Structural wrappers stay transparent so the dark ambience remains continuous. */
+body:not(.dark)>main,body.dark>main,
 body:not(.dark) .site-shell,body.dark .site-shell,
-body:not(.dark) .site-shell > main,body.dark .site-shell > main,
+body:not(.dark) .site-shell>main,body.dark .site-shell>main,
 body:not(.dark) .site-shell main,body.dark .site-shell main,
 body:not(.dark) main#top,body.dark main#top,
 body:not(.dark) #lessonMount,body.dark #lessonMount,
@@ -37,67 +37,40 @@ body:not(.dark) .lab-layout,body.dark .lab-layout{
   background:transparent!important;
 }
 
-/* Hero is the main green contrast field. */
+/* Hero blends into the page instead of becoming a bright green block. */
 body:not(.dark) .hero,body.dark .hero,
 body:not(.dark).lesson-page .hero,body.dark.lesson-page .hero{
   background:
-    radial-gradient(520px 360px at 88% 18%,rgba(255,255,255,.10),transparent 68%),
-    linear-gradient(108deg,#39ff14 0%,#55ff35 48%,#39ff14 100%)!important;
-  border-bottom:2px solid #39ff14!important;
-  box-shadow:0 18px 54px rgba(57,255,20,.14)!important;
-}
-body:not(.dark) .hero h1,body:not(.dark) .hero h1 span,
-body.dark .hero h1,body.dark .hero h1 span,
-body:not(.dark) .hero p,body.dark .hero p,
-body:not(.dark) .hero .hero-copy,body.dark .hero .hero-copy,
-body:not(.dark) .hero .eyebrow,body.dark .hero .eyebrow,
-body:not(.dark) .hero .breadcrumb,body.dark .hero .breadcrumb{
-  color:#030603!important;
-  -webkit-text-fill-color:#030603!important;
-  text-shadow:none!important;
+    radial-gradient(640px 410px at 86% 18%,rgba(140,255,79,.10),transparent 69%),
+    radial-gradient(520px 350px at 8% 90%,rgba(57,255,20,.04),transparent 70%),
+    linear-gradient(116deg,rgba(2,4,2,.98),rgba(7,16,7,.98) 55%,rgba(10,19,10,.98))!important;
+  border-bottom:1px solid rgba(140,255,79,.13)!important;
+  box-shadow:0 18px 56px rgba(0,0,0,.28)!important;
 }
 
-/* Standalone headings sit on the black canvas. */
-body:not(.dark) #curriculum > .section-head h2,body.dark #curriculum > .section-head h2,
-body:not(.dark) #curriculum > .section-head p,body.dark #curriculum > .section-head p,
-body:not(.dark) #curriculum > .section-head .eyebrow,body.dark #curriculum > .section-head .eyebrow,
-body:not(.dark) .survival > .section-head h2,body.dark .survival > .section-head h2,
-body:not(.dark) .survival > .section-head p,body.dark .survival > .section-head p,
-body:not(.dark) .survival > .eyebrow,body.dark .survival > .eyebrow{
-  color:#39ff14!important;
-  text-shadow:0 0 18px rgba(57,255,20,.14)!important;
+/* Standalone headings on the dark canvas. */
+body:not(.dark) #curriculum>.section-head h2,body.dark #curriculum>.section-head h2,
+body:not(.dark) .survival>.section-head h2,body.dark .survival>.section-head h2{color:#f4f7f3!important}
+body:not(.dark) #curriculum>.section-head p,body.dark #curriculum>.section-head p,
+body:not(.dark) .survival>.section-head p,body.dark .survival>.section-head p{color:#a7b5a4!important}
+body:not(.dark) #curriculum>.section-head .eyebrow,body.dark #curriculum>.section-head .eyebrow,
+body:not(.dark) .survival>.eyebrow,body.dark .survival>.eyebrow{color:#8cff4f!important;text-shadow:none!important}
+
+/* Keep only a restrained blur on desktop surfaces. */
+.hero-card,.module,.survival,.learning-goals,.lesson-card,.phase-card,.takeaway,.faq-item,.check-item,
+.completion-card,.course-nav,.practice-shell,.scenario-box,.quiz-box,.note-box,.lesson-media-card,.inline-video-card,
+.workspace-rail-card,.workspace-side-progress,.case-nav,.case-stage,.debrief,.completion-panel{
+  -webkit-backdrop-filter:blur(8px) saturate(108%)!important;
+  backdrop-filter:blur(8px) saturate(108%)!important;
 }
 
-/* Glass is replaced with crisp neon-black panels; blur retained very lightly. */
-body:not(.dark) .hero-card,body.dark .hero-card,
-body:not(.dark) .module,body.dark .module,
-body:not(.dark) .survival,body.dark .survival,
-body:not(.dark) .learning-goals,body.dark .learning-goals,
-body:not(.dark) .lesson-card,body.dark .lesson-card,
-body:not(.dark) .phase-card,body.dark .phase-card,
-body:not(.dark) .takeaway,body.dark .takeaway,
-body:not(.dark) .faq-item,body.dark .faq-item,
-body:not(.dark) .check-item,body.dark .check-item,
-body:not(.dark) .completion-card,body.dark .completion-card,
-body:not(.dark) .course-nav,body.dark .course-nav,
-body:not(.dark) .practice-shell,body.dark .practice-shell,
-body:not(.dark) .scenario-box,body.dark .scenario-box,
-body:not(.dark) .quiz-box,body.dark .quiz-box,
-body:not(.dark) .note-box,body.dark .note-box,
-body:not(.dark) .lesson-media-card,body.dark .lesson-media-card,
-body:not(.dark) .inline-video-card,body.dark .inline-video-card,
-body:not(.dark) .workspace-rail-card,body.dark .workspace-rail-card,
-body:not(.dark) .workspace-side-progress,body.dark .workspace-side-progress,
-body:not(.dark) .case-nav,body.dark .case-nav,
-body:not(.dark) .case-stage,body.dark .case-stage,
-body:not(.dark) .debrief,body.dark .debrief,
-body:not(.dark) .completion-panel,body.dark .completion-panel{
-  -webkit-backdrop-filter:blur(10px) saturate(115%)!important;
-  backdrop-filter:blur(10px) saturate(115%)!important;
-}
+footer{background:#030603!important;border-top:1px solid rgba(140,255,79,.12)!important}
 
-footer{background:#030603!important;border-top:1px solid rgba(57,255,20,.22)!important}
-
-@media(max-width:680px){
+@media(max-width:767px){
   body:not(.dark),body.dark{background-attachment:scroll!important}
+  .hero-card,.module,.survival,.learning-goals,.lesson-card,.phase-card,.takeaway,.faq-item,.check-item,
+  .completion-card,.course-nav,.practice-shell,.scenario-box,.quiz-box,.note-box,.lesson-media-card,.inline-video-card,
+  .workspace-rail-card,.workspace-side-progress,.case-nav,.case-stage,.debrief,.completion-panel{
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  }
 }
