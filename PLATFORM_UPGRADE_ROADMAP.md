@@ -34,33 +34,44 @@ This roadmap keeps product improvements sequential so visual polish, learning st
 - Existing Training Product mastery/readiness components remain the authority; no duplicate readiness widget was added.
 - Next refinement: richer module-end recap screen.
 
-## Phase 5 — My Learning Workspace — NEXT
-- Central notes viewer.
-- Saved lessons manager.
-- Recent activity management.
-- Notes search and optional structured export.
-- Clear/reset controls with confirmation.
+## Phase 5 — My Learning Workspace — IMPLEMENTED
+- Central My Learning dialog on the dashboard.
+- Notes viewer with note search.
+- Notes TXT export.
+- Per-note delete with confirmation.
+- Saved lessons manager with remove action.
+- Recent activity viewer with clear-history confirmation.
+- Module-by-module progress view.
 
-## Phase 6 — Survival Lab 2.0 — NEXT
-- Multi-turn branching decisions.
-- Consequence-based client responses.
-- Second decision under changed conditions.
-- Professional debrief after the complete decision chain.
-- Preserve the existing 14-case content and progress model.
+## Phase 6 — Survival Lab 2.0 — IMPLEMENTED / FOUNDATION
+- Two-stage branching decisions.
+- First decision → consequence → second decision → professional debrief.
+- Category-aware follow-up pressure.
+- Recovery-aware final judgment profile.
+- Existing 14-case content preserved.
+- Backward compatibility for previously completed single-step cases, with an option to retry them in the new two-step format.
+- Next refinement: more case-specific second-stage copy where useful.
 
-## Phase 7 — Performance & Accessibility — ACTIVE / NEXT PASS
+## Phase 7 — Performance & Accessibility — IMPLEMENTED / ACTIVE QA
 - Touch targets and visible focus states implemented.
 - Reduced-motion support preserved.
 - Mobile blur/animation reduction preserved.
-- Next pass: third-party video loading strategy, CSS/JS duplicate-load cleanup, keyboard/dialog semantics audit, contrast audit and long-page rendering audit.
+- Long-page `content-visibility` rendering optimization.
+- Save-Data / slow-network visual performance mode.
+- Dynamic media lazy-loading safeguards.
+- Live-region and current-page semantics improved.
+- Search dialog visibility semantics improved.
+- Next refinement: click-to-load third-party video strategy and duplicate-load cleanup after live testing.
 
-## Phase 8 — SEO & Structured Learning Metadata — FOUNDATION IMPLEMENTED
+## Phase 8 — SEO & Structured Learning Metadata — IMPLEMENTED / FOUNDATION
 - Course JSON-LD on dashboard.
 - LearningResource + BreadcrumbList JSON-LD on lessons.
 - LearningResource JSON-LD on Survival Lab.
-- Next pass: lesson meta/canonical consistency audit and internal-link audit.
+- Canonical URL enforcement for dashboard, dynamic lessons and Survival Lab.
+- Dynamic lesson/Survival Open Graph metadata safeguard.
+- Next refinement: internal-link and metadata audit after live deployment verification.
 
-## Phase 9 — Cross-device QA — FINALIZATION
+## Phase 9 — Cross-device QA — ACTIVE FINALIZATION
 Target viewports:
 - 320px small phone
 - 390px standard phone
@@ -75,7 +86,9 @@ Test flows:
 - Dashboard → lesson → back/forward → resume.
 - Course/Resources drawers and mobile bottom sheets.
 - Previous/Next navigation across Lesson 6 → 7 boundary.
-- Video, diagram, action, quiz, note and completion flow.
+- Video → Apply, diagram → practice, action, quiz, note and completion flow.
+- My Learning notes/saved/recent/progress actions.
 - Module/course milestones.
-- Survival Lab progress.
+- Survival Lab first decision → consequence → second decision → debrief.
+- Legacy Survival Lab progress migration.
 - Theme persistence, favorites, notes and localStorage state.
